@@ -3,6 +3,7 @@ package com.taobao71.tb71.dao;
 import com.taobao71.tb71.domain.Material;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.LinkedList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.InvalidResultSetAccessException;
@@ -18,11 +19,15 @@ public class MaterialDao {
   @Autowired
   private JdbcTemplate jdbcTemplate;
 
+  /**
+   * 将从API获取的数据，插入到数据库中
+   * @param materials 数据对象
+   */
   public void insertMegs(LinkedList<Material> materials ) {
     for(int i=0;i< materials.size();i++) {
       Material material = materials.get(i);
       try {
-        jdbcTemplate.update("insert into material_optional (category_id,category_name,commission_rate,commission_type,coupon_amount,"
+        jdbcTemplate.update("insert into material (category_id,category_name,commission_rate,commission_type,coupon_amount,"
                                 + "coupon_end_time,coupon_id,coupon_info,coupon_remain_count,coupon_share_url,coupon_start_fee,coupon_start_time,"
                                 + "coupon_total_count,include_dxjh,include_mkt,item_description,item_id,item_url,level_one_category_id,"
                                 + "level_one_category_name,nick,num_iid,pict_url,presale_deposit,presale_end_time,presale_start_time,"
@@ -49,4 +54,22 @@ public class MaterialDao {
 
     }
   }
+
+
+  /**
+   * 对未设置商品类型的商品取商品类别名称
+   * @return 未设置类别ID的商量类别去重
+   */
+  public List categoryNameUnique(){
+    String sql = "select level_one_category_name from material where my_category_id is NULL group by level_one_category_name";
+    List categoryNames = jdbcTemplate.queryForList(sql);
+    return categoryNames;
+  }
+
+  public boolean updateCategoryID(String categoryFullName,Integer categoryId){
+    String updateSQL = "update material set my_category_id = ? where level_one_category_name = ? and my_category_id is NULL";
+    jdbcTemplate.update(updateSQL,categoryId,categoryFullName);
+    return true;
+  }
+
 }
