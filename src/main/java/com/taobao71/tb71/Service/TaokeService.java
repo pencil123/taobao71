@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
  * @since 2019/11/4 15:36
  */
 @Service
-@PropertySource("classpath:config.properties")
+@PropertySource(value = {"classpath:config.properties"})
 public class TaokeService {
   @Value("${taobao.appkey}")
   private String appkey;

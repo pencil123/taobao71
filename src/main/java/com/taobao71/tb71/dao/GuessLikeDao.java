@@ -27,8 +27,8 @@ public class GuessLikeDao {
     List categoryIDs = jdbcTemplate.queryForList(selectString);
 
     for(int i=0;i<categoryIDs.size();i++) {
-      Map<String,Integer> categoryInfo = (Map<String,Integer>) categoryIDs.get(i);
-      Integer categoryID = categoryInfo.get("id");
+      Map<String,Long> categoryInfo = (Map<String,Long>) categoryIDs.get(i);
+      Long categoryID = categoryInfo.get("id");
 
       String updateString = "insert into guess_like (goods_id,category_id,goods_name,goods_img) select id,my_category_id,title,pict_url from material where my_category_id = ? order by volume  desc limit 20";
       jdbcTemplate.update(updateString,categoryID);
