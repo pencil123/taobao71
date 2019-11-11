@@ -22,4 +22,10 @@ public class DataHandling {
     dataHandingService.updateCategoryID();
     return "Run success";
   }
+
+  @RequestMapping("/guesslike")
+  public String guesslike(){
+    dataHandingService.updateGuessLike();
+    return "Run success";
+  }
 }

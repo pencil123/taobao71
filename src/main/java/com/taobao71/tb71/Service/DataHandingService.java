@@ -1,6 +1,7 @@
 package com.taobao71.tb71.Service;
 
 import com.taobao71.tb71.dao.CategoryDao;
+import com.taobao71.tb71.dao.GuessLikeDao;
 import com.taobao71.tb71.dao.MaterialDao;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,8 @@ public class DataHandingService {
   MaterialDao materialDao;
   @Autowired
   CategoryDao categoryDao;
+  @Autowired
+  GuessLikeDao guessLikeDao;
 
   /**
    * 获取categoryName,并计算其名称缩写
@@ -56,5 +59,18 @@ public class DataHandingService {
       materialDao.updateCategoryID(categoryFullName,categoryId);
     }
     return true;
+  }
+
+  /**
+   * 更新guess_like 表中的数据
+   * @return
+   */
+  public boolean updateGuessLike() {
+    if (guessLikeDao.updateGuessLike()){
+      return true;
+    }else{
+      return false;
+    }
+
   }
 }
