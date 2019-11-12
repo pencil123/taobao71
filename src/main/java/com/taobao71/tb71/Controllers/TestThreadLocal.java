@@ -1,0 +1,43 @@
+package com.taobao71.tb71.Controllers;
+
+import java.io.UnsupportedEncodingException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+/**
+ * @author lyzhang
+ * @since 2019/11/12 17:56
+ */
+@RestController
+@RequestMapping("/search")
+public class TestThreadLocal {
+
+  @Autowired
+  TaoKe taoKe;
+
+  @RequestMapping("/spring/")
+  public ModelAndView test(@RequestParam(value = "keyword",required = false,defaultValue = "女装") String keyword){
+    Thread t = new Thread(new Runnable() {
+      @Override
+      public void run() {
+        try{
+          taoKe.materialBySelf(keyword);
+        }catch (Exception e) {
+          e.printStackTrace();
+        }
+      }});
+    t.start();
+
+
+    try{
+      String encodeKeyword = java.net.URLEncoder.encode(keyword,"UTF-8");
+      return new ModelAndView("redirect:/search/?keyword="+encodeKeyword);
+    }catch (UnsupportedEncodingException e){
+      System.out.println(e.getMessage());
+      return new ModelAndView("/");
+    }
+  }
+}

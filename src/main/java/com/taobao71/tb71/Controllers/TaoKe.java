@@ -1,7 +1,12 @@
 package com.taobao71.tb71.Controllers;
 
 import com.taobao71.tb71.Service.TaokeService;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,12 +20,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class TaoKe {
   @Autowired
   private TaokeService taokeService;
+  @Autowired
+  private DataHandling dataHandling;
 
   @RequestMapping("/materialall")
   public String materialAll(@RequestParam(value = "keyword",required = false,defaultValue = "女装") String keyword) {
     taokeService.materialOptionalAll(keyword);
     return "RUN success";
   }
+
+  public String materialBySelf(String keyword) {
+    taokeService.materialOptionalAll(keyword);
+    dataHandling.handing();
+    dataHandling.guesslike();
+    return "RUN success";
+  }
+
   @RequestMapping("/materialscan")
   public String materialScan(@RequestParam(value = "keyword",required = false,defaultValue = "女装") String keyword,
                              @RequestParam(value = "pagenum",required = false,defaultValue = "1") Long pagenum) {
