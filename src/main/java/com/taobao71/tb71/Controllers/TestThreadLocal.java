@@ -1,6 +1,8 @@
 package com.taobao71.tb71.Controllers;
 
 import java.io.UnsupportedEncodingException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,9 +19,11 @@ public class TestThreadLocal {
 
   @Autowired
   TaoKe taoKe;
+  static Logger logger = LoggerFactory.getLogger(TestThreadLocal.class);
 
   @RequestMapping("/spring/")
   public ModelAndView test(@RequestParam(value = "keyword",required = false,defaultValue = "女装") String keyword){
+    logger.info("Search# 搜索关键词: {}",keyword);
     Thread t = new Thread(new Runnable() {
       @Override
       public void run() {
@@ -30,7 +34,6 @@ public class TestThreadLocal {
         }
       }});
     t.start();
-
 
     try{
       String encodeKeyword = java.net.URLEncoder.encode(keyword,"UTF-8");

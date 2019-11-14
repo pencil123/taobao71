@@ -2,6 +2,7 @@ package com.taobao71.tb71.domain;
 
 import com.alibaba.fastjson.JSONObject;
 import java.io.Serializable;
+import org.springframework.stereotype.Component;
 
 /**
  * @author lyzhang
@@ -79,8 +80,11 @@ import java.io.Serializable;
  * ysyl_tlj_use_start_time	String	2019-11-10 21:59:59	预售有礼-淘礼金使用开始时间
  */
 
+@Component
 public class Material  implements Serializable {
+  private Integer id;
   private Integer category_id;
+  private Integer my_category_id;
   private String category_name;
   private String commission_rate;
   private String commission_type;
@@ -127,6 +131,8 @@ public class Material  implements Serializable {
   private String x_id;
   private String zk_final_price;
 
+  public Integer getId() {return id;  }
+  public void setId(Integer id) {this.id = id; }
   public Integer getCategory_id() {
     return category_id;
   }
@@ -134,6 +140,10 @@ public class Material  implements Serializable {
   public void setCategory_id(Integer category_id) {
     this.category_id = category_id;
   }
+
+  public Integer getMy_category_id() {return my_category_id;  }
+
+  public void setMy_category_id(Integer my_category_id) {this.my_category_id = my_category_id;  }
 
   public String getCategory_name() {
     return category_name;

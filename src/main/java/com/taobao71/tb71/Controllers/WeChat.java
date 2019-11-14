@@ -1,19 +1,16 @@
 package com.taobao71.tb71.Controllers;
 
-import com.fasterxml.jackson.core.util.BufferRecycler;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import com.taobao71.tb71.Service.WeChatService;
 import com.taobao71.tb71.Utils.Helper;
-import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.DataBindingException;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WeChat {
   @Autowired
   private WeChatService weChatService;
-
+  static Logger logger = LoggerFactory.getLogger(WeChat.class);
   private final String TOKEN = "cherry";
 
   @RequestMapping(value = "auth",method = RequestMethod.GET)
@@ -52,10 +49,10 @@ public class WeChat {
      * 校验微信服务器传递过来的签名 和  加密后的字符串是否一致, 若一致则签名通过
      */
     if(!"".equals(signature) && !"".equals(mySignature) && signature.equals(mySignature)){
-      System.out.println("-----签名校验通过-----");
+      logger.info("Wechat# 校验签名成功");
       resp.getWriter().write(echostr);
     }else {
-      System.out.println("-----校验签名失败-----");
+      logger.info("Wechat# 校验签名失败");
     }
   }
 
@@ -67,7 +64,6 @@ public class WeChat {
     }catch (Exception e){
       e.printStackTrace();
     }
-
     return "success";
   }
 }
