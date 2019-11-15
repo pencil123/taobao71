@@ -4,6 +4,8 @@ import com.taobao71.tb71.domain.Material;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.LinkedList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.InvalidResultSetAccessException;
@@ -18,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class MaterialDao {
   @Autowired
   private JdbcTemplate jdbcTemplate;
-
+  static Logger logger = LoggerFactory.getLogger(MaterialDao.class);
   /**
    * 将从API获取的数据，插入到数据库中
    * @param materials 数据对象
@@ -47,9 +49,9 @@ public class MaterialDao {
                             material.getUrl(),material.getUser_type(),material.getVolume(),
                             material.getWhite_image(),material.getX_id(),material.getZk_final_price());
       } catch (InvalidResultSetAccessException e) {
-        System.out.println("error");
+        logger.warn("Dao#数据写入失败:InvalidResultSetAccessException: {}",e.toString());
       } catch (DataAccessException e) {
-        System.out.println("error");
+        logger.warn("Dao#数据写入失败:DataAccessException; {}",e.toString());
       }
 
     }
@@ -66,10 +68,23 @@ public class MaterialDao {
     return categoryNames;
   }
 
+  /**
+   * 更新商品的所属类别ID
+   * @param categoryFullName 类别的名称
+   * @param categoryId  类别所属的ID
+   * @return
+   */
   public boolean updateCategoryID(String categoryFullName,Integer categoryId){
     String updateSQL = "update material set my_category_id = ? where level_one_category_name = ? and my_category_id is NULL";
     jdbcTemplate.update(updateSQL,categoryId,categoryFullName);
     return true;
   }
+
+  public List getItems(){
+    String selectSQL = "select id,item_id from material limit 100";
+    List item_ids = jdbcTemplate.queryForList(selectSQL);
+    return item_ids;
+  }
+
 
 }

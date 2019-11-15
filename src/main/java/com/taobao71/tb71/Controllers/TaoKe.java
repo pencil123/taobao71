@@ -57,4 +57,10 @@ public class TaoKe {
     taokeService.goodsInfoGet(str_iids);
     return "Run Success";
   }
+
+  @RequestMapping("/updatekeyword")
+  public String createKeyword(){
+    taokeService.updateAllKeyword();
+    return "Run Success";
+  }
 }

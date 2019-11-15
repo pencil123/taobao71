@@ -7,11 +7,19 @@ import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.TbkDgMaterialOptionalRequest;
 import com.taobao.api.request.TbkItemInfoGetRequest;
+import com.taobao.api.request.TbkItemWordGetRequest;
 import com.taobao.api.response.TbkDgMaterialOptionalResponse;
 import com.taobao.api.response.TbkItemInfoGetResponse;
+import com.taobao.api.response.TbkItemWordGetResponse;
+import com.taobao71.tb71.Controllers.TaoKe;
 import com.taobao71.tb71.dao.MaterialDao;
 import com.taobao71.tb71.domain.Material;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -35,6 +43,8 @@ public class TaokeService {
 
   @Autowired
   MaterialDao materialDao;
+
+  static Logger logger = LoggerFactory.getLogger(TaokeService.class);
 
   /**
    * 匹配抓取商品
@@ -71,21 +81,19 @@ public class TaokeService {
     req.setAdzoneId(adzoneid);
     LinkedList<Material> materials =  new LinkedList<>();
     try {
-      System.out.println(req);
       TbkDgMaterialOptionalResponse rsp = client.execute(req);
       JSONObject jsonObject = JSONObject.parseObject(rsp.getBody());
       JSONObject result_list = jsonObject.getJSONObject("tbk_dg_material_optional_response");
       if (result_list == null) {
-        System.out.println(jsonObject.toString());
+        logger.info("search# 关键词:{},页面:{} result is null",keyword,pagenum);
         return false;
       }
       JSONObject map_data = result_list.getJSONObject("result_list");
       JSONArray infos = map_data.getJSONArray("map_data");
-
+      logger.info("search# 关键词:{},页面:{} result size is {};",keyword,pagenum,infos.size());
       for (int i=0;i< infos.size();i++) {
         Material material = new Material();
         JSONObject info = infos.getJSONObject(i);
-        System.out.println(info);
         material.setCategory_id((int)info.get("category_id"));
         material.setCategory_name((String)info.get("category_name"));
         material.setCommission_rate((String)info.get("commission_rate"));
@@ -154,6 +162,33 @@ public class TaokeService {
       System.out.println(rsp.getBody());
     }catch (ApiException e) {
       e.printStackTrace();
+    }
+    return true;
+  }
+
+  public Boolean updateAllKeyword(){
+    List item_ids = materialDao.getItems();
+    Map<String, Long> item_info = new HashMap();
+    for(int i=0;i<item_ids.size();i++){
+      item_info = (Map<String, Long>) item_ids.get(i);
+      updateKeyword(item_info.get("item_id"),item_info.get("id").intValue());
+    }
+    return true;
+  }
+
+  public Boolean updateKeyword(Long item_id,Integer good_id) {
+    TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
+    TbkItemWordGetRequest req = new TbkItemWordGetRequest();
+    req.setAdzoneId(adzoneid);
+    req.setCount(5L);
+    req.setItemId(item_id);
+    System.out.println(item_id);
+    try{
+      TbkItemWordGetResponse rsp = client.execute(req);
+      System.out.println(rsp.getBody());
+    } catch (ApiException e) {
+      e.printStackTrace();
+      return false;
     }
     return true;
   }
