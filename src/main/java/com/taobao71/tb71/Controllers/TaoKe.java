@@ -63,4 +63,10 @@ public class TaoKe {
     taokeService.updateAllKeyword();
     return "Run Success";
   }
+
+  @RequestMapping("/optimus")
+  public Boolean optimus(){
+    taokeService.optimusMaterial();
+    return true;
+  }
 }

@@ -6,9 +6,11 @@ import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.TbkDgMaterialOptionalRequest;
+import com.taobao.api.request.TbkDgOptimusMaterialRequest;
 import com.taobao.api.request.TbkItemInfoGetRequest;
 import com.taobao.api.request.TbkItemWordGetRequest;
 import com.taobao.api.response.TbkDgMaterialOptionalResponse;
+import com.taobao.api.response.TbkDgOptimusMaterialResponse;
 import com.taobao.api.response.TbkItemInfoGetResponse;
 import com.taobao.api.response.TbkItemWordGetResponse;
 import com.taobao71.tb71.Controllers.TaoKe;
@@ -74,6 +76,7 @@ public class TaokeService {
     req.setIncludePayRate30(true);
 //   req.setIncludeGoodRate(true);
 //   req.setIncludeRfdRate(true);
+    req.setIsTmall(true);
     req.setSort("total_sales");
     req.setIsTmall(true);
     req.setHasCoupon(true);
@@ -191,5 +194,28 @@ public class TaokeService {
       return false;
     }
     return true;
+  }
+
+
+  public Boolean optimusMaterial(){
+    TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
+    TbkDgOptimusMaterialRequest req = new TbkDgOptimusMaterialRequest();
+    req.setPageSize(20L);
+    req.setAdzoneId(adzoneid);
+    req.setPageNo(1L);
+    req.setMaterialId(3767L);
+/*    req.setDeviceValue("xxx");
+    req.setDeviceEncrypt("MD5");
+    req.setDeviceType("IMEI");*/
+/*    req.setContentId(323L);
+    req.setContentSource("xxx");
+    req.setItemId(33243L);*/
+    try {
+      TbkDgOptimusMaterialResponse rsp = client.execute(req);
+      System.out.println(rsp.getBody());
+      return true;
+    }catch (ApiException e) {
+      return false;
+    }
   }
 }
