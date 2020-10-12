@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: diy
+  datasource:
+    url: jdbc:mysql://dbtaobao.com:3306/test_lyzhang
+    username: lyzhang
+    password: lyzhang
+    max-idle: 5
+    max-wait: 1000
+    min-idle: 5
+    initial-size: 5
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
