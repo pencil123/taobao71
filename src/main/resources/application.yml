@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: diy
+    active: auth
   datasource:
     url: jdbc:mysql://dbtaobao.com:3306/test_lyzhang
     username: lyzhang
