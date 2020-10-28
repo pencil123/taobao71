@@ -1,8 +1,3 @@
 spring:
   profiles:
     active: auth
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://datasource:3306/test_lyzhang
-    username: lyzhang
-    password: lyzhang
