@@ -27,7 +27,7 @@ public class TaoKe {
 
   static Logger logger = LoggerFactory.getLogger(TaoKe.class);
 
-  @RequestMapping("/materialall")
+/*  @RequestMapping("/materialall")
   public String materialAll(@RequestParam(value = "keyword",required = false,defaultValue = "女装") String keyword) {
     taokeService.materialOptionalAll(keyword);
     return "RUN success";
@@ -45,7 +45,7 @@ public class TaoKe {
                              @RequestParam(value = "pagenum",required = false,defaultValue = "1") Long pagenum) {
     taokeService.materialOptionalRequest(keyword,pagenum);
     return "RUN success";
-  }
+  }*/
 
   @RequestMapping("/goodsinfoget")
   public String goodsInfoGet(@RequestParam(value = "numids",required = true,defaultValue = "123") String str_iids) {

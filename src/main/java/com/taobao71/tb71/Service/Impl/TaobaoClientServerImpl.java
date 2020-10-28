@@ -105,4 +105,18 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
         }
         return "hello";
     }
+
+
+    /**
+     *
+     */
+    public String searchCouponByItemID(){
+        taobaoClient = new DefaultTaobaoClient(url, appkey, secret);
+        TbkItemidCouponGetRequest req = new TbkItemidCouponGetRequest();
+        req.setPlatform(1L);
+        req.setPid("mm_123_123_123");
+        req.setNumIids("123,456");
+        TbkItemidCouponGetResponse rsp = client.execute(req);
+        System.out.println(rsp.getBody());
+    }
 }

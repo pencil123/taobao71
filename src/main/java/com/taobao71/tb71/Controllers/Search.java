@@ -45,7 +45,7 @@ public class Search {
    return  "hello";
   }
 
-  @RequestMapping("spring")
+/*  @RequestMapping("spring")
   public ModelAndView test(@RequestParam(value = "keyword",required = false,defaultValue = "女装") String keyword){
     logger.info("Search# 搜索关键词: {}",keyword);
     Thread t = new Thread(new Runnable() {
@@ -66,5 +66,5 @@ public class Search {
       System.out.println(e.getMessage());
       return new ModelAndView("/");
     }
-  }
+  }*/
 }

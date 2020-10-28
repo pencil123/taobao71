@@ -62,7 +62,7 @@ public class WeChatService {
   /**
    * 根据消息类型 构造返回消息
    */
-  public String buildXml(Map<String,String> map) {
+/*  public String buildXml(Map<String,String> map) {
     String result;
     String msgType = map.get("MsgType").toString();
     if(msgType.toUpperCase().equals("TEXT")){
@@ -89,7 +89,7 @@ public class WeChatService {
       result = buildTextMessage(map, "请输入您查找优惠券的关键词");
     }
     return result;
-  }
+  }*/
 
   public String buildTextMessage(Map<String,String> map, String Content){
     String fromUserName = map.get("FromUserName");

@@ -56,7 +56,7 @@ public class WeChat {
     }
   }
 
-  @RequestMapping(value = "auth",method = RequestMethod.POST)
+/*  @RequestMapping(value = "auth",method = RequestMethod.POST)
   public String deal(HttpServletRequest req, HttpServletResponse resp) throws IOException {
     try{
       Map<String,String> map = weChatService.parseXml(req);
@@ -65,5 +65,5 @@ public class WeChat {
       e.printStackTrace();
     }
     return "success";
-  }
+  }*/
 }
