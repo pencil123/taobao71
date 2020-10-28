@@ -33,13 +33,13 @@ public class Search {
   public String  getTest(){
     TbkDgMaterialOptionalRequest req = new TbkDgMaterialOptionalRequest();
     req.setQ("man");
- //   req.setPageNo(Long.valueOf(100));
+    req.setPageNo(Long.valueOf(1000));
 //    req.setIncludePayRate30(true);
  //   req.setIsTmall(true);
  //   req.setSort("total_sales");
  //   req.setIsTmall(true)
  //   req.setHasCoupon(true);
- //   req.setPageSize(100L);
+    req.setPageSize(100L);
 //    taobaoClientServer.test("hello");
    taobaoClientServer.searchMaterial(req);
    return  "hello";

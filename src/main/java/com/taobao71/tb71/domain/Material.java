@@ -99,7 +99,7 @@ public class Material  implements Serializable {
   private Integer coupon_total_count;
   private String include_dxjh;
   private String include_mkt;
-  private JSONObject info_dxjh;
+  private String info_dxjh;
   private String item_description;
   private Long item_id;
   private String item_url;
@@ -131,8 +131,14 @@ public class Material  implements Serializable {
   private String x_id;
   private String zk_final_price;
 
-  public Integer getId() {return id;  }
-  public void setId(Integer id) {this.id = id; }
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
   public Integer getCategory_id() {
     return category_id;
   }
@@ -141,9 +147,13 @@ public class Material  implements Serializable {
     this.category_id = category_id;
   }
 
-  public Integer getMy_category_id() {return my_category_id;  }
+  public Integer getMy_category_id() {
+    return my_category_id;
+  }
 
-  public void setMy_category_id(Integer my_category_id) {this.my_category_id = my_category_id;  }
+  public void setMy_category_id(Integer my_category_id) {
+    this.my_category_id = my_category_id;
+  }
 
   public String getCategory_name() {
     return category_name;
@@ -257,11 +267,11 @@ public class Material  implements Serializable {
     this.include_mkt = include_mkt;
   }
 
-  public JSONObject getInfo_dxjh() {
+  public String getInfo_dxjh() {
     return info_dxjh;
   }
 
-  public void setInfo_dxjh(JSONObject info_dxjh) {
+  public void setInfo_dxjh(String info_dxjh) {
     this.info_dxjh = info_dxjh;
   }
 
@@ -425,8 +435,8 @@ public class Material  implements Serializable {
     this.short_title = short_title;
   }
 
-  public String getSmall_images() {
-    return small_images.toJSONString();
+  public JSONObject getSmall_images() {
+    return small_images;
   }
 
   public void setSmall_images(JSONObject small_images) {
@@ -505,4 +515,57 @@ public class Material  implements Serializable {
     this.zk_final_price = zk_final_price;
   }
 
+  @Override
+  public String toString() {
+    return "Material{" +
+            "id=" + id +
+            ", category_id=" + category_id +
+            ", my_category_id=" + my_category_id +
+            ", category_name='" + category_name + '\'' +
+            ", commission_rate='" + commission_rate + '\'' +
+            ", commission_type='" + commission_type + '\'' +
+            ", coupon_amount='" + coupon_amount + '\'' +
+            ", coupon_end_time='" + coupon_end_time + '\'' +
+            ", coupon_id='" + coupon_id + '\'' +
+            ", coupon_info='" + coupon_info + '\'' +
+            ", coupon_remain_count=" + coupon_remain_count +
+            ", coupon_share_url='" + coupon_share_url + '\'' +
+            ", coupon_start_fee='" + coupon_start_fee + '\'' +
+            ", coupon_start_time='" + coupon_start_time + '\'' +
+            ", coupon_total_count=" + coupon_total_count +
+            ", include_dxjh='" + include_dxjh + '\'' +
+            ", include_mkt='" + include_mkt + '\'' +
+            ", info_dxjh='" + info_dxjh + '\'' +
+            ", item_description='" + item_description + '\'' +
+            ", item_id=" + item_id +
+            ", item_url='" + item_url + '\'' +
+            ", level_one_category_id=" + level_one_category_id +
+            ", level_one_category_name='" + level_one_category_name + '\'' +
+            ", nick='" + nick + '\'' +
+            ", num_iid=" + num_iid +
+            ", pict_url='" + pict_url + '\'' +
+            ", presale_deposit='" + presale_deposit + '\'' +
+            ", presale_end_time=" + presale_end_time +
+            ", presale_start_time=" + presale_start_time +
+            ", presale_tail_end_time=" + presale_tail_end_time +
+            ", presale_tail_start_time=" + presale_tail_start_time +
+            ", provcity='" + provcity + '\'' +
+            ", real_post_fee='" + real_post_fee + '\'' +
+            ", reserve_price='" + reserve_price + '\'' +
+            ", seller_id='" + seller_id + '\'' +
+            ", shop_dsr=" + shop_dsr +
+            ", shop_title='" + shop_title + '\'' +
+            ", short_title='" + short_title + '\'' +
+            ", small_images=" + small_images +
+            ", title='" + title + '\'' +
+            ", tk_total_commi='" + tk_total_commi + '\'' +
+            ", tk_total_sales='" + tk_total_sales + '\'' +
+            ", url='" + url + '\'' +
+            ", user_type=" + user_type +
+            ", volume=" + volume +
+            ", white_image='" + white_image + '\'' +
+            ", x_id='" + x_id + '\'' +
+            ", zk_final_price='" + zk_final_price + '\'' +
+            '}';
+  }
 }
