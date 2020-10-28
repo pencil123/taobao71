@@ -45,8 +45,8 @@ public class ItemServerImpl implements ItemServer {
             String sqlString = "insert into item (x_id,item_id,num_iid,short_title,title,item_url," +
                     "item_description,provcity,pict_url,small_images,white_image,real_post_fee,reserve_price," +
                     "zk_final_price,volume,category_id,category_name,level_one_category_id,level_one_category_name,url," +
-                    "commission_rate,tmall_play_activity_info,include_dxjh,info_dxjh,include_mkt) values(?,?,?,?,?," +
-                    "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    "commission_rate,tmall_play_activity_info,include_dxjh,info_dxjh,include_mkt,shop_id) values(?,?,?,?,?," +
+                    "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             KeyHolder holder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(sqlString, Statement.RETURN_GENERATED_KEYS);
@@ -75,6 +75,7 @@ public class ItemServerImpl implements ItemServer {
                 ps.setString(23, item.getInclude_dxjh());
                 ps.setString(24, item.getInfo_dxjh());
                 ps.setString(25, item.getInclude_mkt());
+                ps.setInt(26, item.getShop_id());
                 return ps;
             }, holder);
             id = Objects.requireNonNull(holder.getKey()).intValue();

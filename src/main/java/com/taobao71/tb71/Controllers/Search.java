@@ -32,7 +32,7 @@ public class Search {
   @GetMapping("hello")
   public String  getTest(){
     TbkDgMaterialOptionalRequest req = new TbkDgMaterialOptionalRequest();
-    req.setQ("man");
+    req.setQ("女装");
     req.setPageNo(Long.valueOf(1000));
 //    req.setIncludePayRate30(true);
  //   req.setIsTmall(true);

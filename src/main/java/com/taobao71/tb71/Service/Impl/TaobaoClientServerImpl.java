@@ -74,24 +74,30 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
             JSONArray infos = map_data.getJSONArray("map_data");
             for(int i=0;i< infos.size();i++) {
                 JSONObject info = infos.getJSONObject(i);
-                Material material = JSON.parseObject(info.toJSONString(),Material.class);
+ //               Material material = JSON.parseObject(info.toJSONString(),Material.class);
+                logger.info("items info:{}",info.toJSONString());
 
 
                 //商店信息处理
                 Shop shop = JSON.parseObject(info.toJSONString(),Shop.class);
                 logger.info("Shop test {}",shop.toString());
-                int shopId = shopServer.addShop(shop);
+                Integer shopId = shopServer.addShop(shop);
 
                 //商品信息处理
                 Item item = JSON.parseObject(info.toJSONString(), Item.class);
-                int itemId = itemServer.addItem(item);
+                item.setShop_id(shopId);
+                Integer itemId = itemServer.addItem(item);
                 logger.info("Item test {}",itemId);
 
                 //优惠券处理
                 Coupon coupon = JSON.parseObject(info.toJSONString(),Coupon.class);
-                int couponId = couponServer.addCoupon(coupon);
-                logger.info("Coupon test {}",couponId);
-
+                if (!coupon.getCoupon_id().equals("")) {
+                    coupon.setItem_id_tk(itemId);
+                    int couponId = couponServer.addCoupon(coupon);
+                    logger.info("Coupon test {}",couponId);
+                }else {
+                    logger.info("没有优惠券");
+                }
             //    materialServer.addMaterial(material);
             }
         } catch (ApiException e) {

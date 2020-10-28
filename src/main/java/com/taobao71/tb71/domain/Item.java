@@ -32,6 +32,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Item {
     private Integer id;
+    private Integer shop_id;
     private String x_id;
     private Long item_id;
     private String item_url;
@@ -64,6 +65,14 @@ public class Item {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getShop_id() {
+        return shop_id;
+    }
+
+    public void setShop_id(Integer shop_id) {
+        this.shop_id = shop_id;
     }
 
     public String getX_id() {
