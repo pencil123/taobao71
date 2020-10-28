@@ -18,6 +18,8 @@
 
   <properties>
     <java.version>1.8</java.version>
+    <docker.repostory>registry.cn-qingdao.aliyuncs.com</docker.repostory>
+    <docker.registry.name>devops-lyz</docker.registry.name>
   </properties>
 
   <dependencies>
@@ -74,9 +76,15 @@
       <resource>
         <directory>${project.basedir}/src/main/resources</directory>
         <targetPath>BOOT-INF/classes</targetPath>
-        <includes>
-          <include>*.properties</include>
-        </includes>
+      </resource>
+      <resource>
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*.yml</include>
+        <include>**/*.properties</include>
+        <include>**/*.xml</include>
+      </includes>
+      <filtering>false</filtering>
       </resource>
     </resources>
     <plugins>

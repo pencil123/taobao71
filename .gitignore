@@ -4,6 +4,8 @@ target/
 !**/src/main/**
 !**/src/test/**
 src/main/resources/application-auth.yml
+src/main/resources/application-diy.yml
+logFile.*
 ### STS ###
 .apt_generated
 .classpath
