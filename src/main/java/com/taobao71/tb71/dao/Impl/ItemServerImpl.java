@@ -26,8 +26,8 @@ public class ItemServerImpl implements ItemServer {
 
     private Integer itemExistRetrunId(Item item) {
         try {
-            String sqlString = "select id item from item where num_iid = ?";
-            Integer id = jdbcTemplate.queryForObject(sqlString, Integer.class, item.getNum_iid());
+            String sqlString = "select id item from item where item_id = ?";
+            Integer id = jdbcTemplate.queryForObject(sqlString, Integer.class, item.getItem_id());
             return id;
         }catch (Exception e){
             return 0;
@@ -42,40 +42,39 @@ public class ItemServerImpl implements ItemServer {
         logger.info("ItemImpl info:{}",item.toString());
         //如果数据库中没有存储；
         try {
-            String sqlString = "insert into item (x_id,item_id,num_iid,short_title,title,item_url," +
+            String sqlString = "insert into item (x_id,item_id,short_title,title,item_url," +
                     "item_description,provcity,pict_url,small_images,white_image,real_post_fee,reserve_price," +
                     "zk_final_price,volume,category_id,category_name,level_one_category_id,level_one_category_name,url," +
                     "commission_rate,tmall_play_activity_info,include_dxjh,info_dxjh,include_mkt,shop_id) values(?,?,?,?,?," +
-                    "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             KeyHolder holder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(sqlString, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1,item.getX_id());
                 ps.setLong(2, item.getItem_id());
-                ps.setLong(3, item.getNum_iid());
-                ps.setString(4, item.getShort_title());
-                ps.setString(5, item.getTitle());
-                ps.setString(6,item.getItem_url());
-                ps.setString(7, item.getItem_description());
-                ps.setString(8, item.getProvcity());
-                ps.setString(9, item.getPict_url());
-                ps.setString(10, item.getSmall_images() == null ? "{}": item.getSmall_images().toJSONString());
-                ps.setString(11,item.getWhite_image());
-                ps.setString(12, item.getReal_post_fee());
-                ps.setString(13, item.getReserve_price());
-                ps.setString(14, item.getZk_final_price());
-                ps.setInt(15, item.getVolume());
-                ps.setInt(16,item.getCategory_id());
-                ps.setString(17, item.getCategory_name());
-                ps.setInt(18, item.getLevel_one_category_id());
-                ps.setString(19, item.getLevel_one_category_name());
-                ps.setString(20, item.getUrl());
-                ps.setString(21,item.getCommission_rate());
-                ps.setString(22, item.getTmall_play_activity_info());
-                ps.setString(23, item.getInclude_dxjh());
-                ps.setString(24, item.getInfo_dxjh());
-                ps.setString(25, item.getInclude_mkt());
-                ps.setInt(26, item.getShop_id());
+                ps.setString(3, item.getShort_title());
+                ps.setString(4, item.getTitle());
+                ps.setString(5,item.getItem_url());
+                ps.setString(6, item.getItem_description());
+                ps.setString(7, item.getProvcity());
+                ps.setString(8, item.getPict_url());
+                ps.setString(9, item.getSmall_images() == null ? "{}": item.getSmall_images().toJSONString());
+                ps.setString(10,item.getWhite_image());
+                ps.setString(11, item.getReal_post_fee());
+                ps.setString(12, item.getReserve_price());
+                ps.setString(13, item.getZk_final_price());
+                ps.setInt(14, item.getVolume());
+                ps.setInt(15,item.getCategory_id() ==null ? 0 : item.getCategory_id());
+                ps.setString(16, item.getCategory_name());
+                ps.setInt(17, item.getLevel_one_category_id() == null ? 0:item.getLevel_one_category_id());
+                ps.setString(18, item.getLevel_one_category_name());
+                ps.setString(19, item.getUrl());
+                ps.setString(20,item.getCommission_rate());
+                ps.setString(21, item.getTmall_play_activity_info());
+                ps.setString(22, item.getInclude_dxjh());
+                ps.setString(23, item.getInfo_dxjh());
+                ps.setString(24, item.getInclude_mkt());
+                ps.setInt(25, item.getShop_id() ==null?0:item.getShop_id());
                 return ps;
             }, holder);
             id = Objects.requireNonNull(holder.getKey()).intValue();
@@ -86,5 +85,6 @@ public class ItemServerImpl implements ItemServer {
         }
         return Integer.valueOf(id);
     }
-    
+
+
 }

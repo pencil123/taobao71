@@ -47,25 +47,6 @@ public class TaokeService {
 
   static Logger logger = LoggerFactory.getLogger(TaokeService.class);
 
-
-  /**
-   * 获取商品信息
-   * @param num_iids 商品的ID
-   * @return
-   */
-  public Boolean goodsInfoGet(String num_iids) {
-    TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
-    TbkItemInfoGetRequest req = new TbkItemInfoGetRequest();
-    req.setNumIids(num_iids);
-    try {
-      TbkItemInfoGetResponse rsp = client.execute(req);
-      System.out.println(rsp.getBody());
-    }catch (ApiException e) {
-      e.printStackTrace();
-    }
-    return true;
-  }
-
   public Boolean updateAllKeyword(){
     List item_ids = materialDao.getItems();
     Map<String, Long> item_info = new HashMap();

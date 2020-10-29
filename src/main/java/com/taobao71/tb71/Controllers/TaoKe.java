@@ -47,16 +47,16 @@ public class TaoKe {
     return "RUN success";
   }*/
 
-  @RequestMapping("/goodsinfoget")
+/*  @RequestMapping("/goodsinfoget")
   public String goodsInfoGet(@RequestParam(value = "numids",required = true,defaultValue = "123") String str_iids) {
     System.out.println(str_iids);
-/*    String[] iids = str_iids.split(",");
+*//*    String[] iids = str_iids.split(",");
     for(String iid : iids) {
       Long.valueOf(iid);
-    }*/
+    }*//*
     taokeService.goodsInfoGet(str_iids);
     return "Run Success";
-  }
+  }*/
 
   @RequestMapping("/updatekeyword")
   public String createKeyword(){

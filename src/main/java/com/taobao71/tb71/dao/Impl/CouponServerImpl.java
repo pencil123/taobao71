@@ -74,4 +74,15 @@ public class CouponServerImpl implements CouponServer {
         }
         return Integer.valueOf(id);
     }
+
+
+    public String getCouponUrlByItemId(String item_id){
+        try {
+            String sqlString = "select coupon_share_url from coupon where item_id = ?";
+            String coupon_share_url = jdbcTemplate.queryForObject(sqlString, String.class,Long.valueOf(item_id));
+            return coupon_share_url;
+        }catch (Exception e){
+            return null;
+        }
+    }
 }

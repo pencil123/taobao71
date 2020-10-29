@@ -46,7 +46,6 @@ public class Item {
     private String include_mkt;
     private Integer level_one_category_id;
     private String level_one_category_name;
-    private Long num_iid;
     private String pict_url;
     private String real_post_fee;
     private String reserve_price;
@@ -179,14 +178,6 @@ public class Item {
         this.level_one_category_name = level_one_category_name;
     }
 
-    public Long getNum_iid() {
-        return num_iid;
-    }
-
-    public void setNum_iid(Long num_iid) {
-        this.num_iid = num_iid;
-    }
-
     public String getPict_url() {
         return pict_url;
     }
@@ -292,7 +283,6 @@ public class Item {
                 ", include_mkt='" + include_mkt + '\'' +
                 ", level_one_category_id=" + level_one_category_id +
                 ", level_one_category_name='" + level_one_category_name + '\'' +
-                ", num_iid=" + num_iid +
                 ", pict_url='" + pict_url + '\'' +
                 ", real_post_fee='" + real_post_fee + '\'' +
                 ", reserve_price='" + reserve_price + '\'' +
