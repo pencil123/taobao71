@@ -47,69 +47,105 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
     private CouponServer couponServer;
 
     private TaobaoClient taobaoClient;
+    private int total_count = 0;
 
     static Logger logger = LoggerFactory.getLogger(TaobaoClientServerImpl.class);
 
+    @Autowired
+    public void setTaobaoClient() {
+        this.taobaoClient = new DefaultTaobaoClient(url, appkey, secret);
+    }
+
+
+    /**
+     * 解析接口返回的数据，并解析，并写入到数据库
+     * @param infos
+     */
+    private void parseMaterialInfo(JSONArray infos) {
+        //查询接口处理
+        for(int i=0;i< infos.size();i++) {
+            JSONObject info = infos.getJSONObject(i);
+            logger.info("items info:{}",info.getLong("num_iid"));
+
+            //商店信息处理
+            Shop shop = JSON.parseObject(info.toJSONString(),Shop.class);
+            Integer shopId = shopServer.addShop(shop);
+
+            //商品信息处理
+            Item item = JSON.parseObject(info.toJSONString(), Item.class);
+            item.setShop_id(shopId);
+            Integer itemId = itemServer.addItem(item);
+
+            //优惠券处理
+            Coupon coupon = JSON.parseObject(info.toJSONString(),Coupon.class);
+            if (!coupon.getCoupon_id().equals("")) {
+                couponServer.addCoupon(coupon);
+            }else {
+                logger.info("没有优惠券");
+            }
+        }
+    }
+
+    /**
+     * 实际执行接口调用的函数，并将执行结果写入到数据库
+     * @param tbkDgMaterialOptionalRequest
+     */
+    private void searchMaterialAction(TbkDgMaterialOptionalRequest tbkDgMaterialOptionalRequest){
+        JSONObject result_list;
+        JSONArray map_data;
+        JSONObject tbk_dg_material_optional_response;
+        try{
+            // 执行调用接口
+            TbkDgMaterialOptionalResponse rsp = taobaoClient.execute(tbkDgMaterialOptionalRequest);
+            JSONObject jsonObject = JSONObject.parseObject(rsp.getBody());
+            tbk_dg_material_optional_response = jsonObject.getJSONObject("tbk_dg_material_optional_response");
+        }catch (ApiException e) {
+            e.printStackTrace();
+            return;
+        }
+        // 调用接口返回值的数量
+        if(this.total_count ==0){
+            this.total_count = tbk_dg_material_optional_response.getIntValue("total_results");
+        }
+        // 处理返回的值为空的情况
+        try {
+            // 接口不稳定；有时候返回数据为空
+            result_list = tbk_dg_material_optional_response.getJSONObject("result_list");
+            map_data = result_list.getJSONArray("map_data");
+        } catch (NullPointerException e){
+            logger.info("返回为空；变量i:{}");
+            return;
+        }
+        parseMaterialInfo(map_data);
+    }
     /**
      * 物料搜索
      * @param tbkDgMaterialOptionalRequest 请求对象
      * @return
      */
     public String searchMaterial(TbkDgMaterialOptionalRequest tbkDgMaterialOptionalRequest){
-        taobaoClient = new DefaultTaobaoClient(url, appkey, secret);
-        try {
-            // 调用接口查询
-            tbkDgMaterialOptionalRequest.setAdzoneId(adzoneid);
-            taobaoClient.execute(tbkDgMaterialOptionalRequest);
-            TbkDgMaterialOptionalResponse rsp = taobaoClient.execute(tbkDgMaterialOptionalRequest);
-            //查询接口处理
-            JSONObject jsonObject = JSONObject.parseObject(rsp.getBody());
-            JSONObject result_list = jsonObject.getJSONObject("tbk_dg_material_optional_response");
-            LinkedList<Material> materials =  new LinkedList<>();
-            if (result_list == null) {
-                logger.info("search# 关键词:{},页面:{} result is null",tbkDgMaterialOptionalRequest.getQ().toString());
+        // 调用接口请求参数设置
+        tbkDgMaterialOptionalRequest.setAdzoneId(adzoneid);
+        tbkDgMaterialOptionalRequest.setSort("total_sales");
+        tbkDgMaterialOptionalRequest.setHasCoupon(true);
+        tbkDgMaterialOptionalRequest.setPageSize(100L);
+        int pageNo =1;
+        do {
+            tbkDgMaterialOptionalRequest.setPageNo(Long.valueOf(pageNo));
+            pageNo ++;
+            searchMaterialAction(tbkDgMaterialOptionalRequest);
+            try {
+                Thread.sleep(2000);    //延时2秒
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
-            JSONObject map_data = result_list.getJSONObject("result_list");
-            JSONArray infos = map_data.getJSONArray("map_data");
-            for(int i=0;i< infos.size();i++) {
-                JSONObject info = infos.getJSONObject(i);
- //               Material material = JSON.parseObject(info.toJSONString(),Material.class);
-                logger.info("items info:{}",info.toJSONString());
-
-
-                //商店信息处理
-                Shop shop = JSON.parseObject(info.toJSONString(),Shop.class);
-                logger.info("Shop test {}",shop.toString());
-                Integer shopId = shopServer.addShop(shop);
-
-                //商品信息处理
-                Item item = JSON.parseObject(info.toJSONString(), Item.class);
-                item.setShop_id(shopId);
-                Integer itemId = itemServer.addItem(item);
-                logger.info("Item test {}",itemId);
-
-                //优惠券处理
-                Coupon coupon = JSON.parseObject(info.toJSONString(),Coupon.class);
-                if (!coupon.getCoupon_id().equals("")) {
-                    coupon.setItem_id_tk(itemId);
-                    int couponId = couponServer.addCoupon(coupon);
-                    logger.info("Coupon test {}",couponId);
-                }else {
-                    logger.info("没有优惠券");
-                }
-            //    materialServer.addMaterial(material);
-            }
-        } catch (ApiException e) {
-            e.printStackTrace();
-        }
-        return "hello";
+        }while (pageNo < this.total_count/100 + 1);
+        return "Success";
     }
 
 
     /**
      *
-     */
     public String searchCouponByItemID(){
         taobaoClient = new DefaultTaobaoClient(url, appkey, secret);
         TbkItemidCouponGetRequest req = new TbkItemidCouponGetRequest();
@@ -119,4 +155,5 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
         TbkItemidCouponGetResponse rsp = client.execute(req);
         System.out.println(rsp.getBody());
     }
+     */
 }

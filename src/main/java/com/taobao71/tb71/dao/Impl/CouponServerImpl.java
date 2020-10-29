@@ -63,7 +63,7 @@ public class CouponServerImpl implements CouponServer {
                 ps.setString(11,coupon.getCommission_type());
                 ps.setString(12, coupon.getTk_total_sales());
                 ps.setString(13, coupon.getTk_total_commi());
-                ps.setInt(14, coupon.getItem_id_tk());
+                ps.setLong(14, coupon.getItem_id());
                 return ps;
             }, holder);
             id = Objects.requireNonNull(holder.getKey()).intValue();

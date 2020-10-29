@@ -25,7 +25,7 @@ import java.io.Serializable;
 @Component
 public class Coupon  implements Serializable {
     private Integer id;
-    private Integer item_id_tk;
+    private Long item_id;
     private String commission_type;
     private String coupon_amount;
     private String coupon_end_time;
@@ -48,12 +48,12 @@ public class Coupon  implements Serializable {
         this.id = id;
     }
 
-    public Integer getItem_id_tk() {
-        return item_id_tk;
+    public Long getItem_id() {
+        return item_id;
     }
 
-    public void setItem_id_tk(Integer item_id_tk) {
-        this.item_id_tk = item_id_tk;
+    public void setItem_id(Long item_id) {
+        this.item_id = item_id;
     }
 
     public String getCommission_type() {
