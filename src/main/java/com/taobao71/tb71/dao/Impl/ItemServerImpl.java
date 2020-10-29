@@ -24,10 +24,10 @@ public class ItemServerImpl implements ItemServer {
 
     static Logger logger = LoggerFactory.getLogger(ItemServerImpl.class);
 
-    private Integer itemExistRetrunId(Item item) {
+    public Integer itemExistRetrunId(Long item_id) {
         try {
             String sqlString = "select id item from item where item_id = ?";
-            Integer id = jdbcTemplate.queryForObject(sqlString, Integer.class, item.getItem_id());
+            Integer id = jdbcTemplate.queryForObject(sqlString, Integer.class, item_id);
             return id;
         }catch (Exception e){
             return 0;
@@ -36,7 +36,7 @@ public class ItemServerImpl implements ItemServer {
 
     public Integer addItem(Item item){
         // 判断数据库中是否已经存在；如果已经存储
-        Integer id = itemExistRetrunId(item);
+        Integer id = itemExistRetrunId(item.getItem_id());
         if(id > 0) {return id;}
 
         logger.info("ItemImpl info:{}",item.toString());

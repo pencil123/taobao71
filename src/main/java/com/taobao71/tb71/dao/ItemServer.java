@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ItemServer {
     public Integer addItem(Item item);
-
+    public Integer itemExistRetrunId(Long item_id);
 }

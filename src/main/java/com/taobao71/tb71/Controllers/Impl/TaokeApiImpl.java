@@ -7,7 +7,9 @@ import com.taobao.api.request.TbkItemInfoGetRequest;
 import com.taobao71.tb71.Controllers.Search;
 import com.taobao71.tb71.Controllers.TaokeApi;
 import com.taobao71.tb71.Service.TaobaoClientServer;
+import com.taobao71.tb71.dao.CouponResultServer;
 import com.taobao71.tb71.dao.CouponServer;
+import com.taobao71.tb71.dao.ItemServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,10 @@ public class TaokeApiImpl implements TaokeApi {
     private TaobaoClientServer taobaoClientServer;
     @Autowired
     private CouponServer couponServer;
+    @Autowired
+    private ItemServer itemServer;
+    @Autowired
+    private CouponResultServer couponResultServer;
     static Logger logger = LoggerFactory.getLogger(TaokeApiImpl.class);
 
     @RequestMapping("searchMaterical")
@@ -40,13 +46,23 @@ public class TaokeApiImpl implements TaokeApi {
     }
 
     @RequestMapping("getCouponByItemId")
-    public String searchCouponByItemId(@RequestParam(value = "item_id",required = true,defaultValue = "123") String item_id){
+    public String searchCouponByItemId(@RequestParam(value = "item_id",required = true,defaultValue = "123") String item_id) {
         String couoponUrl = couponServer.getCouponUrlByItemId(item_id);
-        if(couoponUrl != null){
+        if (couoponUrl != null) {
             return couoponUrl;
-        } else {
-            return "not found!";
+        }
+        couoponUrl = couponResultServer.couponExist(Long.valueOf(item_id));
+        if (couoponUrl != null) {
+            return couoponUrl;
         }
 
+        if (itemServer.itemExistRetrunId(Long.valueOf(item_id)) != 0) {
+            return "this item has no coupon!";
+        }
+
+        TbkItemInfoGetRequest req = new TbkItemInfoGetRequest();
+        req.setNumIids(item_id);
+        taobaoClientServer.getItemInfo(req);
+        return "Please come back tommorow";
     }
 }

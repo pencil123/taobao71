@@ -13,14 +13,8 @@ import com.taobao.api.response.TbkDgMaterialOptionalResponse;
 import com.taobao.api.response.TbkItemInfoGetResponse;
 import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.Service.TaokeService;
-import com.taobao71.tb71.dao.CouponServer;
-import com.taobao71.tb71.dao.ItemServer;
-import com.taobao71.tb71.dao.MaterialServer;
-import com.taobao71.tb71.dao.ShopServer;
-import com.taobao71.tb71.domain.Coupon;
-import com.taobao71.tb71.domain.Item;
-import com.taobao71.tb71.domain.Material;
-import com.taobao71.tb71.domain.Shop;
+import com.taobao71.tb71.dao.*;
+import com.taobao71.tb71.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +41,8 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
     private ItemServer itemServer;
     @Autowired
     private CouponServer couponServer;
+    @Autowired
+    private ItemSearchServer itemSearchServer;
 
     private TaobaoClient taobaoClient;
     private int total_count = 0;
@@ -163,8 +159,8 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
                 itemJsonObject.put("level_one_category_name",itemJsonObject.getString("cat_name"));
                 itemJsonObject.put("item_id",itemJsonObject.getLongValue("num_iid"));
 
-                Item item = JSON.parseObject(itemJsonObject.toJSONString(), Item.class);
-                Integer itemId = itemServer.addItem(item);
+                ItemSearch itemSearch = JSON.parseObject(itemJsonObject.toJSONString(), ItemSearch.class);
+                Integer itemId = itemSearchServer.addItemSearch(itemSearch);
             } else{
                 logger.error("getIteminfo response size {};info: {}",n_tbk_item.size(),n_tbk_item.toJSONString());
             }
