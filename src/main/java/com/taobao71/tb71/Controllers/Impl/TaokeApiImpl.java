@@ -10,6 +10,7 @@ import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.dao.CouponResultServer;
 import com.taobao71.tb71.dao.CouponServer;
 import com.taobao71.tb71.dao.ItemServer;
+import com.taobao71.tb71.rabbitmq.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,8 @@ public class TaokeApiImpl implements TaokeApi {
     private ItemServer itemServer;
     @Autowired
     private CouponResultServer couponResultServer;
+    @Autowired
+    private Publisher publisher;
     static Logger logger = LoggerFactory.getLogger(TaokeApiImpl.class);
 
     @RequestMapping("searchMaterical")
@@ -60,9 +63,8 @@ public class TaokeApiImpl implements TaokeApi {
             return "this item has no coupon!";
         }
 
-        TbkItemInfoGetRequest req = new TbkItemInfoGetRequest();
-        req.setNumIids(item_id);
-        taobaoClientServer.getItemInfo(req);
+        publisher.sendDirectMessage(item_id);
+        //taobaoClientServer.getItemInfo(req);
         return "Please come back tommorow";
     }
 }
