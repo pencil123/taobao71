@@ -8,11 +8,9 @@ import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.TbkDgMaterialOptionalRequest;
 import com.taobao.api.request.TbkDgOptimusMaterialRequest;
 import com.taobao.api.request.TbkItemInfoGetRequest;
-import com.taobao.api.request.TbkItemWordGetRequest;
 import com.taobao.api.response.TbkDgMaterialOptionalResponse;
 import com.taobao.api.response.TbkDgOptimusMaterialResponse;
 import com.taobao.api.response.TbkItemInfoGetResponse;
-import com.taobao.api.response.TbkItemWordGetResponse;
 import com.taobao71.tb71.Controllers.TaoKe;
 import com.taobao71.tb71.dao.MaterialDao;
 import com.taobao71.tb71.domain.Material;
@@ -47,7 +45,7 @@ public class TaokeService {
 
   static Logger logger = LoggerFactory.getLogger(TaokeService.class);
 
-  public Boolean updateAllKeyword(){
+/*  public Boolean updateAllKeyword(){
     List item_ids = materialDao.getItems();
     Map<String, Long> item_info = new HashMap();
     for(int i=0;i<item_ids.size();i++){
@@ -55,9 +53,9 @@ public class TaokeService {
       updateKeyword(item_info.get("item_id"),item_info.get("id").intValue());
     }
     return true;
-  }
+  }*/
 
-  public Boolean updateKeyword(Long item_id,Integer good_id) {
+/*  public Boolean updateKeyword(Long item_id,Integer good_id) {
     TaobaoClient client = new DefaultTaobaoClient(url, appkey, secret);
     TbkItemWordGetRequest req = new TbkItemWordGetRequest();
     req.setAdzoneId(adzoneid);
@@ -72,7 +70,7 @@ public class TaokeService {
       return false;
     }
     return true;
-  }
+  }*/
 
 
   public Boolean optimusMaterial(){

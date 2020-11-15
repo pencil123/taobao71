@@ -58,11 +58,11 @@ public class TaoKe {
     return "Run Success";
   }*/
 
-  @RequestMapping("/updatekeyword")
+/*  @RequestMapping("/updatekeyword")
   public String createKeyword(){
     taokeService.updateAllKeyword();
     return "Run Success";
-  }
+  }*/
 
   @RequestMapping("/optimus")
   public Boolean optimus(){

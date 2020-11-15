@@ -21,7 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
+
 @Service
 public class TaobaoClientServerImpl implements TaobaoClientServer {
     @Value("${taobao.appkey}")
@@ -97,6 +100,7 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
             TbkDgMaterialOptionalResponse rsp = taobaoClient.execute(tbkDgMaterialOptionalRequest);
             JSONObject jsonObject = JSONObject.parseObject(rsp.getBody());
             tbk_dg_material_optional_response = jsonObject.getJSONObject("tbk_dg_material_optional_response");
+            logger.info("返回的信息：{}",tbk_dg_material_optional_response.toJSONString());
         }catch (ApiException e) {
             e.printStackTrace();
             return;
@@ -124,8 +128,8 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
     public String searchMaterial(TbkDgMaterialOptionalRequest tbkDgMaterialOptionalRequest){
         // 调用接口请求参数设置
         tbkDgMaterialOptionalRequest.setAdzoneId(adzoneid);
-        tbkDgMaterialOptionalRequest.setSort("total_sales");
-        tbkDgMaterialOptionalRequest.setHasCoupon(true);
+        //tbkDgMaterialOptionalRequest.setSort("total_sales");
+       // tbkDgMaterialOptionalRequest.setHasCoupon(true);
         tbkDgMaterialOptionalRequest.setPageSize(100L);
         int pageNo =1;
         do {
@@ -144,9 +148,9 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
     /**
      * 根据ItemID 查询商品信息
      * @param tbkItemInfoGetRequest
-     * @return
+     * @return HashMap key:  seller_id category_name notfound
      */
-    public String getItemInfo(TbkItemInfoGetRequest tbkItemInfoGetRequest){
+    public ItemSearch getItemInfo(TbkItemInfoGetRequest tbkItemInfoGetRequest){
         try {
             TbkItemInfoGetResponse rsp = taobaoClient.execute(tbkItemInfoGetRequest);
             JSONObject jsonObject = JSONObject.parseObject(rsp.getBody());
@@ -161,13 +165,15 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
 
                 ItemSearch itemSearch = JSON.parseObject(itemJsonObject.toJSONString(), ItemSearch.class);
                 Integer itemId = itemSearchServer.addItemSearch(itemSearch);
+                return itemSearch;
             } else{
                 logger.error("getIteminfo response size {};info: {}",n_tbk_item.size(),n_tbk_item.toJSONString());
+                return null;
             }
         }catch (ApiException e) {
             e.printStackTrace();
         }
-        return "Success";
+        return null;
     }
 
 /*    *//**

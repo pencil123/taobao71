@@ -29,7 +29,7 @@ import org.springframework.stereotype.Component;
  * superior_brand String 是否品牌精选，0不是，1是
  * tmall_play_activity_end_time Number 天猫限时抢可售 -结束时间（毫秒）
  * tmall_play_activity_start_time Number 天猫限时抢可售 -开始时间（毫秒）
- * user_type Number 卖家类型，0表示集市，1表示商城
+ * user_type Number 店铺信息-卖家类型。0表示集市，1表示天猫
  * zk_final_price String 折扣价（元） 若属于预售商品，付定金时间内，折扣价=预售价
  * ############################################
  * is_prepay Boolean 是否加入消费者保障
@@ -51,17 +51,11 @@ public class ItemSearch {
     private Integer id;
     private Long item_id;
     private String title;
-    private Integer volume;
-    private String pict_url;
-    private String provcity;
-    private String reserve_price;
     private Long seller_id;
+    private String provcity;
     private String category_name;
     private String level_one_category_name;
     private Boolean free_shipment;
-    private String item_url;
-    private String presale_deposit;
-    private JSONObject small_images;
     private String superior_brand;
     private Integer user_type;
     private String zk_final_price;
@@ -90,20 +84,12 @@ public class ItemSearch {
         this.title = title;
     }
 
-    public Integer getVolume() {
-        return volume;
+    public Long getSeller_id() {
+        return seller_id;
     }
 
-    public void setVolume(Integer volume) {
-        this.volume = volume;
-    }
-
-    public String getPict_url() {
-        return pict_url;
-    }
-
-    public void setPict_url(String pict_url) {
-        this.pict_url = pict_url;
+    public void setSeller_id(Long seller_id) {
+        this.seller_id = seller_id;
     }
 
     public String getProvcity() {
@@ -112,22 +98,6 @@ public class ItemSearch {
 
     public void setProvcity(String provcity) {
         this.provcity = provcity;
-    }
-
-    public String getReserve_price() {
-        return reserve_price;
-    }
-
-    public void setReserve_price(String reserve_price) {
-        this.reserve_price = reserve_price;
-    }
-
-    public Long getSeller_id() {
-        return seller_id;
-    }
-
-    public void setSeller_id(Long seller_id) {
-        this.seller_id = seller_id;
     }
 
     public String getCategory_name() {
@@ -152,30 +122,6 @@ public class ItemSearch {
 
     public void setFree_shipment(Boolean free_shipment) {
         this.free_shipment = free_shipment;
-    }
-
-    public String getItem_url() {
-        return item_url;
-    }
-
-    public void setItem_url(String item_url) {
-        this.item_url = item_url;
-    }
-
-    public String getPresale_deposit() {
-        return presale_deposit;
-    }
-
-    public void setPresale_deposit(String presale_deposit) {
-        this.presale_deposit = presale_deposit;
-    }
-
-    public JSONObject getSmall_images() {
-        return small_images;
-    }
-
-    public void setSmall_images(JSONObject small_images) {
-        this.small_images = small_images;
     }
 
     public String getSuperior_brand() {

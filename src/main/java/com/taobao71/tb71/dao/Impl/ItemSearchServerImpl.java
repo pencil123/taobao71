@@ -41,28 +41,22 @@ public class ItemSearchServerImpl implements ItemSearchServer {
         logger.info("ItemImpl info:{}",itemSearch.toString());
         //如果数据库中没有存储；
         try {
-            String sqlString = "insert into item_search (item_id,title,volume,pict_url,provcity,reserve_price,seller_id,category_name," +
-                    "level_one_category_name,free_shipment,item_url,presale_deposit,small_images,superior_brand,user_type," +
-                    "zk_final_price) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sqlString = "insert into item_search (item_id,title,provcity,seller_id,category_name," +
+                    "level_one_category_name,free_shipment,superior_brand,user_type," +
+                    "zk_final_price) values(?,?,?,?,?,?,?,?,?,?)";
             KeyHolder holder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(sqlString, Statement.RETURN_GENERATED_KEYS);
                 ps.setLong(1,itemSearch.getItem_id());
                 ps.setString(2, itemSearch.getTitle());
-                ps.setInt(3, itemSearch.getVolume());
-                ps.setString(4, itemSearch.getPict_url());
-                ps.setString(5,itemSearch.getProvcity());
-                ps.setString(6, itemSearch.getReserve_price());
-                ps.setLong(7, itemSearch.getSeller_id());
-                ps.setString(8, itemSearch.getCategory_name());
-                ps.setString(9, itemSearch.getLevel_one_category_name());
-                ps.setBoolean(10,itemSearch.getFree_shipment());
-                ps.setString(11, itemSearch.getItem_url());
-                ps.setString(12, itemSearch.getPresale_deposit());
-                ps.setString(13, itemSearch.getSmall_images() == null ? "{}": itemSearch.getSmall_images().toJSONString());
-                ps.setString(14, itemSearch.getSuperior_brand());
-                ps.setInt(15,itemSearch.getUser_type());
-                ps.setString(16, itemSearch.getZk_final_price());
+                ps.setString(3,itemSearch.getProvcity());
+                ps.setLong(4, itemSearch.getSeller_id());
+                ps.setString(5, itemSearch.getCategory_name());
+                ps.setString(6, itemSearch.getLevel_one_category_name());
+                ps.setBoolean(7,itemSearch.getFree_shipment());
+                ps.setString(8, itemSearch.getSuperior_brand());
+                ps.setInt(9,itemSearch.getUser_type());
+                ps.setString(10, itemSearch.getZk_final_price());
                 return ps;
             }, holder);
             id = Objects.requireNonNull(holder.getKey()).intValue();
