@@ -31,8 +31,6 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
     private Long adzoneid;
 
     @Autowired
-    private MaterialServer materialServer;
-    @Autowired
     private ShopServer shopServer;
     @Autowired
     private ItemServer itemServer;
