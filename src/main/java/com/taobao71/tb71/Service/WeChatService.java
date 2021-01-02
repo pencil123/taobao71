@@ -1,6 +1,5 @@
 package com.taobao71.tb71.Service;
 
-import com.taobao71.tb71.Controllers.TaoKe;
 import com.taobao71.tb71.Controllers.WeChat;
 import com.taobao71.tb71.dao.WeChatDao;
 import java.io.InputStream;
@@ -28,8 +27,6 @@ public class WeChatService {
 
   @Autowired
   private WeChatDao weChatDao;
-  @Autowired
-  TaoKe taoKe;
   static Logger logger = LoggerFactory.getLogger(WeChat.class);
   /**
    * 解析微信发来的请求（XML）
