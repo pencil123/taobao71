@@ -5,6 +5,7 @@ target/
 !**/src/test/**
 src/main/resources/application-auth.yml
 src/main/resources/application-diy.yml
+src/main/resources/wx.properties
 logFile.*
 ### STS ###
 .apt_generated
