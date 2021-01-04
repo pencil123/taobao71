@@ -3,7 +3,7 @@ package com.taobao71.tb71.domain;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CouponResult {
+public class CouponResult extends Coupon{
     private Integer id;
     private Long item_id;
     private String coupon_share_url;

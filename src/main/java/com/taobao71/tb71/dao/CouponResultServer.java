@@ -1,5 +1,6 @@
 package com.taobao71.tb71.dao;
 
+import com.taobao71.tb71.domain.Coupon;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,4 +17,7 @@ public interface CouponResultServer {
      */
 
     public String couponExist(Long item_id);
+
+
+    public Coupon getCouponByItemId(String itemId);
 }

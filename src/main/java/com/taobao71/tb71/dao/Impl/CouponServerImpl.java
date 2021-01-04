@@ -87,4 +87,15 @@ public class CouponServerImpl implements CouponServer {
             return null;
         }
     }
+
+    public Coupon getCouponByItemId(String itemId){
+        try{
+            String sqlString = "select * from coupon where item_id = ?";
+            Coupon coupon = jdbcTemplate.queryForObject(sqlString,Coupon.class,itemId);
+            return coupon;
+        }catch (Exception e){
+            return null;
+        }
+    }
+
 }

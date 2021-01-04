@@ -1,5 +1,6 @@
 package com.taobao71.tb71.Controllers;
 
+import com.taobao71.tb71.domain.Coupon;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -10,5 +11,5 @@ import org.springframework.web.bind.annotation.RestController;
 public interface TaokeApi {
     public void searchMatericalItems(String keyword);
     public void getItemInfo(String item_id);
-    public String searchCouponByItemId(String item_id);
+    public Coupon searchCouponByItemId(String item_id);
 }

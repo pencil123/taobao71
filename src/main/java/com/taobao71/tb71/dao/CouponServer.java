@@ -23,4 +23,11 @@ public interface CouponServer {
      * @return 优惠券的分享URL地址
      */
     public String getCouponUrlByItemId(String item_id);
+
+    /**
+     * 通过ItemId 查询优惠券信息
+     * @param itemId
+     * @return
+     */
+    public Coupon getCouponByItemId(String itemId);
 }
