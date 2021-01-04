@@ -7,7 +7,6 @@ import com.soecode.wxtools.bean.WxXmlOutMessage;
 import com.soecode.wxtools.bean.WxXmlOutNewsMessage;
 import com.soecode.wxtools.bean.outxmlbuilder.NewsBuilder;
 import com.soecode.wxtools.exception.WxErrorException;
-import com.taobao71.tb71.Controllers.Impl.WeChatApiImpl;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,10 +16,20 @@ import com.taobao71.tb71.domain.Coupon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
+@Component
 public class TBUrlHandler implements WxMessageHandler {
   @Autowired
   private TaokeServer taokeServer;
+  public static TBUrlHandler tbUrlHandler;
+  @PostConstruct
+  public void init(){
+    tbUrlHandler = this;
+    tbUrlHandler.taokeServer = this.taokeServer;
+  }
 
   static Logger logger = LoggerFactory.getLogger(WxMessageHandler.class);
 
@@ -39,7 +48,7 @@ public class TBUrlHandler implements WxMessageHandler {
       logger.info("Not Match");
     }
 
-    Coupon coupon = taokeServer.getCouponByItemId(m.group(1));
+    Coupon coupon = tbUrlHandler.taokeServer.getCouponByItemId(m.group(1));
     if(coupon != null){
       return createNewsResponse(wxMessage,coupon);
     } else {
