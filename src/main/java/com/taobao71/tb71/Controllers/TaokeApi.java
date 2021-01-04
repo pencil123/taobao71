@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 public interface TaokeApi {
-
     public void searchMatericalItems(String keyword);
     public void getItemInfo(String item_id);
     public String searchCouponByItemId(String item_id);
