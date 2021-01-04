@@ -39,6 +39,8 @@ public class Coupon  implements Serializable {
     private Integer coupon_total_count;
     private String tk_total_commi;
     private String tk_total_sales;
+    private String title;
+    private String pict_url;
 
     public Integer getId() {
         return id;
@@ -158,5 +160,21 @@ public class Coupon  implements Serializable {
 
     public void setCommission_rate(String commission_rate) {
         this.commission_rate = commission_rate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPict_url() {
+        return pict_url;
+    }
+
+    public void setPict_url(String pict_url) {
+        this.pict_url = pict_url;
     }
 }
