@@ -8,7 +8,9 @@ import com.soecode.wxtools.bean.WxXmlMessage;
 import com.soecode.wxtools.bean.WxXmlOutMessage;
 import com.soecode.wxtools.util.xml.XStreamTransformer;
 import com.taobao71.tb71.Controllers.WeChatApi;
+import com.taobao71.tb71.wxHandler.TBUrlHandler;
 import com.taobao71.tb71.wxHandler.WhoAmIHandler;
+import com.taobao71.tb71.wxMatcher.TBUrlMatcher;
 import com.taobao71.tb71.wxMatcher.WhoAmIMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +57,8 @@ public class WeChatApiImpl implements WeChatApi {
       WxMessageRouter router = new WxMessageRouter(iService);
 
       router.rule().msgType(
-          WxConsts.XML_MSG_TEXT).matcher(new WhoAmIMatcher()).handler(new WhoAmIHandler()).end();
+          WxConsts.XML_MSG_TEXT).matcher(new WhoAmIMatcher()).handler(new WhoAmIHandler()).end()
+          .rule().msgType(WxConsts.XML_MSG_TEXT).matcher(new TBUrlMatcher()).handler(new TBUrlHandler()).end();
       // 把消息传递给路由器进行处理
       WxXmlOutMessage xmlOutMsg = router.route(wx);
 
