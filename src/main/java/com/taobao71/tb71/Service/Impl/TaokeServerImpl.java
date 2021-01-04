@@ -8,6 +8,8 @@ import com.taobao71.tb71.dao.CouponServer;
 import com.taobao71.tb71.dao.ItemServer;
 import com.taobao71.tb71.domain.Coupon;
 import com.taobao71.tb71.rabbitmq.Publisher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,11 +28,13 @@ public class TaokeServerImpl implements TaokeServer {
 
     private TbkItemInfoGetRequest req = new TbkItemInfoGetRequest();
 
+    static Logger logger = LoggerFactory.getLogger(TaokeServerImpl.class);
 
     public Coupon getCouponByItemId(String itemId){
 
          // 查询数据库中的优惠券表；
         Coupon coupon = couponServer.getCouponByItemId(itemId);
+        logger.info("Coupon info:{}",coupon.toString());
         if (coupon != null) {
             return coupon;
         }

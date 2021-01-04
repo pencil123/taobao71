@@ -5,6 +5,7 @@ import com.taobao71.tb71.domain.Coupon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class CouponResultServerImpl implements CouponResultServer {
     public Coupon getCouponByItemId(String itemId){
         try{
             String sqlString = "select * from coupon_result where item_id = ?";
-            Coupon coupon = jdbcTemplate.queryForObject(sqlString,Coupon.class,itemId);
+            Coupon coupon = jdbcTemplate.queryForObject(sqlString,new BeanPropertyRowMapper<Coupon>(Coupon.class),itemId);
             return coupon;
         }catch (Exception e){
             return null;

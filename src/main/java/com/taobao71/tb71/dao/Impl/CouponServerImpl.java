@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.InvalidResultSetAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -91,7 +92,7 @@ public class CouponServerImpl implements CouponServer {
     public Coupon getCouponByItemId(String itemId){
         try{
             String sqlString = "select * from coupon where item_id = ?";
-            Coupon coupon = jdbcTemplate.queryForObject(sqlString,Coupon.class,itemId);
+            Coupon coupon = jdbcTemplate.queryForObject(sqlString,new BeanPropertyRowMapper<Coupon>(Coupon.class),itemId);
             return coupon;
         }catch (Exception e){
             return null;
