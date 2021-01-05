@@ -8,8 +8,10 @@ import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
 import com.taobao.api.request.TbkDgMaterialOptionalRequest;
 import com.taobao.api.request.TbkItemInfoGetRequest;
+import com.taobao.api.request.TbkTpwdCreateRequest;
 import com.taobao.api.response.TbkDgMaterialOptionalResponse;
 import com.taobao.api.response.TbkItemInfoGetResponse;
+import com.taobao.api.response.TbkTpwdCreateResponse;
 import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.dao.*;
 import com.taobao71.tb71.domain.*;
@@ -49,6 +51,31 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
         this.taobaoClient = new DefaultTaobaoClient(url, appkey, secret);
     }
 
+    /**
+     * 生成淘口令
+     * @param targetUrl
+     * @return
+     */
+    public Tpwd gainTpwd(String targetUrl){
+        TbkTpwdCreateRequest req = new TbkTpwdCreateRequest();
+        //req.setUserId("123");
+        req.setText("恭喜发财");
+        req.setUrl(targetUrl);
+        //req.setLogo("https://uland.taobao.com/");
+        //req.setExt("{}");
+        try{
+            TbkTpwdCreateResponse rsp = taobaoClient.execute(req);
+            System.out.println(rsp.getBody());
+            logger.info("gain淘口令响应:{}",rsp.getBody());
+            JSONObject jsonObject = JSONObject.parseObject(rsp.getBody());
+            JSONObject tpwdJsonObject = jsonObject.getJSONObject("tbk_tpwd_create_response").getJSONObject("data");
+            Tpwd tpwd = JSON.parseObject(tpwdJsonObject.toJSONString(),Tpwd.class);
+            return tpwd;
+        }catch (ApiException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     /**
      * 解析接口返回的数据，并解析，并写入到数据库

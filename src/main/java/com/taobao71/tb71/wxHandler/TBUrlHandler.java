@@ -11,8 +11,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.Service.TaokeServer;
 import com.taobao71.tb71.domain.Coupon;
+import com.taobao71.tb71.domain.Tpwd;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +26,17 @@ import javax.annotation.PostConstruct;
 public class TBUrlHandler implements WxMessageHandler {
   @Autowired
   private TaokeServer taokeServer;
+  @Autowired
+  private Tpwd tpwd;
+  @Autowired
+  private TaobaoClientServer taobaoClientServer;
+
   public static TBUrlHandler tbUrlHandler;
   @PostConstruct
   public void init(){
     tbUrlHandler = this;
+    tbUrlHandler.tpwd = this.tpwd;
+    tbUrlHandler.taobaoClientServer = this.taobaoClientServer;
     tbUrlHandler.taokeServer = this.taokeServer;
   }
 
@@ -59,9 +68,13 @@ public class TBUrlHandler implements WxMessageHandler {
   private WxXmlOutMessage createNewsResponse(WxXmlMessage wxMessage,Coupon coupon) throws WxErrorException{
     NewsBuilder newsBuilder = WxXmlOutMessage.NEWS();
 
+    Tpwd tpwd = tbUrlHandler.taobaoClientServer.gainTpwd("https:" + coupon.getCoupon_share_url());
+
+
     WxXmlOutNewsMessage.Item item = new WxXmlOutNewsMessage.Item();
     item.setTitle(coupon.getTitle());
-    item.setDescription(coupon.getCoupon_info());
+   // item.setDescription(coupon.getCoupon_info());
+    item.setDescription(tpwd.getPassword_simple());
     item.setUrl(coupon.getCoupon_share_url());
     String imgUrl = coupon.getPict_url().replace("s://img.alicdn","://img.taobao71");
     item.setPicUrl(imgUrl + "_30x30.jpg");
@@ -69,4 +82,5 @@ public class TBUrlHandler implements WxMessageHandler {
 
     return newsBuilder.toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
   }
+
 }
