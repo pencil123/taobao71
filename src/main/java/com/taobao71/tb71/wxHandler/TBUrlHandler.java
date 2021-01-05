@@ -63,7 +63,7 @@ public class TBUrlHandler implements WxMessageHandler {
     item.setTitle(coupon.getTitle());
     item.setDescription(coupon.getCoupon_info());
     item.setUrl(coupon.getCoupon_share_url());
-    item.setPicUrl(coupon.getPict_url());
+    item.setPicUrl(coupon.getPict_url() + "_30x30.jpg");
     newsBuilder.addArticle(item);
 
     return newsBuilder.toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
