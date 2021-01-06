@@ -8,6 +8,8 @@ import com.soecode.wxtools.bean.WxXmlMessage;
 import com.soecode.wxtools.bean.WxXmlOutMessage;
 import com.soecode.wxtools.util.xml.XStreamTransformer;
 import com.taobao71.tb71.Controllers.WeChatApi;
+import com.taobao71.tb71.Service.TaokeServer;
+import com.taobao71.tb71.domain.CouponResp;
 import com.taobao71.tb71.wxHandler.TBUrlHandler;
 import com.taobao71.tb71.wxHandler.WhoAmIHandler;
 import com.taobao71.tb71.wxMatcher.TBUrlMatcher;
@@ -15,10 +17,7 @@ import com.taobao71.tb71.wxMatcher.WhoAmIMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,9 +27,10 @@ import java.io.PrintWriter;
 @RestController
 @RequestMapping("/wxapi")
 public class WeChatApiImpl implements WeChatApi {
-
   private IService iService = new WxService();
   static Logger logger = LoggerFactory.getLogger(WeChatApiImpl.class);
+  @Autowired
+  private TaokeServer taokeServer;
 
   @GetMapping
   public String check(String signature, String timestamp, String nonce, String echostr)  {
@@ -72,5 +72,17 @@ public class WeChatApiImpl implements WeChatApi {
     } finally {
       out.close();
     }
+  }
+
+
+  /**
+   * 获取Coupon 信息
+   * @param itemid
+   * @return
+   */
+  @GetMapping("couponresp")
+  public CouponResp getCouponResp(@RequestParam(value = "itemid",required = true) String itemid){
+    logger.info("the item_id param:{}",itemid);
+    return  taokeServer.getCouponResp(itemid);
   }
 }

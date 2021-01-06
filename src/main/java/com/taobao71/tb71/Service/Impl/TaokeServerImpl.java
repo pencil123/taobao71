@@ -7,6 +7,7 @@ import com.taobao71.tb71.dao.CouponResultServer;
 import com.taobao71.tb71.dao.CouponServer;
 import com.taobao71.tb71.dao.ItemServer;
 import com.taobao71.tb71.domain.Coupon;
+import com.taobao71.tb71.domain.CouponResp;
 import com.taobao71.tb71.rabbitmq.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,5 +71,25 @@ public class TaokeServerImpl implements TaokeServer {
 //            }
 //        }
         return null;
+    }
+
+
+
+    /**
+     * 获取Coupon 信息
+     * @param itemId
+     * @return
+     */
+    public CouponResp getCouponResp(String itemId){
+        Coupon coupon = couponServer.getCouponByItemId(itemId);
+        if (coupon == null) {
+            return null;
+        }
+        CouponResp conponResp = new CouponResp();
+        String imgUrl = coupon.getPict_url().replace("s://img.alicdn","://img.taobao71");
+        conponResp.setPict_url(imgUrl + "_350x350.jpg");
+        conponResp.setSmall_images(conponResp.getSmall_images());
+        conponResp.setTpwd(taobaoClientServer.gainTpwd("https:" + coupon.getCoupon_share_url()).getPassword_simple());
+        return conponResp;
     }
 }

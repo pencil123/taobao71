@@ -1,6 +1,7 @@
 package com.taobao71.tb71.Service;
 
 import com.taobao71.tb71.domain.Coupon;
+import com.taobao71.tb71.domain.CouponResp;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,5 +15,13 @@ public interface TaokeServer {
      * @return 如果没有，则返回null
      */
     public Coupon getCouponByItemId(String itemId);
+
+
+    /**
+     * 获取Coupon 信息
+     * @param itemId
+     * @return
+     */
+    public CouponResp getCouponResp( String itemId);
 
 }
