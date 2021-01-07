@@ -4,12 +4,24 @@ import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitmqConfig {
     //队列 起名：TestDirectQueue
+    //自动装配 RabbitMQ 的链接工厂实例
+    @Autowired
+    private CachingConnectionFactory connectionFactory;
+    //自动装配消息监听器所在的容器工厂配置类实例
+    @Autowired
+    private SimpleRabbitListenerContainerFactoryConfigurer factoryConfigurer;
+
     @Bean
     public Queue DirectQueue() {
         // durable:是否持久化,默认是false,持久化队列：会被存储在磁盘上，当消息代理重启时仍然存在，暂存队列：当前连接有效
@@ -37,6 +49,12 @@ public class RabbitmqConfig {
     @Bean
     DirectExchange lonelyDirectExchange() {
         return new DirectExchange("lonelyDirectExchange");
+    }
+
+
+    @Bean
+    public RabbitAdmin rabbitAdmin(ConnectionFactory defaultConnectionFactory){
+        return new RabbitAdmin(defaultConnectionFactory);
     }
 
 }

@@ -35,10 +35,12 @@ public class TaokeServerImpl implements TaokeServer {
 
          // 查询数据库中的优惠券表；
         Coupon coupon = couponServer.getCouponByItemId(itemId);
-        logger.info("Coupon info:{}",coupon.toString());
+
         if (coupon != null) {
+            logger.info("Coupon info:{}",coupon.toString());
             return coupon;
         }
+
         // 查询数据库中的优惠券搜索coupon_result结果表；
         coupon = couponResultServer.getCouponByItemId(itemId);
         if (coupon != null) {
@@ -50,26 +52,6 @@ public class TaokeServerImpl implements TaokeServer {
         }
         //将Item_id 信息发送到RabbitMQ
         publisher.sendDirectMessage(itemId);
-
-        // 获取商品Item_id 的详细信息‘
-//        req.setNumIids(item_id);
-//        ItemSearch itemSearch = taobaoClientServer.getItemInfo(req);
-//
-//        // 根据商品信息，搜索优惠券信息
-//        if (itemSearch != null) {
-//            TbkDgMaterialOptionalRequest req = new TbkDgMaterialOptionalRequest();
-//            req.setQ(itemSearch.getTitle());
-//            req.setSellerIds(itemSearch.getSeller_id().toString());
-//            req.setCat(itemSearch.getCategory_name() + "," + itemSearch.getLevel_one_category_name());
-//            //req.setItemloc(itemSearch.getProvcity());
-//            req.setStartPrice(Double.valueOf(itemSearch.getZk_final_price()).longValue());
-//            req.setEndPrice(Double.valueOf(itemSearch.getZk_final_price()).longValue() + 1);
-//            taobaoClientServer.searchMaterial(req);
-//            String couoponUrl2 = couponServer.getCouponUrlByItemId(item_id);
-//            if (couoponUrl2 != null) {
-//                return couoponUrl2;
-//            }
-//        }
         return null;
     }
 
