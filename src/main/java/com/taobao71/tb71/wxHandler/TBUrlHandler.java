@@ -73,9 +73,8 @@ public class TBUrlHandler implements WxMessageHandler {
 
     WxXmlOutNewsMessage.Item item = new WxXmlOutNewsMessage.Item();
     item.setTitle(coupon.getTitle());
-   // item.setDescription(coupon.getCoupon_info());
-    item.setDescription(tpwd.getPassword_simple());
-    item.setUrl(coupon.getCoupon_share_url());
+   item.setDescription(coupon.getCoupon_info());
+    item.setUrl("http://api.taobao71.com/#" + coupon.getItem_id());
     String imgUrl = coupon.getPict_url().replace("s://img.alicdn","://img.taobao71");
     item.setPicUrl(imgUrl + "_30x30.jpg");
     newsBuilder.addArticle(item);
