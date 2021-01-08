@@ -46,16 +46,23 @@ public class TaokeServerImpl implements TaokeServer {
         if (coupon != null) {
             return coupon;
         }
-        // 查询数据库中物料表item;如果查询到了，则表明此物料没有优惠券。
-        if (itemServer.itemExistRetrunId(Long.valueOf(itemId)) != 0) {
-            return null;
-        }
         //将Item_id 信息发送到RabbitMQ
         publisher.sendDirectMessage(itemId);
         return null;
     }
 
-
+    /**
+     * Item 表中是否存在物料
+     * @param itemId
+     * @return 如果有：true
+     */
+    public boolean ItemExists(String itemId){
+        // 查询数据库中物料表item;如果查询到了，则表明此物料没有优惠券。
+        if (itemServer.itemExistRetrunId(Long.valueOf(itemId)) != 0) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * 获取Coupon 信息

@@ -50,26 +50,35 @@ public class TBUrlHandler implements WxMessageHandler {
     Pattern r = Pattern.compile(pattern);
     Matcher m = r.matcher(line);
 
-    if (m.find()){
-      logger.info("Found Valuse:{}",m.group(0));
-      logger.info("Found Valuse:{}",m.group(1));
-    } else {
-      logger.info("Not Match");
-    }
+//    if (m.find()){
+//      logger.info("Found Valuse:{}",m.group(0));
+//      logger.info("Found Valuse:{}",m.group(1));
+//    } else {
+//      logger.info("Not Match");
+//    }
 
     Coupon coupon = tbUrlHandler.taokeServer.getCouponByItemId(m.group(1));
-    if(coupon != null){
-      return createNewsResponse(wxMessage,coupon);
-    } else {
+    if(coupon == null && tbUrlHandler.taokeServer.ItemExists(m.group(1))){
       return WxXmlOutMessage.TEXT().content("抱歉，没有找到优惠券！").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
+    }else if(coupon == null){
+      try {
+        Thread.sleep(2000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+      coupon = tbUrlHandler.taokeServer.getCouponByItemId(m.group(1));
+    }
+
+    if(coupon == null){
+      return WxXmlOutMessage.TEXT().content("抱歉，没有找到优惠券！").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
+    } else{
+      return createNewsResponse(wxMessage,coupon);
     }
   }
 
   private WxXmlOutMessage createNewsResponse(WxXmlMessage wxMessage,Coupon coupon) throws WxErrorException{
     NewsBuilder newsBuilder = WxXmlOutMessage.NEWS();
-
     Tpwd tpwd = tbUrlHandler.taobaoClientServer.gainTpwd("https:" + coupon.getCoupon_share_url());
-
 
     WxXmlOutNewsMessage.Item item = new WxXmlOutNewsMessage.Item();
     item.setTitle(coupon.getTitle());

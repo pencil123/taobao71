@@ -16,6 +16,12 @@ public interface TaokeServer {
      */
     public Coupon getCouponByItemId(String itemId);
 
+    /**
+     * Item 表中是否存在物料
+     * @param itemId
+     * @return 如果有：true
+     */
+    public boolean ItemExists(String itemId);
 
     /**
      * 获取Coupon 信息
