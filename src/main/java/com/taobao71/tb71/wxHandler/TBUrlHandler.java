@@ -44,36 +44,39 @@ public class TBUrlHandler implements WxMessageHandler {
 
   @Override
   public WxXmlOutMessage handle(
-      WxXmlMessage wxMessage, Map<String, Object> context, IService iService) throws WxErrorException {
-    String pattern = "https://item.taobao.com/item.htm\\?id=(\\d+)";
-    String line = wxMessage.getContent();
-    Pattern r = Pattern.compile(pattern);
-    Matcher m = r.matcher(line);
+          WxXmlMessage wxMessage, Map<String, Object> context, IService iService) throws WxErrorException {
+      String pattern = "https://item.taobao.com/item.htm\\?id=(\\d+)";
+      String line = wxMessage.getContent();
+      Pattern r = Pattern.compile(pattern);
+      Matcher m = r.matcher(line);
 
-//    if (m.find()){
-//      logger.info("Found Valuse:{}",m.group(0));
-//      logger.info("Found Valuse:{}",m.group(1));
-//    } else {
-//      logger.info("Not Match");
-//    }
-
-    Coupon coupon = tbUrlHandler.taokeServer.getCouponByItemId(m.group(1));
-    if(coupon == null && tbUrlHandler.taokeServer.ItemExists(m.group(1))){
-      return WxXmlOutMessage.TEXT().content("抱歉，没有找到优惠券！").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
-    }else if(coupon == null){
-      try {
-        Thread.sleep(2000);
-      } catch (InterruptedException e) {
-        e.printStackTrace();
+      if (m.find()) {
+          logger.info("Found Valuse:{}", m.group(0));
+          logger.info("Found Valuse:{}", m.group(1));
+      } else {
+          logger.info("Not Match");
       }
-      coupon = tbUrlHandler.taokeServer.getCouponByItemId(m.group(1));
-    }
 
-    if(coupon == null){
-      return WxXmlOutMessage.TEXT().content("抱歉，没有找到优惠券！").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
-    } else{
-      return createNewsResponse(wxMessage,coupon);
-    }
+      Coupon coupon = tbUrlHandler.taokeServer.getCouponByItemId(m.group(1));
+      if (coupon != null) {
+          return createNewsResponse(wxMessage, coupon);
+      } else if (tbUrlHandler.taokeServer.ItemExists(m.group(1))) {
+          return WxXmlOutMessage.TEXT().content("抱歉，此商品没有优惠券！").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
+      } else{
+          try {
+              Thread.sleep(2000);
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          }
+          coupon = tbUrlHandler.taokeServer.getCouponByItemId(m.group(1));
+          if (coupon != null) {
+              return createNewsResponse(wxMessage, coupon);
+          } else if (tbUrlHandler.taokeServer.ItemExists(m.group(1))) {
+              return WxXmlOutMessage.TEXT().content("抱歉，此商品没有优惠券！").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
+          }else{
+              return WxXmlOutMessage.TEXT().content("正在查找优惠券，请稍后两分钟重试。").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
+          }
+      }
   }
 
   private WxXmlOutMessage createNewsResponse(WxXmlMessage wxMessage,Coupon coupon) throws WxErrorException{
@@ -82,10 +85,10 @@ public class TBUrlHandler implements WxMessageHandler {
 
     WxXmlOutNewsMessage.Item item = new WxXmlOutNewsMessage.Item();
     item.setTitle(coupon.getTitle());
-   item.setDescription(coupon.getCoupon_info());
-    item.setUrl("http://api.taobao71.com/#" + coupon.getItem_id());
+    item.setDescription(coupon.getCoupon_info());
+    item.setUrl("http://api.taobao71.com/wx/coupon#" + coupon.getItem_id());
     String imgUrl = coupon.getPict_url().replace("s://img.alicdn","://img.taobao71");
-    item.setPicUrl(imgUrl + "_30x30.jpg");
+    item.setPicUrl(imgUrl + "_100x100.jpg");
     newsBuilder.addArticle(item);
 
     return newsBuilder.toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
