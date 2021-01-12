@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.Service.TaokeServer;
+import com.taobao71.tb71.dao.ItemWithoutCoupnServer;
 import com.taobao71.tb71.domain.Coupon;
 import com.taobao71.tb71.domain.Tpwd;
 import org.slf4j.Logger;
@@ -30,6 +31,8 @@ public class TBUrlHandler implements WxMessageHandler {
   private Tpwd tpwd;
   @Autowired
   private TaobaoClientServer taobaoClientServer;
+  @Autowired
+  private ItemWithoutCoupnServer itemWithoutCoupnServer;
 
   public static TBUrlHandler tbUrlHandler;
   @PostConstruct
@@ -38,6 +41,7 @@ public class TBUrlHandler implements WxMessageHandler {
     tbUrlHandler.tpwd = this.tpwd;
     tbUrlHandler.taobaoClientServer = this.taobaoClientServer;
     tbUrlHandler.taokeServer = this.taokeServer;
+    tbUrlHandler.itemWithoutCoupnServer = this.itemWithoutCoupnServer;
   }
 
   static Logger logger = LoggerFactory.getLogger(WxMessageHandler.class);
@@ -60,7 +64,7 @@ public class TBUrlHandler implements WxMessageHandler {
       Coupon coupon = tbUrlHandler.taokeServer.getCouponByItemId(m.group(1));
       if (coupon != null) {
           return createNewsResponse(wxMessage, coupon);
-      } else if (tbUrlHandler.taokeServer.ItemExists(m.group(1))) {
+      } else if (tbUrlHandler.taokeServer.ItemExists(m.group(1)) || tbUrlHandler.itemWithoutCoupnServer.getItemByItemID(Long.valueOf(m.group(1))) != 0 ) {
           return WxXmlOutMessage.TEXT().content("抱歉，此商品没有优惠券！").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
       } else{
           try {
@@ -71,7 +75,7 @@ public class TBUrlHandler implements WxMessageHandler {
           coupon = tbUrlHandler.taokeServer.getCouponByItemId(m.group(1));
           if (coupon != null) {
               return createNewsResponse(wxMessage, coupon);
-          } else if (tbUrlHandler.taokeServer.ItemExists(m.group(1))) {
+          } else if (tbUrlHandler.taokeServer.ItemExists(m.group(1))  || tbUrlHandler.itemWithoutCoupnServer.getItemByItemID(Long.valueOf(m.group(1))) != 0) {
               return WxXmlOutMessage.TEXT().content("抱歉，此商品没有优惠券！").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
           }else{
               return WxXmlOutMessage.TEXT().content("正在查找优惠券，请稍后两分钟重试。").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
