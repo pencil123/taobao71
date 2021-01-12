@@ -6,6 +6,8 @@ import com.soecode.wxtools.api.WxMessageRouter;
 import com.soecode.wxtools.api.WxService;
 import com.soecode.wxtools.bean.WxXmlMessage;
 import com.soecode.wxtools.bean.WxXmlOutMessage;
+import com.soecode.wxtools.bean.result.WxCurMenuInfoResult;
+import com.soecode.wxtools.exception.WxErrorException;
 import com.soecode.wxtools.util.xml.XStreamTransformer;
 import com.taobao71.tb71.Controllers.WeChatApi;
 import com.taobao71.tb71.Service.TaokeServer;
@@ -74,7 +76,21 @@ public class WeChatApiImpl implements WeChatApi {
     }
   }
 
-
+  /**
+   * 获取当前 GZH 菜单栏配置
+   * @return
+   */
+  @GetMapping("curmenu")
+  public WxCurMenuInfoResult gainCurMenuInfo(){
+    try {
+      WxCurMenuInfoResult result = iService.getMenuCurInfo();
+      logger.info(result.toString());
+      return result;
+    } catch (WxErrorException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
   /**
    * 获取Coupon 信息
    * @param itemid

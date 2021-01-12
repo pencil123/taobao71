@@ -2,6 +2,7 @@ package com.taobao71.tb71.Controllers;
 
 import com.soecode.wxtools.api.IService;
 import com.soecode.wxtools.api.WxService;
+import com.soecode.wxtools.bean.result.WxCurMenuInfoResult;
 import com.taobao71.tb71.domain.CouponResp;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,12 @@ public interface WeChatApi {
    * @param response
    */
   public void handle(HttpServletRequest request, HttpServletResponse response);
+
+  /**
+   * 获取当前 GZH 菜单栏配置
+   * @return
+   */
+  public WxCurMenuInfoResult gainCurMenuInfo();
 
 
   /**
