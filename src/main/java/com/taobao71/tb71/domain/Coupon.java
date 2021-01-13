@@ -33,6 +33,7 @@ public class Coupon  implements Serializable {
     private String coupon_info;
     private Integer coupon_remain_count;
     private String coupon_share_url;
+    private String zk_final_price;
     private String coupon_start_fee;
     private String coupon_start_time;
     private String commission_rate;
@@ -176,5 +177,13 @@ public class Coupon  implements Serializable {
 
     public void setPict_url(String pict_url) {
         this.pict_url = pict_url;
+    }
+
+    public String getZk_final_price() {
+        return zk_final_price;
+    }
+
+    public void setZk_final_price(String zk_final_price) {
+        this.zk_final_price = zk_final_price;
     }
 }

@@ -44,8 +44,8 @@ public class CouponServerImpl implements CouponServer {
         //如果数据库中没有存储；
         try {
             String sqlString = "insert into coupon (coupon_id,coupon_info,coupon_share_url,coupon_total_count," +
-                    "coupon_remain_count,coupon_start_fee,coupon_amount,coupon_start_time,coupon_end_time," +
-                    "commission_rate,commission_type,tk_total_sales,tk_total_commi,item_id,title,pict_url) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                "coupon_remain_count,coupon_start_fee,coupon_amount,coupon_start_time,coupon_end_time," +
+                "commission_rate,commission_type,tk_total_sales,tk_total_commi,item_id,title,pict_url,zk_final_price) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             KeyHolder holder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(sqlString, Statement.RETURN_GENERATED_KEYS);
@@ -67,6 +67,7 @@ public class CouponServerImpl implements CouponServer {
                 ps.setLong(14, coupon.getItem_id());
                 ps.setString(15, coupon.getTitle());
                 ps.setString(16, coupon.getPict_url());
+                ps.setString(17, coupon.getZk_final_price());
                 return ps;
             }, holder);
             id = Objects.requireNonNull(holder.getKey()).intValue();
