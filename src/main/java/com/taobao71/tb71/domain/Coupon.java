@@ -42,6 +42,7 @@ public class Coupon  implements Serializable {
     private String tk_total_sales;
     private String title;
     private String pict_url;
+    private String search_id;
 
     public Integer getId() {
         return id;
@@ -185,5 +186,13 @@ public class Coupon  implements Serializable {
 
     public void setZk_final_price(String zk_final_price) {
         this.zk_final_price = zk_final_price;
+    }
+
+    public String getSearch_id() {
+        return search_id;
+    }
+
+    public void setSearch_id(String search_id) {
+        this.search_id = search_id;
     }
 }

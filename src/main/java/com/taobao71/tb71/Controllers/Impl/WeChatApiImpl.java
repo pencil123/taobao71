@@ -12,6 +12,7 @@ import com.soecode.wxtools.util.xml.XStreamTransformer;
 import com.taobao71.tb71.Controllers.WeChatApi;
 import com.taobao71.tb71.Service.TaokeServer;
 import com.taobao71.tb71.domain.CouponResp;
+import com.taobao71.tb71.domain.ItemResp;
 import com.taobao71.tb71.wxHandler.TBUrlHandler;
 import com.taobao71.tb71.wxHandler.WhoAmIHandler;
 import com.taobao71.tb71.wxMatcher.TBUrlMatcher;
@@ -25,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @RestController
 @RequestMapping("/wxapi")
@@ -100,5 +102,12 @@ public class WeChatApiImpl implements WeChatApi {
   public CouponResp getCouponResp(@RequestParam(value = "itemid",required = true) String itemid){
     logger.info("the item_id param:{}",itemid);
     return  taokeServer.getCouponResp(itemid);
+  }
+
+  /**
+   * 获取搜索结果信息 item search
+   */
+  public List<ItemResp> searchItemResp(String searchid){
+
   }
 }

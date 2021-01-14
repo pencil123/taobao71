@@ -1,5 +1,7 @@
 package com.taobao71.tb71.domain;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 物料影响信息
  * 不在数据库中创建对应的表
@@ -14,6 +16,7 @@ package com.taobao71.tb71.domain;
  * coupon_start_fee	String	29.00	优惠券信息-优惠券起用门槛，满X元可用。如：满299元减20元
  * coupon_amount	String	10.00	优惠券（元） 若属于预售商品，该优惠券付尾款可用，付定金不可用
  */
+@Component
 public class ItemResp {
   private Long item_id;
   private String title;

@@ -2,6 +2,8 @@ package com.taobao71.tb71.dao.Impl;
 
 import com.taobao71.tb71.dao.CouponServer;
 import com.taobao71.tb71.domain.Coupon;
+import com.taobao71.tb71.domain.CouponResp;
+import com.taobao71.tb71.domain.ItemResp;
 import com.taobao71.tb71.domain.Shop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -45,7 +48,7 @@ public class CouponServerImpl implements CouponServer {
         try {
             String sqlString = "insert into coupon (coupon_id,coupon_info,coupon_share_url,coupon_total_count," +
                 "coupon_remain_count,coupon_start_fee,coupon_amount,coupon_start_time,coupon_end_time," +
-                "commission_rate,commission_type,tk_total_sales,tk_total_commi,item_id,title,pict_url,zk_final_price) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                "commission_rate,commission_type,tk_total_sales,tk_total_commi,item_id,title,pict_url,zk_final_price,search_id) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             KeyHolder holder = new GeneratedKeyHolder();
             jdbcTemplate.update(connection -> {
                 PreparedStatement ps = connection.prepareStatement(sqlString, Statement.RETURN_GENERATED_KEYS);
@@ -68,6 +71,7 @@ public class CouponServerImpl implements CouponServer {
                 ps.setString(15, coupon.getTitle());
                 ps.setString(16, coupon.getPict_url());
                 ps.setString(17, coupon.getZk_final_price());
+                ps.setString(18, coupon.getSearch_id());
                 return ps;
             }, holder);
             id = Objects.requireNonNull(holder.getKey()).intValue();
@@ -98,6 +102,16 @@ public class CouponServerImpl implements CouponServer {
         }catch (Exception e){
             return null;
         }
+    }
+
+    /**
+     * 根据搜索 ID 返回 物料信息
+     * @param searchId
+     * @return 返回 物料信息
+     */
+    public List<ItemResp> searchCouponBySearchId(String searchId){
+
+
     }
 
 }

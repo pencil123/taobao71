@@ -49,5 +49,5 @@ public interface WeChatApi {
   /**
    * 获取搜索结果信息 item search
    */
-  public List<ItemResp> getItemResp();
+  public List<ItemResp> searchItemResp(String searchid);
 }
