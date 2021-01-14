@@ -4,6 +4,8 @@ import com.soecode.wxtools.api.IService;
 import com.soecode.wxtools.api.WxService;
 import com.soecode.wxtools.bean.result.WxCurMenuInfoResult;
 import com.taobao71.tb71.domain.CouponResp;
+import com.taobao71.tb71.domain.ItemResp;
+import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,11 +39,15 @@ public interface WeChatApi {
    */
   public WxCurMenuInfoResult gainCurMenuInfo();
 
-
   /**
    * 获取Coupon 信息
    * @param itemid
    * @return
    */
   public CouponResp getCouponResp(@RequestParam(value = "itemid",required = true) String itemid);
+
+  /**
+   * 获取搜索结果信息 item search
+   */
+  public List<ItemResp> getItemResp();
 }
