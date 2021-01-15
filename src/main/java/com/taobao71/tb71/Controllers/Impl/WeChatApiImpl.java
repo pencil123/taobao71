@@ -11,6 +11,7 @@ import com.soecode.wxtools.exception.WxErrorException;
 import com.soecode.wxtools.util.xml.XStreamTransformer;
 import com.taobao71.tb71.Controllers.WeChatApi;
 import com.taobao71.tb71.Service.TaokeServer;
+import com.taobao71.tb71.dao.CouponServer;
 import com.taobao71.tb71.domain.CouponResp;
 import com.taobao71.tb71.domain.ItemResp;
 import com.taobao71.tb71.wxHandler.TBUrlHandler;
@@ -35,6 +36,8 @@ public class WeChatApiImpl implements WeChatApi {
   static Logger logger = LoggerFactory.getLogger(WeChatApiImpl.class);
   @Autowired
   private TaokeServer taokeServer;
+  @Autowired
+  private CouponServer couponServer;
 
   @GetMapping
   public String check(String signature, String timestamp, String nonce, String echostr)  {
@@ -108,6 +111,6 @@ public class WeChatApiImpl implements WeChatApi {
    * 获取搜索结果信息 item search
    */
   public List<ItemResp> searchItemResp(String searchid){
-
+    return  couponServer.searchCouponBySearchId(searchid);
   }
 }
