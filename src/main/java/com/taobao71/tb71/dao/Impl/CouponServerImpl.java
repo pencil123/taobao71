@@ -1,14 +1,17 @@
 package com.taobao71.tb71.dao.Impl;
 
+import com.alibaba.fastjson.JSON;
 import com.taobao71.tb71.dao.CouponServer;
 import com.taobao71.tb71.domain.Coupon;
 import com.taobao71.tb71.domain.CouponResp;
 import com.taobao71.tb71.domain.ItemResp;
 import com.taobao71.tb71.domain.Shop;
+import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.InvalidResultSetAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -110,8 +113,18 @@ public class CouponServerImpl implements CouponServer {
      * @return 返回 物料信息
      */
     public List<ItemResp> searchCouponBySearchId(String searchId){
-
-
+        String sql = "select * from coupon where search_id = ? order by id limit 10";
+        try {
+            List<Coupon> coupons = jdbcTemplate.query(sql,new Object[]{searchId},new BeanPropertyRowMapper<>(Coupon.class));
+            List<ItemResp> itemResps = new ArrayList<>();
+            for(Coupon coupon:coupons){
+               ItemResp itemResp = JSON.parseObject(JSON.toJSONString(coupon),ItemResp.class);
+               itemResps.add(itemResp);
+            }
+            return itemResps;
+        }catch (EmptyResultDataAccessException e){
+            logger.info(e.toString());
+            return null;
+        }
     }
-
 }
