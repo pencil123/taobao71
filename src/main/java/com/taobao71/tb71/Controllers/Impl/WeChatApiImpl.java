@@ -113,7 +113,8 @@ public class WeChatApiImpl implements WeChatApi {
   /**
    * 获取搜索结果信息 item search
    */
-  public List<ItemResp> searchItemResp(String searchid){
+  @GetMapping("itemresp")
+  public List<ItemResp> searchItemResp(@RequestParam(value = "searchid",required = true) String searchid){
     return  couponServer.searchCouponBySearchId(searchid);
   }
 }
