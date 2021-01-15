@@ -17,11 +17,17 @@ public class Publisher {
     @Autowired
     RabbitmqConfig rabbitmqConfig;
 
-    private Map<String,String> map=new HashMap<>();
-
     public boolean sendDirectMessage(String itemId) {
+        Map<String,String> map=new HashMap<>();
         map.put("itemId",itemId);
         //将消息携带绑定键值：TestDirectRouting 发送到交换机TestDirectExchange
+        rabbitTemplate.convertAndSend("tkExchange", "tk",map);
+        return true;
+    }
+
+    public boolean sendMapMesssage(Map map){
+        //map.type searchItemById  提供itemID 搜索物料信息
+        //map.type searchCouponByKeyword  提供搜索关键词，搜索优惠券信息
         rabbitTemplate.convertAndSend("tkExchange", "tk",map);
         return true;
     }

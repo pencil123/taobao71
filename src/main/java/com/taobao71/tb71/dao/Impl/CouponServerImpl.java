@@ -74,7 +74,7 @@ public class CouponServerImpl implements CouponServer {
                 ps.setString(15, coupon.getTitle());
                 ps.setString(16, coupon.getPict_url());
                 ps.setString(17, coupon.getZk_final_price());
-                ps.setString(18, coupon.getSearch_id());
+                ps.setLong(18, coupon.getSearch_id());
                 return ps;
             }, holder);
             id = Objects.requireNonNull(holder.getKey()).intValue();

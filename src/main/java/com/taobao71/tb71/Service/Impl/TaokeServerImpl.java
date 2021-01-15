@@ -9,6 +9,8 @@ import com.taobao71.tb71.dao.ItemServer;
 import com.taobao71.tb71.domain.Coupon;
 import com.taobao71.tb71.domain.CouponResp;
 import com.taobao71.tb71.rabbitmq.Publisher;
+import java.util.HashMap;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +49,10 @@ public class TaokeServerImpl implements TaokeServer {
             return coupon;
         }
         //将Item_id 信息发送到RabbitMQ
-        publisher.sendDirectMessage(itemId);
+        Map<String,String> map=new HashMap<>();
+        map.put("type","searchItemById");
+        map.put("itemId",itemId);
+        publisher.sendMapMesssage(map);
         return null;
     }
 
