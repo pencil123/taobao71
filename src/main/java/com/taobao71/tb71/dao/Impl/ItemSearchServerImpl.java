@@ -23,48 +23,41 @@ public class ItemSearchServerImpl implements ItemSearchServer {
 
     static Logger logger = LoggerFactory.getLogger(ItemSearchServerImpl.class);
 
-    public Integer itemExistRetrunId(Long item_id) {
+    /**
+     * 数据库中是否存储搜索记录
+     * @param keyword
+     * @return 搜索记录ID search_id
+     */
+    private Long itemSearchExist(String keyword) {
         try {
-            String sqlString = "select id from item_search where item_id = ?";
-            Integer id = jdbcTemplate.queryForObject(sqlString, Integer.class, item_id);
-            return id;
+            String sqlString = "select search_id from item_search where keyword = ?";
+            Long searchId = jdbcTemplate.queryForObject(sqlString, Long.class, keyword);
+            return searchId;
         }catch (Exception e){
-            return 0;
+            return null;
         }
     }
 
-    public Integer addItemSearch(ItemSearch itemSearch){
+    /**
+     * 将用户搜索的商品信息，写入到数据库
+     * @param itemSearch
+     * @return 返回 search_id
+     */
+    public Long addItemSearch(ItemSearch itemSearch){
         // 判断数据库中是否已经存在；如果已经存储
-        Integer id = itemExistRetrunId(itemSearch.getItem_id());
-        if(id > 0) {return id;}
-
-        logger.info("ItemImpl info:{}",itemSearch.toString());
+        Long searchId = itemSearchExist(itemSearch.getKeyword());
+        if(searchId != null){
+            return searchId;
+        }
         //如果数据库中没有存储；
         try {
-            String sqlString = "insert into item_search (item_id,title,provcity,seller_id,category_name," +
-                    "level_one_category_name,free_shipment,superior_brand,user_type," +
-                    "zk_final_price) values(?,?,?,?,?,?,?,?,?,?)";
-            KeyHolder holder = new GeneratedKeyHolder();
-            jdbcTemplate.update(connection -> {
-                PreparedStatement ps = connection.prepareStatement(sqlString, Statement.RETURN_GENERATED_KEYS);
-                ps.setLong(1,itemSearch.getItem_id());
-                ps.setString(2, itemSearch.getTitle());
-                ps.setString(3,itemSearch.getProvcity());
-                ps.setLong(4, itemSearch.getSeller_id());
-                ps.setString(5, itemSearch.getCategory_name());
-                ps.setString(6, itemSearch.getLevel_one_category_name());
-                ps.setBoolean(7,itemSearch.getFree_shipment());
-                ps.setString(8, itemSearch.getSuperior_brand());
-                ps.setInt(9,itemSearch.getUser_type());
-                ps.setString(10, itemSearch.getZk_final_price());
-                return ps;
-            }, holder);
-            id = Objects.requireNonNull(holder.getKey()).intValue();
+            String sqlString = "insert into item_search(keyword,search_id) values(?,?)";
+            jdbcTemplate.update(sqlString,itemSearch.getKeyword(),itemSearch.getSearch_id());
         } catch (InvalidResultSetAccessException e) {
             logger.warn("Dao#数据写入失败:InvalidResultSetAccessException: {}",e.toString());
         } catch (DataAccessException e) {
             logger.warn("Dao#数据写入失败:DataAccessException; {}",e.toString());
         }
-        return Integer.valueOf(id);
+        return itemSearch.getSearch_id();
     }
 }

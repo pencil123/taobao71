@@ -40,6 +40,10 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
     private CouponServer couponServer;
     @Autowired
     private ItemSearchServer itemSearchServer;
+    @Autowired
+    private ItemWithoutCoupon itemWithoutCoupon;
+    @Autowired
+    private ItemWithoutCoupnServer itemWithoutCoupnServer;
 
     private TaobaoClient taobaoClient;
     private int total_count = 0;
@@ -167,9 +171,9 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
     /**
      * 根据ItemID 查询商品信息
      * @param tbkItemInfoGetRequest
-     * @return HashMap key:  seller_id category_name notfound
+     * @return 获取商品失败返回null
      */
-    public ItemSearch getItemInfo(TbkItemInfoGetRequest tbkItemInfoGetRequest){
+    public Item getItemInfo(TbkItemInfoGetRequest tbkItemInfoGetRequest){
         try {
             TbkItemInfoGetResponse rsp = taobaoClient.execute(tbkItemInfoGetRequest);
             JSONObject jsonObject = JSONObject.parseObject(rsp.getBody());
@@ -178,21 +182,26 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
             JSONArray n_tbk_item = results.getJSONArray("n_tbk_item");
             if (n_tbk_item.size() == 1) {
                 JSONObject itemJsonObject = n_tbk_item.getJSONObject(0);
-                itemJsonObject.put("category_name",itemJsonObject.getString("cat_leaf_name"));
-                itemJsonObject.put("level_one_category_name",itemJsonObject.getString("cat_name"));
-                itemJsonObject.put("item_id",itemJsonObject.getLongValue("num_iid"));
+//                itemJsonObject.put("category_name",itemJsonObject.getString("cat_leaf_name"));
+//                itemJsonObject.put("level_one_category_name",itemJsonObject.getString("cat_name"));
+//                itemJsonObject.put("item_id",itemJsonObject.getLongValue("num_iid"));
 
-                ItemSearch itemSearch = JSON.parseObject(itemJsonObject.toJSONString(), ItemSearch.class);
-                Integer itemId = itemSearchServer.addItemSearch(itemSearch);
-                return itemSearch;
+                Item item = JSON.parseObject(itemJsonObject.toJSONString(), Item.class);
+                Integer itemId = itemServer.addItem(item);
+                return item;
             } else{
                 logger.error("getIteminfo response size {};info: {}",n_tbk_item.size(),n_tbk_item.toJSONString());
-                return null;
+                return  null;
             }
         }catch (ApiException e) {
             e.printStackTrace();
+            return  null;
+        }catch (NullPointerException e) {
+            itemWithoutCoupon.setItem_id(Long.valueOf(tbkItemInfoGetRequest.getNumIids()));
+            itemWithoutCoupnServer.addItemWithoutCoupon(itemWithoutCoupon);
+            e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
 /*    *//**

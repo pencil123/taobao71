@@ -4,6 +4,7 @@ import com.taobao.api.request.TbkDgMaterialOptionalRequest;
 import com.taobao.api.request.TbkItemInfoGetRequest;
 import com.taobao.api.response.TbkDgMaterialOptionalResponse;
 import com.taobao71.tb71.dao.ItemSearchServer;
+import com.taobao71.tb71.domain.Item;
 import com.taobao71.tb71.domain.ItemSearch;
 import com.taobao71.tb71.domain.Tpwd;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,12 +24,7 @@ public interface TaobaoClientServer {
      */
     public String searchMaterial(TbkDgMaterialOptionalRequest tbkDgMaterialOptionalRequest);
 
-    /**
-     *
-     * @param tbkItemInfoGetRequest
-     * @return
-     */
-    public ItemSearch getItemInfo(TbkItemInfoGetRequest tbkItemInfoGetRequest);
+    public Item getItemInfo(TbkItemInfoGetRequest tbkItemInfoGetRequest);
 
 
     /**

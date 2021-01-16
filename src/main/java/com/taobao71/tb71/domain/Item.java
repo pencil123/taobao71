@@ -57,6 +57,7 @@ public class Item {
     private String white_image;
     private String info_dxjh;
     private String zk_final_price;
+    private String seller_id;
 
     public Integer getId() {
         return id;
@@ -266,34 +267,11 @@ public class Item {
         this.info_dxjh = info_dxjh;
     }
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", x_id='" + x_id + '\'' +
-                ", item_id=" + item_id +
-                ", item_url='" + item_url + '\'' +
-                ", item_description='" + item_description + '\'' +
-                ", category_id=" + category_id +
-                ", category_name='" + category_name + '\'' +
-                ", commission_rate='" + commission_rate + '\'' +
-                ", tmall_play_activity_info='" + tmall_play_activity_info + '\'' +
-                ", provcity='" + provcity + '\'' +
-                ", include_dxjh='" + include_dxjh + '\'' +
-                ", include_mkt='" + include_mkt + '\'' +
-                ", level_one_category_id=" + level_one_category_id +
-                ", level_one_category_name='" + level_one_category_name + '\'' +
-                ", pict_url='" + pict_url + '\'' +
-                ", real_post_fee='" + real_post_fee + '\'' +
-                ", reserve_price='" + reserve_price + '\'' +
-                ", short_title='" + short_title + '\'' +
-                ", small_images=" + small_images +
-                ", title='" + title + '\'' +
-                ", url='" + url + '\'' +
-                ", volume=" + volume +
-                ", white_image='" + white_image + '\'' +
-                ", info_dxjh='" + info_dxjh + '\'' +
-                ", zk_final_price='" + zk_final_price + '\'' +
-                '}';
+    public String getSeller_id() {
+        return seller_id;
+    }
+
+    public void setSeller_id(String seller_id) {
+        this.seller_id = seller_id;
     }
 }

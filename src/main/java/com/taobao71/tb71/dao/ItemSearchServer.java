@@ -13,14 +13,7 @@ public interface ItemSearchServer {
     /**
      * 将用户搜索的商品信息，写入到数据库
      * @param itemSearch
-     * @return 记录ID
+     * @return 返回 search_id
      */
-    public Integer addItemSearch(ItemSearch itemSearch);
-
-    /**
-     * 检查用户搜索的商品信息，是否已经写入过数据库
-     * @param item_id
-     * @return 记录ID
-     */
-    public Integer itemExistRetrunId(Long item_id) ;
+    public Long addItemSearch(ItemSearch itemSearch);
 }
