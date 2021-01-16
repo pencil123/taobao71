@@ -9,8 +9,10 @@ import com.soecode.wxtools.bean.outxmlbuilder.NewsBuilder;
 import com.soecode.wxtools.exception.WxErrorException;
 import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.Service.TaokeServer;
+import com.taobao71.tb71.dao.ItemSearchServer;
 import com.taobao71.tb71.dao.ItemWithoutCoupnServer;
 import com.taobao71.tb71.domain.Coupon;
+import com.taobao71.tb71.domain.ItemSearch;
 import com.taobao71.tb71.domain.Tpwd;
 import com.taobao71.tb71.rabbitmq.Publisher;
 import java.util.HashMap;
@@ -27,12 +29,20 @@ import org.springframework.stereotype.Component;
 public class KeywordHandler implements WxMessageHandler {
   @Autowired
   private Publisher publisher;
+  @Autowired
+  private ItemSearchServer itemSearchServer;
+  @Autowired
+  private ItemSearch itemSearch;
 
   public static KeywordHandler tbUrlHandler;
+
+
   @PostConstruct
   public void init(){
     tbUrlHandler = this;
     tbUrlHandler.publisher = this.publisher;
+    tbUrlHandler.itemSearchServer = this.itemSearchServer;
+    tbUrlHandler.itemSearch = this.itemSearch;
   }
 
   static Logger logger = LoggerFactory.getLogger(WxMessageHandler.class);
@@ -42,19 +52,24 @@ public class KeywordHandler implements WxMessageHandler {
           WxXmlMessage wxMessage, Map<String, Object> context, IService iService) throws WxErrorException {
     String line = wxMessage.getContent();
     Long searchId = System.currentTimeMillis();
-    
-    Map<String,String> map=new HashMap<>();
-    map.put("type","searchCouponByKeyword");
-    map.put("keyword",line);
-    map.put("searchId",String.valueOf(searchId));
-    tbUrlHandler.publisher.sendMapMesssage(map);
 
-    try {
-      Thread.sleep(2000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
+    tbUrlHandler.itemSearch.setKeyword(line);
+    tbUrlHandler.itemSearch.setSearch_id(searchId);
+    Long realSearchId = tbUrlHandler.itemSearchServer.addItemSearch(tbUrlHandler.itemSearch);
+    if (realSearchId != searchId) {
+      searchId = realSearchId;
+    } else {
+      Map<String, String> map = new HashMap<>();
+      map.put("type", "searchCouponByKeyword");
+      map.put("keyword", line);
+      map.put("searchId", String.valueOf(searchId));
+      tbUrlHandler.publisher.sendMapMesssage(map);
+      try {
+        Thread.sleep(2000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
     }
-
     NewsBuilder newsBuilder = WxXmlOutMessage.NEWS();
     WxXmlOutNewsMessage.Item item = new WxXmlOutNewsMessage.Item();
     item.setTitle(line);

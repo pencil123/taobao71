@@ -119,6 +119,7 @@ public class CouponServerImpl implements CouponServer {
             List<ItemResp> itemResps = new ArrayList<>();
             for(Coupon coupon:coupons){
                ItemResp itemResp = JSON.parseObject(JSON.toJSONString(coupon),ItemResp.class);
+               itemResp.setPict_url(coupon.getPict_url().replace("s://img.alicdn","://img.taobao71") + "_300x300.jpg");
                itemResps.add(itemResp);
             }
             return itemResps;
