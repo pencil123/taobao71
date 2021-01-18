@@ -50,7 +50,7 @@ public class Item {
     private String real_post_fee;
     private String reserve_price;
     private String short_title;
-    private JSONObject small_images;
+    private String small_images;
     private String title;
     private String url;
     private Integer volume;
@@ -211,11 +211,11 @@ public class Item {
         this.short_title = short_title;
     }
 
-    public JSONObject getSmall_images() {
+    public String getSmall_images() {
         return small_images;
     }
 
-    public void setSmall_images(JSONObject small_images) {
+    public void setSmall_images(String small_images) {
         this.small_images = small_images;
     }
 

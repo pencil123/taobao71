@@ -29,7 +29,7 @@ public class CouponServerImpl implements CouponServer {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    static Logger logger = LoggerFactory.getLogger(ShopServerImpl.class);
+    static Logger logger = LoggerFactory.getLogger(CouponServerImpl.class);
 
     private Integer couponExistRetrunId(Coupon coupon) {
         try {

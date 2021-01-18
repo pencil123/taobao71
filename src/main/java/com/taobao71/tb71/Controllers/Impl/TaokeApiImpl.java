@@ -62,6 +62,6 @@ public class TaokeApiImpl implements TaokeApi {
      */
     @RequestMapping("getCouponByItemId")
     public Coupon searchCouponByItemId(@RequestParam(value = "item_id",required = true,defaultValue = "123") String item_id) {
-        return taokeServer.getCouponByItemId(item_id);
+        return taokeServer.getCouponByItemId(item_id,true);
     }
 }

@@ -15,6 +15,7 @@ import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.Service.TaokeServer;
 import com.taobao71.tb71.dao.ItemWithoutCoupnServer;
 import com.taobao71.tb71.domain.Coupon;
+import com.taobao71.tb71.domain.Item;
 import com.taobao71.tb71.domain.Tpwd;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,39 +62,57 @@ public class TBUrlHandler implements WxMessageHandler {
           logger.info("Not Match");
       }
 
-      Coupon coupon = tbUrlHandler.taokeServer.getCouponByItemId(m.group(1));
-      if (coupon != null) {
-          return createNewsResponse(wxMessage, coupon);
-      } else if (tbUrlHandler.taokeServer.ItemExists(m.group(1)) || tbUrlHandler.itemWithoutCoupnServer.getItemByItemID(Long.valueOf(m.group(1))) != 0 ) {
+      String itemId = m.group(1);
+
+      Coupon coupon = tbUrlHandler.taokeServer.getCouponByItemId(itemId,true);
+      Item item = tbUrlHandler.taokeServer.getItemByItemId(itemId);
+      if (coupon != null || item != null) {
+          return createNewsResponse(wxMessage, coupon,item);
+      }
+      try {
+          Thread.sleep(2000);
+      } catch (InterruptedException e) {
+          e.printStackTrace();
+      }
+      coupon = tbUrlHandler.taokeServer.getCouponByItemId(itemId,false);
+      item = tbUrlHandler.taokeServer.getItemByItemId(itemId);
+      if (coupon != null || item != null) {
+          return createNewsResponse(wxMessage, coupon,item);
+      }else{
           return WxXmlOutMessage.TEXT().content("抱歉，此商品没有优惠券！").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
-      } else{
-          try {
-              Thread.sleep(2000);
-          } catch (InterruptedException e) {
-              e.printStackTrace();
-          }
-          coupon = tbUrlHandler.taokeServer.getCouponByItemId(m.group(1));
-          if (coupon != null) {
-              return createNewsResponse(wxMessage, coupon);
-          } else if (tbUrlHandler.taokeServer.ItemExists(m.group(1))  || tbUrlHandler.itemWithoutCoupnServer.getItemByItemID(Long.valueOf(m.group(1))) != 0) {
-              return WxXmlOutMessage.TEXT().content("抱歉，此商品没有优惠券！").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
-          }else{
-              return WxXmlOutMessage.TEXT().content("正在查找优惠券，请稍后两分钟重试。").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
-          }
       }
   }
 
-  private WxXmlOutMessage createNewsResponse(WxXmlMessage wxMessage,Coupon coupon) throws WxErrorException{
+  private WxXmlOutMessage createNewsResponse(WxXmlMessage wxMessage,Coupon coupon,Item item) throws WxErrorException{
     NewsBuilder newsBuilder = WxXmlOutMessage.NEWS();
-    Tpwd tpwd = tbUrlHandler.taobaoClientServer.gainTpwd("https:" + coupon.getCoupon_share_url());
+    String title,itemId,pictUrl;
+    String desc = "";
+    if(coupon != null){
+        title = coupon.getTitle();
+        itemId = String.valueOf(coupon.getItem_id());
+        pictUrl = String.valueOf(coupon.getPict_url());
+        Integer realPrice = Integer.valueOf(coupon.getZk_final_price()) - Integer.valueOf(coupon.getCoupon_amount());
+        desc = "券后：" + String.valueOf(realPrice) + "元\n";
+        desc += "优惠：" + coupon.getCoupon_amount() + "元券\n";
+    }else{
+        title = item.getTitle();
+        itemId = String.valueOf(item.getItem_id());
+        pictUrl = String.valueOf(item.getPict_url());
+        desc = "券后：" + item.getZk_final_price() + "元\n";
+        desc += "优惠：0元券\n";
+    }
+    logger.info("item info:{}",item.toString());
 
-    WxXmlOutNewsMessage.Item item = new WxXmlOutNewsMessage.Item();
-    item.setTitle(coupon.getTitle());
-    item.setDescription(coupon.getCoupon_info());
-    item.setUrl("http://api.taobao71.com/wx/coupon#" + coupon.getItem_id());
-    String imgUrl = coupon.getPict_url().replace("s://img.alicdn","://img.taobao71");
-    item.setPicUrl(imgUrl + "_100x100.jpg");
-    newsBuilder.addArticle(item);
+    double ComRate = Double.valueOf(item.getZk_final_price()) * Double.valueOf(item.getCommission_rate()) / 10000;
+    desc += "佣金：" + String.format("%.2f", ComRate) + "元";
+
+    WxXmlOutNewsMessage.Item itemMsg = new WxXmlOutNewsMessage.Item();
+      itemMsg.setTitle(title);
+      itemMsg.setDescription(desc);
+      itemMsg.setUrl("http://api.taobao71.com/wx/coupon#" + itemId);
+      String imgUrl = pictUrl.replace("s://img.alicdn","://img.taobao71");
+      itemMsg.setPicUrl(imgUrl + "_100x100.jpg");
+    newsBuilder.addArticle(itemMsg);
 
     return newsBuilder.toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
   }

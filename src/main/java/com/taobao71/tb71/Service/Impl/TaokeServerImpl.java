@@ -8,6 +8,7 @@ import com.taobao71.tb71.dao.CouponServer;
 import com.taobao71.tb71.dao.ItemServer;
 import com.taobao71.tb71.domain.Coupon;
 import com.taobao71.tb71.domain.CouponResp;
+import com.taobao71.tb71.domain.Item;
 import com.taobao71.tb71.rabbitmq.Publisher;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class TaokeServerImpl implements TaokeServer {
 
     static Logger logger = LoggerFactory.getLogger(TaokeServerImpl.class);
 
-    public Coupon getCouponByItemId(String itemId){
+    public Coupon getCouponByItemId(String itemId,boolean sendMq){
 
          // 查询数据库中的优惠券表；
         Coupon coupon = couponServer.getCouponByItemId(itemId);
@@ -48,6 +49,10 @@ public class TaokeServerImpl implements TaokeServer {
         if (coupon != null) {
             return coupon;
         }
+
+        if(!sendMq){
+            return null;
+        }
         //将Item_id 信息发送到RabbitMQ
         Map<String,String> map=new HashMap<>();
         map.put("type","searchItemById");
@@ -61,12 +66,13 @@ public class TaokeServerImpl implements TaokeServer {
      * @param itemId
      * @return 如果有：true
      */
-    public boolean ItemExists(String itemId){
+    public Item getItemByItemId(String itemId){
         // 查询数据库中物料表item;如果查询到了，则表明此物料没有优惠券。
-        if (itemServer.itemExistRetrunId(Long.valueOf(itemId)) != 0) {
-            return true;
+        Item item = itemServer.getItemByItemId(Long.valueOf(itemId));
+        if(item != null){
+            logger.info("Item is not null");
         }
-        return false;
+        return item != null ? item : null;
     }
 
     /**

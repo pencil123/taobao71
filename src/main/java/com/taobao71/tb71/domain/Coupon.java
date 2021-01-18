@@ -195,4 +195,29 @@ public class Coupon  implements Serializable {
     public void setSearch_id(Long search_id) {
         this.search_id = search_id;
     }
+
+    @Override
+    public String toString() {
+        return "Coupon{" +
+                "id=" + id +
+                ", item_id=" + item_id +
+                ", commission_type='" + commission_type + '\'' +
+                ", coupon_amount='" + coupon_amount + '\'' +
+                ", coupon_end_time='" + coupon_end_time + '\'' +
+                ", coupon_id='" + coupon_id + '\'' +
+                ", coupon_info='" + coupon_info + '\'' +
+                ", coupon_remain_count=" + coupon_remain_count +
+                ", coupon_share_url='" + coupon_share_url + '\'' +
+                ", zk_final_price='" + zk_final_price + '\'' +
+                ", coupon_start_fee='" + coupon_start_fee + '\'' +
+                ", coupon_start_time='" + coupon_start_time + '\'' +
+                ", commission_rate='" + commission_rate + '\'' +
+                ", coupon_total_count=" + coupon_total_count +
+                ", tk_total_commi='" + tk_total_commi + '\'' +
+                ", tk_total_sales='" + tk_total_sales + '\'' +
+                ", title='" + title + '\'' +
+                ", pict_url='" + pict_url + '\'' +
+                ", search_id=" + search_id +
+                '}';
+    }
 }

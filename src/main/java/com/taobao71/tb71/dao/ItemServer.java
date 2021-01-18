@@ -19,8 +19,8 @@ public interface ItemServer {
 
     /**
      * 商品Item 信息是否存储在数据库中
-     * @param item_id
+     * @param itemId
      * @return 返回商品的ID；如果没有则返回0
      */
-    public Integer itemExistRetrunId(Long item_id);
+    public Item getItemByItemId(Long itemId);
 }

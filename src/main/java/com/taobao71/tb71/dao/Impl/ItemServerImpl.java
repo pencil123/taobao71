@@ -1,6 +1,7 @@
 package com.taobao71.tb71.dao.Impl;
 
 import com.taobao71.tb71.dao.ItemServer;
+import com.taobao71.tb71.domain.Coupon;
 import com.taobao71.tb71.domain.Item;
 import com.taobao71.tb71.domain.Shop;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.InvalidResultSetAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -24,20 +26,22 @@ public class ItemServerImpl implements ItemServer {
 
     static Logger logger = LoggerFactory.getLogger(ItemServerImpl.class);
 
-    public Integer itemExistRetrunId(Long item_id) {
-        try {
-            String sqlString = "select id item from item where item_id = ?";
-            Integer id = jdbcTemplate.queryForObject(sqlString, Integer.class, item_id);
-            return id;
+    public Item getItemByItemId(Long itemId){
+        try{
+            String sqlString = "select * from item where item_id = ?";
+            Item item = jdbcTemplate.queryForObject(sqlString,new BeanPropertyRowMapper<Item>(Item.class),itemId);
+            return item;
         }catch (Exception e){
-            return 0;
+            logger.info(e.getMessage());
+            return null;
         }
     }
 
     public Integer addItem(Item item){
         // 判断数据库中是否已经存在；如果已经存储
-        Integer id = itemExistRetrunId(item.getItem_id());
-        if(id > 0) {return id;}
+        Item item1  = getItemByItemId(item.getItem_id());
+        if(item1 != null) {return item1.getId();}
+        Integer id = 0;
 
         logger.info("ItemImpl info:{}",item.toString());
         //如果数据库中没有存储；
@@ -58,7 +62,7 @@ public class ItemServerImpl implements ItemServer {
                 ps.setString(6, item.getItem_description());
                 ps.setString(7, item.getProvcity());
                 ps.setString(8, item.getPict_url());
-                ps.setString(9, item.getSmall_images() == null ? "{}": item.getSmall_images().toJSONString());
+                ps.setString(9, item.getSmall_images() == null ? "{}": item.getSmall_images());
                 ps.setString(10,item.getWhite_image());
                 ps.setString(11, item.getReal_post_fee());
                 ps.setString(12, item.getReserve_price());
