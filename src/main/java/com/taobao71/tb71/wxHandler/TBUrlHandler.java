@@ -87,12 +87,13 @@ public class TBUrlHandler implements WxMessageHandler {
     NewsBuilder newsBuilder = WxXmlOutMessage.NEWS();
     String title,itemId,pictUrl;
     String desc = "";
+    Double realPrice = 0.0;
     if(coupon != null){
         title = coupon.getTitle();
         itemId = String.valueOf(coupon.getItem_id());
         pictUrl = String.valueOf(coupon.getPict_url());
-        Double realPrice = Double.valueOf(coupon.getZk_final_price()) - Double.valueOf(coupon.getCoupon_amount());
-        desc = "券后：" + String.valueOf(realPrice) + "元\n";
+        realPrice = Double.valueOf(coupon.getZk_final_price()) - Double.valueOf(coupon.getCoupon_amount());
+        desc = "券后：" + String.format("%.2f", realPrice) + "元\n";
         desc += "优惠：" + coupon.getCoupon_amount() + "元券\n";
     }else{
         title = item.getTitle();
@@ -102,8 +103,11 @@ public class TBUrlHandler implements WxMessageHandler {
         desc += "优惠：0元券\n";
     }
     logger.info("item info:{}",item.toString());
+    if(realPrice == 0.0){
+      realPrice = Double.valueOf(item.getZk_final_price());
+    }
 
-    double ComRate = Double.valueOf(item.getZk_final_price()) * Double.valueOf(item.getCommission_rate()) / 10000;
+    double ComRate = realPrice * Double.valueOf(item.getCommission_rate()) / 10000;
     desc += "佣金：" + String.format("%.2f", ComRate) + "元";
 
     WxXmlOutNewsMessage.Item itemMsg = new WxXmlOutNewsMessage.Item();
