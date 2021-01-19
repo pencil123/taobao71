@@ -3,7 +3,6 @@ package com.taobao71.tb71.Service.Impl;
 import com.taobao.api.request.TbkItemInfoGetRequest;
 import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.Service.TaokeServer;
-import com.taobao71.tb71.dao.CouponResultServer;
 import com.taobao71.tb71.dao.CouponServer;
 import com.taobao71.tb71.dao.ItemServer;
 import com.taobao71.tb71.domain.Coupon;
@@ -26,8 +25,6 @@ public class TaokeServerImpl implements TaokeServer {
     @Autowired
     private ItemServer itemServer;
     @Autowired
-    private CouponResultServer couponResultServer;
-    @Autowired
     private Publisher publisher;
 
     private TbkItemInfoGetRequest req = new TbkItemInfoGetRequest();
@@ -43,13 +40,6 @@ public class TaokeServerImpl implements TaokeServer {
             logger.info("Coupon info:{}",coupon.toString());
             return coupon;
         }
-
-        // 查询数据库中的优惠券搜索coupon_result结果表；
-        coupon = couponResultServer.getCouponByItemId(itemId);
-        if (coupon != null) {
-            return coupon;
-        }
-
         if(!sendMq){
             return null;
         }

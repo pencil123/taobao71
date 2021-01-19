@@ -5,7 +5,6 @@ import com.taobao.api.request.TbkItemInfoGetRequest;
 import com.taobao71.tb71.Controllers.TaokeApi;
 import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.Service.TaokeServer;
-import com.taobao71.tb71.dao.CouponResultServer;
 import com.taobao71.tb71.dao.CouponServer;
 import com.taobao71.tb71.dao.ItemServer;
 import com.taobao71.tb71.domain.Coupon;
@@ -27,8 +26,6 @@ public class TaokeApiImpl implements TaokeApi {
     private CouponServer couponServer;
     @Autowired
     private ItemServer itemServer;
-    @Autowired
-    private CouponResultServer couponResultServer;
     @Autowired
     private Publisher publisher;
     @Autowired
