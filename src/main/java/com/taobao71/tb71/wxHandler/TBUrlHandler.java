@@ -91,7 +91,7 @@ public class TBUrlHandler implements WxMessageHandler {
         title = coupon.getTitle();
         itemId = String.valueOf(coupon.getItem_id());
         pictUrl = String.valueOf(coupon.getPict_url());
-        Integer realPrice = Integer.valueOf(coupon.getZk_final_price()) - Integer.valueOf(coupon.getCoupon_amount());
+        Double realPrice = Double.valueOf(coupon.getZk_final_price()) - Double.valueOf(coupon.getCoupon_amount());
         desc = "券后：" + String.valueOf(realPrice) + "元\n";
         desc += "优惠：" + coupon.getCoupon_amount() + "元券\n";
     }else{
