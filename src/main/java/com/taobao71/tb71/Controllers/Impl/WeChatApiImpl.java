@@ -16,9 +16,11 @@ import com.taobao71.tb71.domain.CouponResp;
 import com.taobao71.tb71.domain.ItemResp;
 import com.taobao71.tb71.wxHandler.KeywordHandler;
 import com.taobao71.tb71.wxHandler.TBUrlHandler;
+import com.taobao71.tb71.wxHandler.TpwdHandler;
 import com.taobao71.tb71.wxHandler.WhoAmIHandler;
 import com.taobao71.tb71.wxMatcher.KeywordMatcher;
 import com.taobao71.tb71.wxMatcher.TBUrlMatcher;
+import com.taobao71.tb71.wxMatcher.TpwdMatcher;
 import com.taobao71.tb71.wxMatcher.WhoAmIMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,6 +69,7 @@ public class WeChatApiImpl implements WeChatApi {
 
       router.rule().msgType(
           WxConsts.XML_MSG_TEXT).matcher(new WhoAmIMatcher()).handler(new WhoAmIHandler()).end()
+          .rule().msgType(WxConsts.XML_MSG_TEXT).matcher(new TpwdMatcher()).handler(new TpwdHandler()).end()
           .rule().msgType(WxConsts.XML_MSG_TEXT).matcher(new TBUrlMatcher()).handler(new TBUrlHandler()).end()
           .rule().msgType(WxConsts.XML_MSG_TEXT).matcher(new KeywordMatcher()).handler(new KeywordHandler()).end();
       // 把消息传递给路由器进行处理

@@ -43,23 +43,24 @@ public class TpwdHandler implements WxMessageHandler {
     tbUrlHandler.itemWithoutCoupnServer = this.itemWithoutCoupnServer;
   }
 
-  static Logger logger = LoggerFactory.getLogger(WxMessageHandler.class);
+  static Logger logger = LoggerFactory.getLogger(TpwdHandler.class);
 
   @Override
   public WxXmlOutMessage handle(
           WxXmlMessage wxMessage, Map<String, Object> context, IService iService) throws WxErrorException {
-      String pattern = ".*(https://m.tb.cn/.+)\\s.+";
+      String pattern = "[^\\u0000-\\uFFFF]([\\W])?([a-zA-Z0-9]+)([\\W])?[^\\u0000-\\uFFFF]";
       String line = wxMessage.getContent();
       Pattern r = Pattern.compile(pattern);
       Matcher m = r.matcher(line);
       if (m.find()) {
           logger.info("Found Valuse:{}", m.group(0));
           logger.info("Found Valuse:{}", m.group(1));
+          logger.info("Found Valuse:{}", m.group(2));
       } else {
           logger.info("Not Match");
+          return WxXmlOutMessage.TEXT().content("抱歉，此商品没有优惠券！").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
       }
-      String itemId = m.group(1);
-
+      String itemId = m.group(2);
       return WxXmlOutMessage.TEXT().content(itemId).toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
 
   }
