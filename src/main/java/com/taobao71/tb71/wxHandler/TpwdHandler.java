@@ -7,6 +7,7 @@ import com.soecode.wxtools.bean.WxXmlOutMessage;
 import com.soecode.wxtools.bean.WxXmlOutNewsMessage;
 import com.soecode.wxtools.bean.outxmlbuilder.NewsBuilder;
 import com.soecode.wxtools.exception.WxErrorException;
+import com.taobao71.tb71.Service.Dataoke;
 import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.Service.TaokeServer;
 import com.taobao71.tb71.dao.ItemWithoutCoupnServer;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TpwdHandler implements WxMessageHandler {
+
   @Autowired
   private TaokeServer taokeServer;
   @Autowired
@@ -32,37 +34,107 @@ public class TpwdHandler implements WxMessageHandler {
   private TaobaoClientServer taobaoClientServer;
   @Autowired
   private ItemWithoutCoupnServer itemWithoutCoupnServer;
+  @Autowired
+  private Dataoke dataoke;
 
   public static TpwdHandler tbUrlHandler;
+
   @PostConstruct
-  public void init(){
+  public void init() {
     tbUrlHandler = this;
     tbUrlHandler.tpwd = this.tpwd;
     tbUrlHandler.taobaoClientServer = this.taobaoClientServer;
     tbUrlHandler.taokeServer = this.taokeServer;
     tbUrlHandler.itemWithoutCoupnServer = this.itemWithoutCoupnServer;
+    tbUrlHandler.dataoke = this.dataoke;
   }
 
   static Logger logger = LoggerFactory.getLogger(TpwdHandler.class);
 
   @Override
   public WxXmlOutMessage handle(
-          WxXmlMessage wxMessage, Map<String, Object> context, IService iService) throws WxErrorException {
-      String pattern = "[^\\u0000-\\uFFFF]([\\W])?([a-zA-Z0-9]+)([\\W])?[^\\u0000-\\uFFFF]";
-      String line = wxMessage.getContent();
-      Pattern r = Pattern.compile(pattern);
-      Matcher m = r.matcher(line);
-      if (m.find()) {
-          logger.info("Found Valuse:{}", m.group(0));
-          logger.info("Found Valuse:{}", m.group(1));
-          logger.info("Found Valuse:{}", m.group(2));
-      } else {
-          logger.info("Not Match");
-          return WxXmlOutMessage.TEXT().content("抱歉，此商品没有优惠券！").toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
-      }
-      String itemId = m.group(2);
-      return WxXmlOutMessage.TEXT().content(itemId).toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName()).build();
+      WxXmlMessage wxMessage, Map<String, Object> context, IService iService)
+      throws WxErrorException {
+    String pattern = "([\\w\\.]+)?[^\\u0000-\\uFFFF]?([\\W])?([a-zA-Z0-9]+)([\\W])?[^\\u0000-\\uFFFF]?";
+    String line = wxMessage.getContent();
+    Pattern r = Pattern.compile(pattern);
+    Matcher m = r.matcher(line);
+    if (m.find()) {
+      logger.info("Found Valuse:{}", m.group(0));
+      logger.info("Found Valuse:{}", m.group(1));
+      logger.info("Found Valuse:{}", m.group(2));
+      logger.info("Found Valuse:{}", m.group(3));
+    } else {
+      logger.info("Not Match");
+      return WxXmlOutMessage.TEXT().content("抱歉，此商品没有优惠券！").toUser(wxMessage.getFromUserName())
+          .fromUser(wxMessage.getToUserName()).build();
+    }
+    String tPwd = m.group(3);
+    String itemId = tbUrlHandler.dataoke.preseContent(tPwd);
+    if(itemId == null){
+      return  WxXmlOutMessage.TEXT().content("抱歉，此商品没有优惠券！").toUser(wxMessage.getFromUserName())
+          .fromUser(wxMessage.getToUserName()).build();
+    }
 
+    Coupon coupon = tbUrlHandler.taokeServer.getCouponByItemId(itemId, true);
+    Item item = tbUrlHandler.taokeServer.getItemByItemId(itemId);
+    if (coupon != null || item != null) {
+      return createNewsResponse(wxMessage, coupon, item);
+    }
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    coupon = tbUrlHandler.taokeServer.getCouponByItemId(itemId, false);
+    item = tbUrlHandler.taokeServer.getItemByItemId(itemId);
+    if (coupon != null || item != null) {
+      return createNewsResponse(wxMessage, coupon, item);
+    } else {
+      return WxXmlOutMessage.TEXT().content("抱歉，此商品没有优惠券！").toUser(wxMessage.getFromUserName())
+          .fromUser(wxMessage.getToUserName()).build();
+    }
+  }
+
+  private WxXmlOutMessage createNewsResponse(WxXmlMessage wxMessage, Coupon coupon, Item item)
+      throws WxErrorException {
+    NewsBuilder newsBuilder = WxXmlOutMessage.NEWS();
+    String title, itemId, pictUrl;
+    String desc = "";
+    Double realPrice = 0.0;
+    if (coupon != null) {
+      title = coupon.getTitle();
+      itemId = String.valueOf(coupon.getItem_id());
+      pictUrl = String.valueOf(coupon.getPict_url());
+      realPrice =
+          Double.valueOf(coupon.getZk_final_price()) - Double.valueOf(coupon.getCoupon_amount());
+      desc = "券后：" + String.format("%.2f", realPrice) + "元\n";
+      desc += "优惠：" + coupon.getCoupon_amount() + "元券\n";
+    } else {
+      title = item.getTitle();
+      itemId = String.valueOf(item.getItem_id());
+      pictUrl = String.valueOf(item.getPict_url());
+      desc = "券后：" + item.getZk_final_price() + "元\n";
+      desc += "优惠：0元券\n";
+    }
+    logger.info("item info:{}", item.toString());
+    if (realPrice == 0.0) {
+      realPrice = Double.valueOf(item.getZk_final_price());
+    }
+
+    double ComRate = realPrice * Double.valueOf(item.getCommission_rate()) / 10000;
+    desc += "佣金：" + String.format("%.2f", ComRate) + "元";
+
+    WxXmlOutNewsMessage.Item itemMsg = new WxXmlOutNewsMessage.Item();
+    itemMsg.setTitle(title);
+    itemMsg.setDescription(desc);
+    itemMsg.setUrl("http://api.taobao71.com/wx/coupon#" + itemId);
+    String imgUrl = pictUrl.replace("s://img.alicdn", "://img.taobao71");
+    itemMsg.setPicUrl(imgUrl + "_100x100.jpg");
+    newsBuilder.addArticle(itemMsg);
+
+    return newsBuilder.toUser(wxMessage.getFromUserName()).fromUser(wxMessage.getToUserName())
+        .build();
   }
 
 }
