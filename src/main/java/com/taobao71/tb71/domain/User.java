@@ -7,11 +7,20 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class User {
+  private int id;
   private String openid;
   private int closingOrder;
   private float closingCommission;
   private float wallet;
   private float settlement;
+
+  public int getId() {
+    return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
 
   public String getOpenid() {
     return openid;
