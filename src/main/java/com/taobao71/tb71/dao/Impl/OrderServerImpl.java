@@ -19,7 +19,7 @@ public class OrderServerImpl implements OrderServer {
 
     private boolean orderExist(Long orderId){
         try {
-            String sqlString = "select user_id from user where orderid = ?";
+            String sqlString = "select user_id from order_tk where orderid = ?";
             Integer user_id = jdbcTemplate.queryForObject(sqlString, Integer.class, orderId);
             return true;
         }catch (Exception e){
