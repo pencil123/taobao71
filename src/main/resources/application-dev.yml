@@ -9,7 +9,4 @@ spring:
     url: jdbc:mysql://dbtaobao.com:3306/taobao71_remote
     username: taobao71
     password: taobao71
-    max-idle: 5
-    max-wait: 1000
-    min-idle: 5
-    initial-size: 5
+    type: com.alibaba.druid.pool.DruidDataSource
