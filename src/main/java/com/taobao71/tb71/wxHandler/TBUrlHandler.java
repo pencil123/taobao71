@@ -13,10 +13,10 @@ import java.util.regex.Pattern;
 
 import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.Service.TaokeServer;
-import com.taobao71.tb71.dao.ItemWithoutCoupnServer;
-import com.taobao71.tb71.domain.Coupon;
-import com.taobao71.tb71.domain.Item;
-import com.taobao71.tb71.domain.Tpwd;
+import com.taobao71.tb71.Service.ItemWithoutCouponServer;
+import com.taobao71.tb71.model.domain.Coupon;
+import com.taobao71.tb71.model.domain.Item;
+import com.taobao71.tb71.model.vo.Tpwd;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +32,9 @@ public class TBUrlHandler implements WxMessageHandler {
   private Tpwd tpwd;
   @Autowired
   private TaobaoClientServer taobaoClientServer;
+
   @Autowired
-  private ItemWithoutCoupnServer itemWithoutCoupnServer;
+  private ItemWithoutCouponServer itemWithoutCouponServer;
 
   public static TBUrlHandler tbUrlHandler;
   @PostConstruct
@@ -42,7 +43,7 @@ public class TBUrlHandler implements WxMessageHandler {
     tbUrlHandler.tpwd = this.tpwd;
     tbUrlHandler.taobaoClientServer = this.taobaoClientServer;
     tbUrlHandler.taokeServer = this.taokeServer;
-    tbUrlHandler.itemWithoutCoupnServer = this.itemWithoutCoupnServer;
+    tbUrlHandler.itemWithoutCouponServer = this.itemWithoutCouponServer;
   }
 
   static Logger logger = LoggerFactory.getLogger(WxMessageHandler.class);

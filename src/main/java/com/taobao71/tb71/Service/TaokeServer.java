@@ -1,8 +1,8 @@
 package com.taobao71.tb71.Service;
 
-import com.taobao71.tb71.domain.Coupon;
-import com.taobao71.tb71.domain.CouponResp;
-import com.taobao71.tb71.domain.Item;
+import com.taobao71.tb71.model.domain.Coupon;
+import com.taobao71.tb71.model.vo.CouponResp;
+import com.taobao71.tb71.model.domain.Item;
 import org.springframework.stereotype.Service;
 
 /**

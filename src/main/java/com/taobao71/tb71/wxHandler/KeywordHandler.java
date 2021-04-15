@@ -7,18 +7,11 @@ import com.soecode.wxtools.bean.WxXmlOutMessage;
 import com.soecode.wxtools.bean.WxXmlOutNewsMessage;
 import com.soecode.wxtools.bean.outxmlbuilder.NewsBuilder;
 import com.soecode.wxtools.exception.WxErrorException;
-import com.taobao71.tb71.Service.TaobaoClientServer;
-import com.taobao71.tb71.Service.TaokeServer;
-import com.taobao71.tb71.dao.ItemSearchServer;
-import com.taobao71.tb71.dao.ItemWithoutCoupnServer;
-import com.taobao71.tb71.domain.Coupon;
-import com.taobao71.tb71.domain.ItemSearch;
-import com.taobao71.tb71.domain.Tpwd;
+import com.taobao71.tb71.Service.ItemSearchServer;
+import com.taobao71.tb71.model.domain.ItemSearch;
 import com.taobao71.tb71.rabbitmq.Publisher;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,18 +24,13 @@ public class KeywordHandler implements WxMessageHandler {
   private Publisher publisher;
   @Autowired
   private ItemSearchServer itemSearchServer;
-  @Autowired
-  private ItemSearch itemSearch;
-
   public static KeywordHandler tbUrlHandler;
-
 
   @PostConstruct
   public void init(){
     tbUrlHandler = this;
     tbUrlHandler.publisher = this.publisher;
     tbUrlHandler.itemSearchServer = this.itemSearchServer;
-    tbUrlHandler.itemSearch = this.itemSearch;
   }
 
   static Logger logger = LoggerFactory.getLogger(WxMessageHandler.class);
@@ -52,13 +40,8 @@ public class KeywordHandler implements WxMessageHandler {
           WxXmlMessage wxMessage, Map<String, Object> context, IService iService) throws WxErrorException {
     String line = wxMessage.getContent();
     Long searchId = System.currentTimeMillis();
-
-    tbUrlHandler.itemSearch.setKeyword(line);
-    tbUrlHandler.itemSearch.setSearch_id(searchId);
-    Long realSearchId = tbUrlHandler.itemSearchServer.addItemSearch(tbUrlHandler.itemSearch);
-    if (realSearchId != searchId) {
-      searchId = realSearchId;
-    } else {
+    ItemSearch itemSearch =tbUrlHandler.itemSearchServer.getById(line);
+    if(itemSearch == null){
       Map<String, String> map = new HashMap<>();
       map.put("type", "searchCouponByKeyword");
       map.put("keyword", line);
@@ -69,6 +52,8 @@ public class KeywordHandler implements WxMessageHandler {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
+    }else{
+      searchId = itemSearch.getSearch_id();
     }
     NewsBuilder newsBuilder = WxXmlOutMessage.NEWS();
     WxXmlOutNewsMessage.Item item = new WxXmlOutNewsMessage.Item();

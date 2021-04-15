@@ -1,13 +1,13 @@
 package com.taobao71.tb71.Service.Impl;
 
 import com.taobao.api.request.TbkItemInfoGetRequest;
+import com.taobao71.tb71.Service.CouponServer;
+import com.taobao71.tb71.Service.ItemServer;
 import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.Service.TaokeServer;
-import com.taobao71.tb71.dao.CouponServer;
-import com.taobao71.tb71.dao.ItemServer;
-import com.taobao71.tb71.domain.Coupon;
-import com.taobao71.tb71.domain.CouponResp;
-import com.taobao71.tb71.domain.Item;
+import com.taobao71.tb71.model.domain.Coupon;
+import com.taobao71.tb71.model.vo.CouponResp;
+import com.taobao71.tb71.model.domain.Item;
 import com.taobao71.tb71.rabbitmq.Publisher;
 import java.util.HashMap;
 import java.util.Map;

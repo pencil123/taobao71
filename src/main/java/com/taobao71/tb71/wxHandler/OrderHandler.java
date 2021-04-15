@@ -4,10 +4,10 @@ import com.soecode.wxtools.api.IService;
 import com.soecode.wxtools.api.WxMessageHandler;
 import com.soecode.wxtools.bean.WxXmlMessage;
 import com.soecode.wxtools.bean.WxXmlOutMessage;
-
 import com.soecode.wxtools.exception.WxErrorException;
-import com.taobao71.tb71.dao.OrderServer;
-import com.taobao71.tb71.dao.UserServer;
+import com.taobao71.tb71.Service.OrderServer;
+import com.taobao71.tb71.Service.UserServer;
+import com.taobao71.tb71.model.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ public class OrderHandler implements WxMessageHandler {
   private UserServer userServer;
   @Autowired
   private OrderServer orderServer;
-
   public static OrderHandler tbUrlHandler;
 
   @PostConstruct
@@ -39,15 +38,17 @@ public class OrderHandler implements WxMessageHandler {
   public WxXmlOutMessage handle(
       WxXmlMessage wxMessage, Map<String, Object> context, IService iService)
       throws WxErrorException {
+    Boolean saveSuccess = false;
     String orderId = wxMessage.getContent();
     logger.info("接受到的订单ID：{}",orderId);
-    Integer userId = tbUrlHandler.userServer.addUser(wxMessage.getFromUserName());
-    Integer resultId = tbUrlHandler.orderServer.addOrder(Long.valueOf(orderId),userId);
-// 0:插入成功； 1：已经存在；2：插入失败
-    if( resultId == 0){
+    User user = tbUrlHandler.userServer.getByOpenId(wxMessage.getFromUserName());
+    if(user != null){
+      saveSuccess = tbUrlHandler.orderServer.addOrder(Long.valueOf(orderId),user.getId());
+    }
+    if(saveSuccess){
       return WxXmlOutMessage.TEXT().content("订单信息已记录，24小时内会同步订单信息，请耐心等待！").toUser(wxMessage.getFromUserName())
               .fromUser(wxMessage.getToUserName()).build();
-    }else if( resultId ==1){
+    }else if(saveSuccess){
       return WxXmlOutMessage.TEXT().content("订单已经存在，请勿重复提交！").toUser(wxMessage.getFromUserName())
               .fromUser(wxMessage.getToUserName()).build();
     }else {

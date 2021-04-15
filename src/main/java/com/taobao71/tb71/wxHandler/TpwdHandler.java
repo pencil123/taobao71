@@ -10,10 +10,9 @@ import com.soecode.wxtools.exception.WxErrorException;
 import com.taobao71.tb71.Service.Dataoke;
 import com.taobao71.tb71.Service.TaobaoClientServer;
 import com.taobao71.tb71.Service.TaokeServer;
-import com.taobao71.tb71.dao.ItemWithoutCoupnServer;
-import com.taobao71.tb71.domain.Coupon;
-import com.taobao71.tb71.domain.Item;
-import com.taobao71.tb71.domain.Tpwd;
+import com.taobao71.tb71.model.domain.Coupon;
+import com.taobao71.tb71.model.domain.Item;
+import com.taobao71.tb71.model.vo.Tpwd;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,8 +32,6 @@ public class TpwdHandler implements WxMessageHandler {
   @Autowired
   private TaobaoClientServer taobaoClientServer;
   @Autowired
-  private ItemWithoutCoupnServer itemWithoutCoupnServer;
-  @Autowired
   private Dataoke dataoke;
 
   public static TpwdHandler tbUrlHandler;
@@ -45,7 +42,6 @@ public class TpwdHandler implements WxMessageHandler {
     tbUrlHandler.tpwd = this.tpwd;
     tbUrlHandler.taobaoClientServer = this.taobaoClientServer;
     tbUrlHandler.taokeServer = this.taokeServer;
-    tbUrlHandler.itemWithoutCoupnServer = this.itemWithoutCoupnServer;
     tbUrlHandler.dataoke = this.dataoke;
   }
 
