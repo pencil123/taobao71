@@ -10,7 +10,7 @@ import com.soecode.wxtools.bean.result.WxCurMenuInfoResult;
 import com.soecode.wxtools.exception.WxErrorException;
 import com.soecode.wxtools.util.xml.XStreamTransformer;
 import com.taobao71.tb71.Service.CouponServer;
-import com.taobao71.tb71.Service.TaokeServer;
+import com.taobao71.tb71.Service.tk.TaokeServer;
 import com.taobao71.tb71.model.vo.CouponResp;
 import com.taobao71.tb71.model.vo.ItemResp;
 import com.taobao71.tb71.wxHandler.KeywordHandler;

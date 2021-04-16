@@ -17,4 +17,10 @@ public class CouponServerImpl extends ServiceImpl<CouponMapper,Coupon> implement
   public List<ItemResp> searchCouponBySearchId(String searchid){
     return baseMapper.selectItemRespBySearchId(searchid);
   }
+
+  public Coupon getCouponByItemId(String itemId){
+    QueryWrapper<Coupon> wrapper = new QueryWrapper<>();
+    wrapper.eq("item_id", itemId);
+    return getOne(wrapper);
+  }
 }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ItemServer extends IService<Item> {
-
+  public Item getItemByItemId(Long itemId);
 }

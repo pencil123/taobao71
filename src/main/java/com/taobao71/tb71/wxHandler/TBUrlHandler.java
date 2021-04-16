@@ -7,12 +7,12 @@ import com.soecode.wxtools.bean.WxXmlOutMessage;
 import com.soecode.wxtools.bean.WxXmlOutNewsMessage;
 import com.soecode.wxtools.bean.outxmlbuilder.NewsBuilder;
 import com.soecode.wxtools.exception.WxErrorException;
+import com.taobao71.tb71.Service.tk.TaobaoClientServer;
+import com.taobao71.tb71.Service.tk.TaokeServer;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.taobao71.tb71.Service.TaobaoClientServer;
-import com.taobao71.tb71.Service.TaokeServer;
 import com.taobao71.tb71.Service.ItemWithoutCouponServer;
 import com.taobao71.tb71.model.domain.Coupon;
 import com.taobao71.tb71.model.domain.Item;

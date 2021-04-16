@@ -2,8 +2,8 @@ package com.taobao71.tb71.Controllers;
 
 import com.taobao.api.request.TbkDgMaterialOptionalRequest;
 import com.taobao.api.request.TbkItemInfoGetRequest;
-import com.taobao71.tb71.Service.TaobaoClientServer;
-import com.taobao71.tb71.Service.TaokeServer;
+import com.taobao71.tb71.Service.tk.TaobaoClientServer;
+import com.taobao71.tb71.Service.tk.TaokeServer;
 import com.taobao71.tb71.model.domain.Coupon;
 import com.taobao71.tb71.rabbitmq.Publisher;
 import org.slf4j.Logger;

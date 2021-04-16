@@ -1,4 +1,4 @@
-package com.taobao71.tb71.Service.Impl;
+package com.taobao71.tb71.Service.tk;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -12,9 +12,15 @@ import com.taobao.api.request.TbkTpwdCreateRequest;
 import com.taobao.api.response.TbkDgMaterialOptionalResponse;
 import com.taobao.api.response.TbkItemInfoGetResponse;
 import com.taobao.api.response.TbkTpwdCreateResponse;
-import com.taobao71.tb71.Service.TaobaoClientServer;
-import com.taobao71.tb71.dao.*;
-import com.taobao71.tb71.model.domain.*;
+import com.taobao71.tb71.Service.CouponServer;
+import com.taobao71.tb71.Service.ItemSearchServer;
+import com.taobao71.tb71.Service.ItemServer;
+import com.taobao71.tb71.Service.ItemWithoutCouponServer;
+import com.taobao71.tb71.Service.ShopServer;
+import com.taobao71.tb71.model.domain.Coupon;
+import com.taobao71.tb71.model.domain.Item;
+import com.taobao71.tb71.model.domain.ItemWithoutCoupon;
+import com.taobao71.tb71.model.domain.Shop;
 import com.taobao71.tb71.model.vo.Tpwd;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +29,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TaobaoClientServerImpl implements TaobaoClientServer {
+public class TaobaoClientServer {
     @Value("${taobao.appkey}")
     private String appkey;
     @Value("${taobao.secret}")
@@ -44,12 +50,12 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
     @Autowired
     private ItemWithoutCoupon itemWithoutCoupon;
     @Autowired
-    private ItemWithoutCoupnServer itemWithoutCoupnServer;
+    private ItemWithoutCouponServer itemWithoutCouponServer;
 
     private TaobaoClient taobaoClient;
     private int total_count = 0;
 
-    static Logger logger = LoggerFactory.getLogger(TaobaoClientServerImpl.class);
+    static Logger logger = LoggerFactory.getLogger(TaobaoClientServer.class);
 
     @Autowired
     public void setTaobaoClient() {
@@ -94,17 +100,15 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
 
             //商店信息处理
             Shop shop = JSON.parseObject(info.toJSONString(),Shop.class);
-            Integer shopId = shopServer.addShop(shop);
-
+            Integer shopId = shopServer.save(shop) ? shop.getId(): 1;
             //商品信息处理
             Item item = JSON.parseObject(info.toJSONString(), Item.class);
             item.setShop_id(shopId);
-            Integer itemId = itemServer.addItem(item);
-
+            Integer itemId = itemServer.save(item)? item.getId() : 1;
             //优惠券处理
             Coupon coupon = JSON.parseObject(info.toJSONString(),Coupon.class);
             if (!coupon.getCoupon_id().equals("")) {
-                couponServer.addCoupon(coupon);
+                couponServer.save(coupon);
             }else {
                 logger.info("没有优惠券");
             }
@@ -188,7 +192,7 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
 //                itemJsonObject.put("item_id",itemJsonObject.getLongValue("num_iid"));
 
                 Item item = JSON.parseObject(itemJsonObject.toJSONString(), Item.class);
-                Integer itemId = itemServer.addItem(item);
+                Integer itemId = itemServer.save(item)? item.getId() : 1;
                 return item;
             } else{
                 logger.error("getIteminfo response size {};info: {}",n_tbk_item.size(),n_tbk_item.toJSONString());
@@ -199,7 +203,7 @@ public class TaobaoClientServerImpl implements TaobaoClientServer {
             return  null;
         }catch (NullPointerException e) {
             itemWithoutCoupon.setItem_id(Long.valueOf(tbkItemInfoGetRequest.getNumIids()));
-            itemWithoutCoupnServer.addItemWithoutCoupon(itemWithoutCoupon);
+            itemWithoutCouponServer.save(itemWithoutCoupon);
             e.printStackTrace();
             return null;
         }

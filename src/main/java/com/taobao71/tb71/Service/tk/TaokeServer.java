@@ -1,13 +1,11 @@
-package com.taobao71.tb71.Service.Impl;
+package com.taobao71.tb71.Service.tk;
 
 import com.taobao.api.request.TbkItemInfoGetRequest;
 import com.taobao71.tb71.Service.CouponServer;
 import com.taobao71.tb71.Service.ItemServer;
-import com.taobao71.tb71.Service.TaobaoClientServer;
-import com.taobao71.tb71.Service.TaokeServer;
 import com.taobao71.tb71.model.domain.Coupon;
-import com.taobao71.tb71.model.vo.CouponResp;
 import com.taobao71.tb71.model.domain.Item;
+import com.taobao71.tb71.model.vo.CouponResp;
 import com.taobao71.tb71.rabbitmq.Publisher;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TaokeServerImpl implements TaokeServer {
+public class TaokeServer {
     @Autowired
     private TaobaoClientServer taobaoClientServer;
     @Autowired
@@ -29,7 +27,7 @@ public class TaokeServerImpl implements TaokeServer {
 
     private TbkItemInfoGetRequest req = new TbkItemInfoGetRequest();
 
-    static Logger logger = LoggerFactory.getLogger(TaokeServerImpl.class);
+    static Logger logger = LoggerFactory.getLogger(TaokeServer.class);
 
     public Coupon getCouponByItemId(String itemId,boolean sendMq){
 

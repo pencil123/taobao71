@@ -11,4 +11,5 @@ public interface CouponServer extends IService<Coupon> {
 
   public List<ItemResp> searchCouponBySearchId(String searchid);
 
+  public Coupon getCouponByItemId(String itemId);
 }
