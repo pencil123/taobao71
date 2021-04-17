@@ -72,19 +72,20 @@ public class TaokeServer {
         Coupon coupon = couponServer.getCouponByItemId(itemId);
         if(coupon != null){
             CouponResp conponResp = new CouponResp();
-            String imgUrl = coupon.getPict_url().replace("s://img.alicdn","://img.taobao71");
-            conponResp.setPict_url(imgUrl + "_350x350.jpg");
-            conponResp.setSmall_images(conponResp.getSmall_images());
-            conponResp.setTpwd(taobaoClientServer.gainTpwd("https:" + coupon.getCoupon_share_url()).getPassword_simple());
+            String imgUrl = coupon.getPictUrl().replace("s://img.alicdn","://img.taobao71");
+            conponResp.setTitle(coupon.getTitle());
+            conponResp.setPictUrl(imgUrl + "_350x350.jpg");
+            conponResp.setSmallImages(conponResp.getSmallImages());
+            conponResp.setTpwd(taobaoClientServer.gainTpwd("https:" + coupon.getCouponShareUrl()).getPasswordSimple());
             return conponResp;
         }
         Item item = itemServer.getItemByItemId(Long.valueOf(itemId));
         if(item != null){
             CouponResp conponResp = new CouponResp();
-            String imgUrl = item.getPict_url().replace("s://img.alicdn","://img.taobao71");
-            conponResp.setPict_url(imgUrl + "_350x350.jpg");
-            conponResp.setSmall_images(item.getSmall_images());
-            conponResp.setTpwd(taobaoClientServer.gainTpwd("https:" + item.getUrl()).getPassword_simple());
+            String imgUrl = item.getPictUrl().replace("s://img.alicdn","://img.taobao71");
+            conponResp.setPictUrl(imgUrl + "_350x350.jpg");
+            conponResp.setSmallImages(item.getSmallImages());
+            conponResp.setTpwd(taobaoClientServer.gainTpwd("https:" + item.getUrl()).getPasswordSimple());
             return conponResp;
         }else{
             return null;

@@ -13,7 +13,6 @@ import com.taobao.api.response.TbkDgMaterialOptionalResponse;
 import com.taobao.api.response.TbkItemInfoGetResponse;
 import com.taobao.api.response.TbkTpwdCreateResponse;
 import com.taobao71.tb71.Service.CouponServer;
-import com.taobao71.tb71.Service.ItemSearchServer;
 import com.taobao71.tb71.Service.ItemServer;
 import com.taobao71.tb71.Service.ItemWithoutCouponServer;
 import com.taobao71.tb71.Service.ShopServer;
@@ -45,8 +44,6 @@ public class TaobaoClientServer {
     private ItemServer itemServer;
     @Autowired
     private CouponServer couponServer;
-    @Autowired
-    private ItemSearchServer itemSearchServer;
     @Autowired
     private ItemWithoutCoupon itemWithoutCoupon;
     @Autowired
@@ -103,11 +100,11 @@ public class TaobaoClientServer {
             Integer shopId = shopServer.save(shop) ? shop.getId(): 1;
             //商品信息处理
             Item item = JSON.parseObject(info.toJSONString(), Item.class);
-            item.setShop_id(shopId);
+            item.setShopId(shopId);
             Integer itemId = itemServer.save(item)? item.getId() : 1;
             //优惠券处理
             Coupon coupon = JSON.parseObject(info.toJSONString(),Coupon.class);
-            if (!coupon.getCoupon_id().equals("")) {
+            if (!coupon.getCouponId().equals("")) {
                 couponServer.save(coupon);
             }else {
                 logger.info("没有优惠券");
@@ -202,7 +199,7 @@ public class TaobaoClientServer {
             e.printStackTrace();
             return  null;
         }catch (NullPointerException e) {
-            itemWithoutCoupon.setItem_id(Long.valueOf(tbkItemInfoGetRequest.getNumIids()));
+            itemWithoutCoupon.setItemId(Long.valueOf(tbkItemInfoGetRequest.getNumIids()));
             itemWithoutCouponServer.save(itemWithoutCoupon);
             e.printStackTrace();
             return null;

@@ -12,9 +12,9 @@ import java.io.Serializable;
 @Component
 public class CouponResp implements Serializable {
     private String title;
-    private String pict_url;
+    private String pictUrl;
     private String tpwd;
-    private String small_images;
+    private String smallImages;
 
     public String getTitle() {
         return title;
@@ -24,12 +24,12 @@ public class CouponResp implements Serializable {
         this.title = title;
     }
 
-    public String getPict_url() {
-        return pict_url;
+    public String getPictUrl() {
+        return pictUrl;
     }
 
-    public void setPict_url(String pict_url) {
-        this.pict_url = pict_url;
+    public void setPictUrl(String pictUrl) {
+        this.pictUrl = pictUrl;
     }
 
     public String getTpwd() {
@@ -40,11 +40,11 @@ public class CouponResp implements Serializable {
         this.tpwd = tpwd;
     }
 
-    public String getSmall_images() {
-        return small_images;
+    public String getSmallImages() {
+        return smallImages;
     }
 
-    public void setSmall_images(String small_images) {
-        this.small_images = small_images;
+    public void setSmallImages(String smallImages) {
+        this.smallImages = smallImages;
     }
 }

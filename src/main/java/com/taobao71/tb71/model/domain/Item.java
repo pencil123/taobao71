@@ -34,32 +34,32 @@ import org.springframework.stereotype.Component;
 public class Item {
     @TableId(type= IdType.AUTO)
     private Integer id;
-    private Integer shop_id;
-    private String x_id;
-    private Long item_id;
-    private String item_url;
-    private String item_description;
-    private Integer category_id;
-    private String category_name;
-    private String commission_rate;
-    private String tmall_play_activity_info;
+    private Integer shopId;
+    private String xId;
+    private Long itemId;
+    private String itemUrl;
+    private String itemDescription;
+    private Integer categoryId;
+    private String categoryName;
+    private String commissionRate;
+    private String tmallPlayActivityInfo;
     private String provcity;
-    private String include_dxjh;
-    private String include_mkt;
-    private Integer level_one_category_id;
-    private String level_one_category_name;
-    private String pict_url;
-    private String real_post_fee;
-    private String reserve_price;
-    private String short_title;
-    private String small_images;
+    private String includeDxjh;
+    private String includeMkt;
+    private Integer levelOneCategoryId;
+    private String levelOneCategoryName;
+    private String pictUrl;
+    private String realPostFee;
+    private String reservePrice;
+    private String shortTitle;
+    private String smallImages;
     private String title;
     private String url;
     private Integer volume;
-    private String white_image;
-    private String info_dxjh;
-    private String zk_final_price;
-    private String seller_id;
+    private String whiteImage;
+    private String infoDxjh;
+    private String zkFinalPrice;
+    private String sellerId;
 
     public Integer getId() {
         return id;
@@ -69,76 +69,76 @@ public class Item {
         this.id = id;
     }
 
-    public Integer getShop_id() {
-        return shop_id;
+    public Integer getShopId() {
+        return shopId;
     }
 
-    public void setShop_id(Integer shop_id) {
-        this.shop_id = shop_id;
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
     }
 
-    public String getX_id() {
-        return x_id;
+    public String getxId() {
+        return xId;
     }
 
-    public void setX_id(String x_id) {
-        this.x_id = x_id;
+    public void setxId(String xId) {
+        this.xId = xId;
     }
 
-    public Long getItem_id() {
-        return item_id;
+    public Long getItemId() {
+        return itemId;
     }
 
-    public void setItem_id(Long item_id) {
-        this.item_id = item_id;
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
-    public String getItem_url() {
-        return item_url;
+    public String getItemUrl() {
+        return itemUrl;
     }
 
-    public void setItem_url(String item_url) {
-        this.item_url = item_url;
+    public void setItemUrl(String itemUrl) {
+        this.itemUrl = itemUrl;
     }
 
-    public String getItem_description() {
-        return item_description;
+    public String getItemDescription() {
+        return itemDescription;
     }
 
-    public void setItem_description(String item_description) {
-        this.item_description = item_description;
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
     }
 
-    public Integer getCategory_id() {
-        return category_id;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory_id(Integer category_id) {
-        this.category_id = category_id;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getCategory_name() {
-        return category_name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public String getCommission_rate() {
-        return commission_rate;
+    public String getCommissionRate() {
+        return commissionRate;
     }
 
-    public void setCommission_rate(String commission_rate) {
-        this.commission_rate = commission_rate;
+    public void setCommissionRate(String commissionRate) {
+        this.commissionRate = commissionRate;
     }
 
-    public String getTmall_play_activity_info() {
-        return tmall_play_activity_info;
+    public String getTmallPlayActivityInfo() {
+        return tmallPlayActivityInfo;
     }
 
-    public void setTmall_play_activity_info(String tmall_play_activity_info) {
-        this.tmall_play_activity_info = tmall_play_activity_info;
+    public void setTmallPlayActivityInfo(String tmallPlayActivityInfo) {
+        this.tmallPlayActivityInfo = tmallPlayActivityInfo;
     }
 
     public String getProvcity() {
@@ -149,76 +149,76 @@ public class Item {
         this.provcity = provcity;
     }
 
-    public String getInclude_dxjh() {
-        return include_dxjh;
+    public String getIncludeDxjh() {
+        return includeDxjh;
     }
 
-    public void setInclude_dxjh(String include_dxjh) {
-        this.include_dxjh = include_dxjh;
+    public void setIncludeDxjh(String includeDxjh) {
+        this.includeDxjh = includeDxjh;
     }
 
-    public String getInclude_mkt() {
-        return include_mkt;
+    public String getIncludeMkt() {
+        return includeMkt;
     }
 
-    public void setInclude_mkt(String include_mkt) {
-        this.include_mkt = include_mkt;
+    public void setIncludeMkt(String includeMkt) {
+        this.includeMkt = includeMkt;
     }
 
-    public Integer getLevel_one_category_id() {
-        return level_one_category_id;
+    public Integer getLevelOneCategoryId() {
+        return levelOneCategoryId;
     }
 
-    public void setLevel_one_category_id(Integer level_one_category_id) {
-        this.level_one_category_id = level_one_category_id;
+    public void setLevelOneCategoryId(Integer levelOneCategoryId) {
+        this.levelOneCategoryId = levelOneCategoryId;
     }
 
-    public String getLevel_one_category_name() {
-        return level_one_category_name;
+    public String getLevelOneCategoryName() {
+        return levelOneCategoryName;
     }
 
-    public void setLevel_one_category_name(String level_one_category_name) {
-        this.level_one_category_name = level_one_category_name;
+    public void setLevelOneCategoryName(String levelOneCategoryName) {
+        this.levelOneCategoryName = levelOneCategoryName;
     }
 
-    public String getPict_url() {
-        return pict_url;
+    public String getPictUrl() {
+        return pictUrl;
     }
 
-    public void setPict_url(String pict_url) {
-        this.pict_url = pict_url;
+    public void setPictUrl(String pictUrl) {
+        this.pictUrl = pictUrl;
     }
 
-    public String getReal_post_fee() {
-        return real_post_fee;
+    public String getRealPostFee() {
+        return realPostFee;
     }
 
-    public void setReal_post_fee(String real_post_fee) {
-        this.real_post_fee = real_post_fee;
+    public void setRealPostFee(String realPostFee) {
+        this.realPostFee = realPostFee;
     }
 
-    public String getReserve_price() {
-        return reserve_price;
+    public String getReservePrice() {
+        return reservePrice;
     }
 
-    public void setReserve_price(String reserve_price) {
-        this.reserve_price = reserve_price;
+    public void setReservePrice(String reservePrice) {
+        this.reservePrice = reservePrice;
     }
 
-    public String getShort_title() {
-        return short_title;
+    public String getShortTitle() {
+        return shortTitle;
     }
 
-    public void setShort_title(String short_title) {
-        this.short_title = short_title;
+    public void setShortTitle(String shortTitle) {
+        this.shortTitle = shortTitle;
     }
 
-    public String getSmall_images() {
-        return small_images;
+    public String getSmallImages() {
+        return smallImages;
     }
 
-    public void setSmall_images(String small_images) {
-        this.small_images = small_images;
+    public void setSmallImages(String smallImages) {
+        this.smallImages = smallImages;
     }
 
     public String getTitle() {
@@ -245,35 +245,68 @@ public class Item {
         this.volume = volume;
     }
 
-    public String getWhite_image() {
-        return white_image;
+    public String getWhiteImage() {
+        return whiteImage;
     }
 
-    public void setWhite_image(String white_image) {
-        this.white_image = white_image;
+    public void setWhiteImage(String whiteImage) {
+        this.whiteImage = whiteImage;
     }
 
-    public String getZk_final_price() {
-        return zk_final_price;
+    public String getInfoDxjh() {
+        return infoDxjh;
     }
 
-    public void setZk_final_price(String zk_final_price) {
-        this.zk_final_price = zk_final_price;
+    public void setInfoDxjh(String infoDxjh) {
+        this.infoDxjh = infoDxjh;
     }
 
-    public String getInfo_dxjh() {
-        return info_dxjh;
+    public String getZkFinalPrice() {
+        return zkFinalPrice;
     }
 
-    public void setInfo_dxjh(String info_dxjh) {
-        this.info_dxjh = info_dxjh;
+    public void setZkFinalPrice(String zkFinalPrice) {
+        this.zkFinalPrice = zkFinalPrice;
     }
 
-    public String getSeller_id() {
-        return seller_id;
+    public String getSellerId() {
+        return sellerId;
     }
 
-    public void setSeller_id(String seller_id) {
-        this.seller_id = seller_id;
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", shopId=" + shopId +
+                ", xId='" + xId + '\'' +
+                ", itemId=" + itemId +
+                ", itemUrl='" + itemUrl + '\'' +
+                ", itemDescription='" + itemDescription + '\'' +
+                ", categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
+                ", commissionRate='" + commissionRate + '\'' +
+                ", tmallPlayActivityInfo='" + tmallPlayActivityInfo + '\'' +
+                ", provcity='" + provcity + '\'' +
+                ", includeDxjh='" + includeDxjh + '\'' +
+                ", includeMkt='" + includeMkt + '\'' +
+                ", levelOneCategoryId=" + levelOneCategoryId +
+                ", levelOneCategoryName='" + levelOneCategoryName + '\'' +
+                ", pictUrl='" + pictUrl + '\'' +
+                ", realPostFee='" + realPostFee + '\'' +
+                ", reservePrice='" + reservePrice + '\'' +
+                ", shortTitle='" + shortTitle + '\'' +
+                ", smallImages='" + smallImages + '\'' +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", volume=" + volume +
+                ", whiteImage='" + whiteImage + '\'' +
+                ", infoDxjh='" + infoDxjh + '\'' +
+                ", zkFinalPrice='" + zkFinalPrice + '\'' +
+                ", sellerId='" + sellerId + '\'' +
+                '}';
     }
 }

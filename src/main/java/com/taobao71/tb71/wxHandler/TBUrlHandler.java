@@ -91,24 +91,24 @@ public class TBUrlHandler implements WxMessageHandler {
     Double realPrice = 0.0;
     if(coupon != null){
         title = coupon.getTitle();
-        itemId = String.valueOf(coupon.getItem_id());
-        pictUrl = String.valueOf(coupon.getPict_url());
-        realPrice = Double.valueOf(coupon.getZk_final_price()) - Double.valueOf(coupon.getCoupon_amount());
+        itemId = String.valueOf(coupon.getItemId());
+        pictUrl = String.valueOf(coupon.getPictUrl());
+        realPrice = Double.valueOf(coupon.getZkFinalPrice()) - Double.valueOf(coupon.getCouponAmount());
         desc = "券后：" + String.format("%.2f", realPrice) + "元\n";
-        desc += "优惠：" + coupon.getCoupon_amount() + "元券\n";
+        desc += "优惠：" + coupon.getCouponAmount() + "元券\n";
     }else{
         title = item.getTitle();
-        itemId = String.valueOf(item.getItem_id());
-        pictUrl = String.valueOf(item.getPict_url());
-        desc = "券后：" + item.getZk_final_price() + "元\n";
+        itemId = String.valueOf(item.getItemId());
+        pictUrl = String.valueOf(item.getPictUrl());
+        desc = "券后：" + item.getZkFinalPrice() + "元\n";
         desc += "优惠：0元券\n";
     }
     logger.info("item info:{}",item.toString());
     if(realPrice == 0.0){
-      realPrice = Double.valueOf(item.getZk_final_price());
+      realPrice = Double.valueOf(item.getZkFinalPrice());
     }
 
-    double ComRate = realPrice * Double.valueOf(item.getCommission_rate()) / 10000;
+    double ComRate = realPrice * Double.valueOf(item.getCommissionRate()) / 10000;
     desc += "佣金：" + String.format("%.2f", ComRate) + "元";
 
     WxXmlOutNewsMessage.Item itemMsg = new WxXmlOutNewsMessage.Item();

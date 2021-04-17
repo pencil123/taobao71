@@ -2,19 +2,21 @@ package com.taobao71.tb71.model.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 
 @Component
+@TableName(value = "order_tk")
 public class Order {
     @TableId(type= IdType.AUTO)
     private Long orderid;
-    private int user_id;
-    private Long item_id;
-    private Timestamp pay_time;
-    private float pay_money;
-    private float guess_income;
+    private int userId;
+    private Long itemId;
+    private Timestamp payTime;
+    private float payMoney;
+    private float guessIncome;
     private float income;
 
     public Long getOrderid() {
@@ -25,44 +27,44 @@ public class Order {
         this.orderid = orderid;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public Long getItem_id() {
-        return item_id;
+    public Long getItemId() {
+        return itemId;
     }
 
-    public void setItem_id(Long item_id) {
-        this.item_id = item_id;
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
-    public Timestamp getPay_time() {
-        return pay_time;
+    public Timestamp getPayTime() {
+        return payTime;
     }
 
-    public void setPay_time(Timestamp pay_time) {
-        this.pay_time = pay_time;
+    public void setPayTime(Timestamp payTime) {
+        this.payTime = payTime;
     }
 
-    public float getPay_money() {
-        return pay_money;
+    public float getPayMoney() {
+        return payMoney;
     }
 
-    public void setPay_money(float pay_money) {
-        this.pay_money = pay_money;
+    public void setPayMoney(float payMoney) {
+        this.payMoney = payMoney;
     }
 
-    public float getGuess_income() {
-        return guess_income;
+    public float getGuessIncome() {
+        return guessIncome;
     }
 
-    public void setGuess_income(float guess_income) {
-        this.guess_income = guess_income;
+    public void setGuessIncome(float guessIncome) {
+        this.guessIncome = guessIncome;
     }
 
     public float getIncome() {

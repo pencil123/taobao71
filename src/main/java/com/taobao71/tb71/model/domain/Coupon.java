@@ -27,24 +27,24 @@ import java.io.Serializable;
 public class Coupon  implements Serializable {
     @TableId(type= IdType.AUTO)
     private Integer id;
-    private Long item_id;
-    private String commission_type;
-    private String coupon_amount;
-    private String coupon_end_time;
-    private String coupon_id;
-    private String coupon_info;
-    private Integer coupon_remain_count;
-    private String coupon_share_url;
-    private String zk_final_price;
-    private String coupon_start_fee;
-    private String coupon_start_time;
-    private String commission_rate;
-    private Integer coupon_total_count;
-    private String tk_total_commi;
-    private String tk_total_sales;
+    private Long itemId;
+    private String commissionType;
+    private String couponAmount;
+    private String couponEndTime;
+    private String couponId;
+    private String couponInfo;
+    private Integer couponRemainCount;
+    private String couponShareUrl;
+    private String zkFinalPrice;
+    private String couponStartFee;
+    private String couponStartTime;
+    private String commissionRate;
+    private Integer couponTotalCount;
+    private String tkTotalCommi;
+    private String tkTotalSales;
     private String title;
-    private String pict_url;
-    private Long search_id;
+    private String pictUrl;
+    private Long searchId;
 
     public Integer getId() {
         return id;
@@ -54,116 +54,124 @@ public class Coupon  implements Serializable {
         this.id = id;
     }
 
-    public Long getItem_id() {
-        return item_id;
+    public Long getItemId() {
+        return itemId;
     }
 
-    public void setItem_id(Long item_id) {
-        this.item_id = item_id;
+    public void setItemId(Long itemId) {
+        this.itemId = itemId;
     }
 
-    public String getCommission_type() {
-        return commission_type;
+    public String getCommissionType() {
+        return commissionType;
     }
 
-    public void setCommission_type(String commission_type) {
-        this.commission_type = commission_type;
+    public void setCommissionType(String commissionType) {
+        this.commissionType = commissionType;
     }
 
-    public String getCoupon_amount() {
-        return coupon_amount;
+    public String getCouponAmount() {
+        return couponAmount;
     }
 
-    public void setCoupon_amount(String coupon_amount) {
-        this.coupon_amount = coupon_amount;
+    public void setCouponAmount(String couponAmount) {
+        this.couponAmount = couponAmount;
     }
 
-    public String getCoupon_end_time() {
-        return coupon_end_time;
+    public String getCouponEndTime() {
+        return couponEndTime;
     }
 
-    public void setCoupon_end_time(String coupon_end_time) {
-        this.coupon_end_time = coupon_end_time;
+    public void setCouponEndTime(String couponEndTime) {
+        this.couponEndTime = couponEndTime;
     }
 
-    public String getCoupon_id() {
-        return coupon_id;
+    public String getCouponId() {
+        return couponId;
     }
 
-    public void setCoupon_id(String coupon_id) {
-        this.coupon_id = coupon_id;
+    public void setCouponId(String couponId) {
+        this.couponId = couponId;
     }
 
-    public String getCoupon_info() {
-        return coupon_info;
+    public String getCouponInfo() {
+        return couponInfo;
     }
 
-    public void setCoupon_info(String coupon_info) {
-        this.coupon_info = coupon_info;
+    public void setCouponInfo(String couponInfo) {
+        this.couponInfo = couponInfo;
     }
 
-    public Integer getCoupon_remain_count() {
-        return coupon_remain_count;
+    public Integer getCouponRemainCount() {
+        return couponRemainCount;
     }
 
-    public void setCoupon_remain_count(Integer coupon_remain_count) {
-        this.coupon_remain_count = coupon_remain_count;
+    public void setCouponRemainCount(Integer couponRemainCount) {
+        this.couponRemainCount = couponRemainCount;
     }
 
-    public String getCoupon_share_url() {
-        return coupon_share_url;
+    public String getCouponShareUrl() {
+        return couponShareUrl;
     }
 
-    public void setCoupon_share_url(String coupon_share_url) {
-        this.coupon_share_url = coupon_share_url;
+    public void setCouponShareUrl(String couponShareUrl) {
+        this.couponShareUrl = couponShareUrl;
     }
 
-    public String getCoupon_start_fee() {
-        return coupon_start_fee;
+    public String getZkFinalPrice() {
+        return zkFinalPrice;
     }
 
-    public void setCoupon_start_fee(String coupon_start_fee) {
-        this.coupon_start_fee = coupon_start_fee;
+    public void setZkFinalPrice(String zkFinalPrice) {
+        this.zkFinalPrice = zkFinalPrice;
     }
 
-    public String getCoupon_start_time() {
-        return coupon_start_time;
+    public String getCouponStartFee() {
+        return couponStartFee;
     }
 
-    public void setCoupon_start_time(String coupon_start_time) {
-        this.coupon_start_time = coupon_start_time;
+    public void setCouponStartFee(String couponStartFee) {
+        this.couponStartFee = couponStartFee;
     }
 
-    public Integer getCoupon_total_count() {
-        return coupon_total_count;
+    public String getCouponStartTime() {
+        return couponStartTime;
     }
 
-    public void setCoupon_total_count(Integer coupon_total_count) {
-        this.coupon_total_count = coupon_total_count;
+    public void setCouponStartTime(String couponStartTime) {
+        this.couponStartTime = couponStartTime;
     }
 
-    public String getTk_total_commi() {
-        return tk_total_commi;
+    public String getCommissionRate() {
+        return commissionRate;
     }
 
-    public void setTk_total_commi(String tk_total_commi) {
-        this.tk_total_commi = tk_total_commi;
+    public void setCommissionRate(String commissionRate) {
+        this.commissionRate = commissionRate;
     }
 
-    public String getTk_total_sales() {
-        return tk_total_sales;
+    public Integer getCouponTotalCount() {
+        return couponTotalCount;
     }
 
-    public void setTk_total_sales(String tk_total_sales) {
-        this.tk_total_sales = tk_total_sales;
+    public void setCouponTotalCount(Integer couponTotalCount) {
+        this.couponTotalCount = couponTotalCount;
     }
 
-    public String getCommission_rate() {
-        return commission_rate;
+    public String getTkTotalCommi() {
+        return tkTotalCommi;
     }
 
-    public void setCommission_rate(String commission_rate) {
-        this.commission_rate = commission_rate;
+    public void setTkTotalCommi(String tkTotalCommi) {
+        this.tkTotalCommi = tkTotalCommi;
+    }
+
+    public String getTkTotalSales() {
+        return tkTotalSales;
+    }
+
+    public void setTkTotalSales(String tkTotalSales) {
+        this.tkTotalSales = tkTotalSales;
     }
 
     public String getTitle() {
@@ -174,52 +182,44 @@ public class Coupon  implements Serializable {
         this.title = title;
     }
 
-    public String getPict_url() {
-        return pict_url;
+    public String getPictUrl() {
+        return pictUrl;
     }
 
-    public void setPict_url(String pict_url) {
-        this.pict_url = pict_url;
+    public void setPictUrl(String pictUrl) {
+        this.pictUrl = pictUrl;
     }
 
-    public String getZk_final_price() {
-        return zk_final_price;
+    public Long getSearchId() {
+        return searchId;
     }
 
-    public void setZk_final_price(String zk_final_price) {
-        this.zk_final_price = zk_final_price;
-    }
-
-    public Long getSearch_id() {
-        return search_id;
-    }
-
-    public void setSearch_id(Long search_id) {
-        this.search_id = search_id;
+    public void setSearchId(Long searchId) {
+        this.searchId = searchId;
     }
 
     @Override
     public String toString() {
         return "Coupon{" +
                 "id=" + id +
-                ", item_id=" + item_id +
-                ", commission_type='" + commission_type + '\'' +
-                ", coupon_amount='" + coupon_amount + '\'' +
-                ", coupon_end_time='" + coupon_end_time + '\'' +
-                ", coupon_id='" + coupon_id + '\'' +
-                ", coupon_info='" + coupon_info + '\'' +
-                ", coupon_remain_count=" + coupon_remain_count +
-                ", coupon_share_url='" + coupon_share_url + '\'' +
-                ", zk_final_price='" + zk_final_price + '\'' +
-                ", coupon_start_fee='" + coupon_start_fee + '\'' +
-                ", coupon_start_time='" + coupon_start_time + '\'' +
-                ", commission_rate='" + commission_rate + '\'' +
-                ", coupon_total_count=" + coupon_total_count +
-                ", tk_total_commi='" + tk_total_commi + '\'' +
-                ", tk_total_sales='" + tk_total_sales + '\'' +
+                ", itemId=" + itemId +
+                ", commissionType='" + commissionType + '\'' +
+                ", couponAmount='" + couponAmount + '\'' +
+                ", couponEndTime='" + couponEndTime + '\'' +
+                ", couponId='" + couponId + '\'' +
+                ", couponInfo='" + couponInfo + '\'' +
+                ", couponRemainCount=" + couponRemainCount +
+                ", couponShareUrl='" + couponShareUrl + '\'' +
+                ", zkFinalPrice='" + zkFinalPrice + '\'' +
+                ", couponStartFee='" + couponStartFee + '\'' +
+                ", couponStartTime='" + couponStartTime + '\'' +
+                ", commissionRate='" + commissionRate + '\'' +
+                ", couponTotalCount=" + couponTotalCount +
+                ", tkTotalCommi='" + tkTotalCommi + '\'' +
+                ", tkTotalSales='" + tkTotalSales + '\'' +
                 ", title='" + title + '\'' +
-                ", pict_url='" + pict_url + '\'' +
-                ", search_id=" + search_id +
+                ", pictUrl='" + pictUrl + '\'' +
+                ", searchId=" + searchId +
                 '}';
     }
 }

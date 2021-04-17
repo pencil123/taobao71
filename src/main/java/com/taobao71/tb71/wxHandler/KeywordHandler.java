@@ -40,8 +40,13 @@ public class KeywordHandler implements WxMessageHandler {
           WxXmlMessage wxMessage, Map<String, Object> context, IService iService) throws WxErrorException {
     String line = wxMessage.getContent();
     Long searchId = System.currentTimeMillis();
-    ItemSearch itemSearch =tbUrlHandler.itemSearchServer.getById(line);
+    logger.info("获取参数keyword:{}",line);
+    ItemSearch itemSearch =tbUrlHandler.itemSearchServer.getByKeyword(line);
     if(itemSearch == null){
+      ItemSearch itemSearch1 = new ItemSearch();
+      itemSearch1.setKeyword(line);
+      itemSearch1.setSearchId(searchId);
+      tbUrlHandler.itemSearchServer.save(itemSearch1);
       Map<String, String> map = new HashMap<>();
       map.put("type", "searchCouponByKeyword");
       map.put("keyword", line);
@@ -53,7 +58,7 @@ public class KeywordHandler implements WxMessageHandler {
         e.printStackTrace();
       }
     }else{
-      searchId = itemSearch.getSearch_id();
+      searchId = itemSearch.getSearchId();
     }
     NewsBuilder newsBuilder = WxXmlOutMessage.NEWS();
     WxXmlOutNewsMessage.Item item = new WxXmlOutNewsMessage.Item();

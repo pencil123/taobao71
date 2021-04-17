@@ -18,22 +18,22 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ItemResp {
-  private Long item_id;
+  private Long itemId;
   private String title;
-  private String pict_url;
-  private String zk_final_price;
-  private Integer coupon_total_count;
-  private Integer coupon_remain_count;
-  private String coupon_info;
-  private String coupon_start_fee;
-  private String coupon_amount;
+  private String pictUrl;
+  private String zkFinalPrice;
+  private Integer couponTotalCount;
+  private Integer couponRemainCount;
+  private String couponInfo;
+  private String couponStartFee;
+  private String couponAmount;
 
-  public Long getItem_id() {
-    return item_id;
+  public Long getItemId() {
+    return itemId;
   }
 
-  public void setItem_id(Long item_id) {
-    this.item_id = item_id;
+  public void setItemId(Long itemId) {
+    this.itemId = itemId;
   }
 
   public String getTitle() {
@@ -44,59 +44,59 @@ public class ItemResp {
     this.title = title;
   }
 
-  public String getPict_url() {
-    return pict_url;
+  public String getPictUrl() {
+    return pictUrl;
   }
 
-  public void setPict_url(String pict_url) {
-    this.pict_url = pict_url;
+  public void setPictUrl(String pictUrl) {
+    this.pictUrl = pictUrl;
   }
 
-  public String getZk_final_price() {
-    return zk_final_price;
+  public String getZkFinalPrice() {
+    return zkFinalPrice;
   }
 
-  public void setZk_final_price(String zk_final_price) {
-    this.zk_final_price = zk_final_price;
+  public void setZkFinalPrice(String zkFinalPrice) {
+    this.zkFinalPrice = zkFinalPrice;
   }
 
-  public Integer getCoupon_total_count() {
-    return coupon_total_count;
+  public Integer getCouponTotalCount() {
+    return couponTotalCount;
   }
 
-  public void setCoupon_total_count(Integer coupon_total_count) {
-    this.coupon_total_count = coupon_total_count;
+  public void setCouponTotalCount(Integer couponTotalCount) {
+    this.couponTotalCount = couponTotalCount;
   }
 
-  public Integer getCoupon_remain_count() {
-    return coupon_remain_count;
+  public Integer getCouponRemainCount() {
+    return couponRemainCount;
   }
 
-  public void setCoupon_remain_count(Integer coupon_remain_count) {
-    this.coupon_remain_count = coupon_remain_count;
+  public void setCouponRemainCount(Integer couponRemainCount) {
+    this.couponRemainCount = couponRemainCount;
   }
 
-  public String getCoupon_info() {
-    return coupon_info;
+  public String getCouponInfo() {
+    return couponInfo;
   }
 
-  public void setCoupon_info(String coupon_info) {
-    this.coupon_info = coupon_info;
+  public void setCouponInfo(String couponInfo) {
+    this.couponInfo = couponInfo;
   }
 
-  public String getCoupon_start_fee() {
-    return coupon_start_fee;
+  public String getCouponStartFee() {
+    return couponStartFee;
   }
 
-  public void setCoupon_start_fee(String coupon_start_fee) {
-    this.coupon_start_fee = coupon_start_fee;
+  public void setCouponStartFee(String couponStartFee) {
+    this.couponStartFee = couponStartFee;
   }
 
-  public String getCoupon_amount() {
-    return coupon_amount;
+  public String getCouponAmount() {
+    return couponAmount;
   }
 
-  public void setCoupon_amount(String coupon_amount) {
-    this.coupon_amount = coupon_amount;
+  public void setCouponAmount(String couponAmount) {
+    this.couponAmount = couponAmount;
   }
 }

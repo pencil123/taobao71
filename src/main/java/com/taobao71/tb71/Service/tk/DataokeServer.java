@@ -4,16 +4,20 @@ import com.alibaba.fastjson.JSONObject;
 import com.taobao71.tb71.Utils.HttpUtil;
 import com.taobao71.tb71.Utils.HttpUtils;
 import com.taobao71.tb71.Utils.SignMD5Util;
-import java.net.URISyntaxException;
-import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.net.URISyntaxException;
+import java.util.TreeMap;
+
+/**
+ * 大淘客调用接口对象
+ */
 @Service
-public class DataokeImpl {
-  static Logger logger = LoggerFactory.getLogger(DataokeImpl.class);
+public class DataokeServer {
+  static Logger logger = LoggerFactory.getLogger(DataokeServer.class);
 
   @Value("${taoke.appKey}")
   private String appKey;
@@ -76,7 +80,7 @@ public class DataokeImpl {
     paraMap.put("version", "v1.0.0");
     paraMap.put("appKey", appKey);
     paraMap.put("content", tpwd);
-    String data = DataokeImpl.sendReqNew(url, appSecret, paraMap);
+    String data = DataokeServer.sendReqNew(url, appSecret, paraMap);
     logger.info("获取返回结果：{}",data);
     JSONObject resultObject = JSONObject.parseObject(data);
     if(resultObject.getInteger("code") == 0){

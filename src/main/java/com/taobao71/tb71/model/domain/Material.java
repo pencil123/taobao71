@@ -87,53 +87,53 @@ import org.springframework.stereotype.Component;
 public class Material  implements Serializable {
   @TableId(type= IdType.AUTO)
   private Integer id;
-  private Integer category_id;
-  private Integer my_category_id;
-  private String category_name;
-  private String commission_rate;
-  private String commission_type;
-  private String coupon_amount;
-  private String coupon_end_time;
-  private String coupon_id;
-  private String coupon_info;
-  private Integer coupon_remain_count;
-  private String coupon_share_url;
-  private String coupon_start_fee;
-  private String coupon_start_time;
-  private Integer coupon_total_count;
-  private String include_dxjh;
-  private String include_mkt;
-  private String info_dxjh;
-  private String item_description;
-  private Long item_id;
-  private String item_url;
-  private Integer level_one_category_id;
-  private String level_one_category_name;
+  private Integer categoryId;
+  private Integer myCategoryId;
+  private String categoryName;
+  private String commissionRate;
+  private String commissionType;
+  private String couponAmount;
+  private String couponEndTime;
+  private String couponId;
+  private String couponInfo;
+  private Integer couponRemainCount;
+  private String couponShareUrl;
+  private String couponStartFee;
+  private String couponStartTime;
+  private Integer couponTotalCount;
+  private String includeDxjh;
+  private String includeMkt;
+  private String infoDxjh;
+  private String itemDescription;
+  private Long itemId;
+  private String itemUrl;
+  private Integer levelOneCategoryId;
+  private String levelOneCategoryName;
   private String nick;
-  private Long num_iid;
-  private String pict_url;
-  private String presale_deposit;
-  private Integer presale_end_time;
-  private Integer presale_start_time;
-  private Integer presale_tail_end_time;
-  private Integer presale_tail_start_time;
+  private Long numIid;
+  private String pictUrl;
+  private String presaleDeposit;
+  private Integer presaleEndTime;
+  private Integer presaleStartTime;
+  private Integer presaleTailEndTime;
+  private Integer presaleTailStartTime;
   private String provcity;
-  private String real_post_fee;
-  private String reserve_price;
-  private String seller_id;
-  private Integer shop_dsr;
-  private String shop_title;
-  private String short_title;
-  private JSONObject small_images;
+  private String realPostFee;
+  private String reservePrice;
+  private String sellerId;
+  private Integer shopDsr;
+  private String shopTitle;
+  private String shortTitle;
+  private JSONObject smallImages;
   private String title;
-  private String tk_total_commi;
-  private String tk_total_sales;
+  private String tkTotalCommi;
+  private String tkTotalSales;
   private String url;
-  private Integer user_type;
+  private Integer userType;
   private Integer volume;
-  private String white_image;
-  private String x_id;
-  private String zk_final_price;
+  private String whiteImage;
+  private String xId;
+  private String zkFinalPrice;
 
   public Integer getId() {
     return id;
@@ -143,180 +143,180 @@ public class Material  implements Serializable {
     this.id = id;
   }
 
-  public Integer getCategory_id() {
-    return category_id;
+  public Integer getCategoryId() {
+    return categoryId;
   }
 
-  public void setCategory_id(Integer category_id) {
-    this.category_id = category_id;
+  public void setCategoryId(Integer categoryId) {
+    this.categoryId = categoryId;
   }
 
-  public Integer getMy_category_id() {
-    return my_category_id;
+  public Integer getMyCategoryId() {
+    return myCategoryId;
   }
 
-  public void setMy_category_id(Integer my_category_id) {
-    this.my_category_id = my_category_id;
+  public void setMyCategoryId(Integer myCategoryId) {
+    this.myCategoryId = myCategoryId;
   }
 
-  public String getCategory_name() {
-    return category_name;
+  public String getCategoryName() {
+    return categoryName;
   }
 
-  public void setCategory_name(String category_name) {
-    this.category_name = category_name;
+  public void setCategoryName(String categoryName) {
+    this.categoryName = categoryName;
   }
 
-  public String getCommission_rate() {
-    return commission_rate;
+  public String getCommissionRate() {
+    return commissionRate;
   }
 
-  public void setCommission_rate(String commission_rate) {
-    this.commission_rate = commission_rate;
+  public void setCommissionRate(String commissionRate) {
+    this.commissionRate = commissionRate;
   }
 
-  public String getCommission_type() {
-    return commission_type;
+  public String getCommissionType() {
+    return commissionType;
   }
 
-  public void setCommission_type(String commission_type) {
-    this.commission_type = commission_type;
+  public void setCommissionType(String commissionType) {
+    this.commissionType = commissionType;
   }
 
-  public String getCoupon_amount() {
-    return coupon_amount;
+  public String getCouponAmount() {
+    return couponAmount;
   }
 
-  public void setCoupon_amount(String coupon_amount) {
-    this.coupon_amount = coupon_amount;
+  public void setCouponAmount(String couponAmount) {
+    this.couponAmount = couponAmount;
   }
 
-  public String getCoupon_end_time() {
-    return coupon_end_time;
+  public String getCouponEndTime() {
+    return couponEndTime;
   }
 
-  public void setCoupon_end_time(String coupon_end_time) {
-    this.coupon_end_time = coupon_end_time;
+  public void setCouponEndTime(String couponEndTime) {
+    this.couponEndTime = couponEndTime;
   }
 
-  public String getCoupon_id() {
-    return coupon_id;
+  public String getCouponId() {
+    return couponId;
   }
 
-  public void setCoupon_id(String coupon_id) {
-    this.coupon_id = coupon_id;
+  public void setCouponId(String couponId) {
+    this.couponId = couponId;
   }
 
-  public String getCoupon_info() {
-    return coupon_info;
+  public String getCouponInfo() {
+    return couponInfo;
   }
 
-  public void setCoupon_info(String coupon_info) {
-    this.coupon_info = coupon_info;
+  public void setCouponInfo(String couponInfo) {
+    this.couponInfo = couponInfo;
   }
 
-  public Integer getCoupon_remain_count() {
-    return coupon_remain_count;
+  public Integer getCouponRemainCount() {
+    return couponRemainCount;
   }
 
-  public void setCoupon_remain_count(Integer coupon_remain_count) {
-    this.coupon_remain_count = coupon_remain_count;
+  public void setCouponRemainCount(Integer couponRemainCount) {
+    this.couponRemainCount = couponRemainCount;
   }
 
-  public String getCoupon_share_url() {
-    return coupon_share_url;
+  public String getCouponShareUrl() {
+    return couponShareUrl;
   }
 
-  public void setCoupon_share_url(String coupon_share_url) {
-    this.coupon_share_url = coupon_share_url;
+  public void setCouponShareUrl(String couponShareUrl) {
+    this.couponShareUrl = couponShareUrl;
   }
 
-  public String getCoupon_start_fee() {
-    return coupon_start_fee;
+  public String getCouponStartFee() {
+    return couponStartFee;
   }
 
-  public void setCoupon_start_fee(String coupon_start_fee) {
-    this.coupon_start_fee = coupon_start_fee;
+  public void setCouponStartFee(String couponStartFee) {
+    this.couponStartFee = couponStartFee;
   }
 
-  public String getCoupon_start_time() {
-    return coupon_start_time;
+  public String getCouponStartTime() {
+    return couponStartTime;
   }
 
-  public void setCoupon_start_time(String coupon_start_time) {
-    this.coupon_start_time = coupon_start_time;
+  public void setCouponStartTime(String couponStartTime) {
+    this.couponStartTime = couponStartTime;
   }
 
-  public Integer getCoupon_total_count() {
-    return coupon_total_count;
+  public Integer getCouponTotalCount() {
+    return couponTotalCount;
   }
 
-  public void setCoupon_total_count(Integer coupon_total_count) {
-    this.coupon_total_count = coupon_total_count;
+  public void setCouponTotalCount(Integer couponTotalCount) {
+    this.couponTotalCount = couponTotalCount;
   }
 
-  public String getInclude_dxjh() {
-    return include_dxjh;
+  public String getIncludeDxjh() {
+    return includeDxjh;
   }
 
-  public void setInclude_dxjh(String include_dxjh) {
-    this.include_dxjh = include_dxjh;
+  public void setIncludeDxjh(String includeDxjh) {
+    this.includeDxjh = includeDxjh;
   }
 
-  public String getInclude_mkt() {
-    return include_mkt;
+  public String getIncludeMkt() {
+    return includeMkt;
   }
 
-  public void setInclude_mkt(String include_mkt) {
-    this.include_mkt = include_mkt;
+  public void setIncludeMkt(String includeMkt) {
+    this.includeMkt = includeMkt;
   }
 
-  public String getInfo_dxjh() {
-    return info_dxjh;
+  public String getInfoDxjh() {
+    return infoDxjh;
   }
 
-  public void setInfo_dxjh(String info_dxjh) {
-    this.info_dxjh = info_dxjh;
+  public void setInfoDxjh(String infoDxjh) {
+    this.infoDxjh = infoDxjh;
   }
 
-  public String getItem_description() {
-    return item_description;
+  public String getItemDescription() {
+    return itemDescription;
   }
 
-  public void setItem_description(String item_description) {
-    this.item_description = item_description;
+  public void setItemDescription(String itemDescription) {
+    this.itemDescription = itemDescription;
   }
 
-  public Long getItem_id() {
-    return item_id;
+  public Long getItemId() {
+    return itemId;
   }
 
-  public void setItem_id(Long item_id) {
-    this.item_id = item_id;
+  public void setItemId(Long itemId) {
+    this.itemId = itemId;
   }
 
-  public String getItem_url() {
-    return item_url;
+  public String getItemUrl() {
+    return itemUrl;
   }
 
-  public void setItem_url(String item_url) {
-    this.item_url = item_url;
+  public void setItemUrl(String itemUrl) {
+    this.itemUrl = itemUrl;
   }
 
-  public Integer getLevel_one_category_id() {
-    return level_one_category_id;
+  public Integer getLevelOneCategoryId() {
+    return levelOneCategoryId;
   }
 
-  public void setLevel_one_category_id(Integer level_one_category_id) {
-    this.level_one_category_id = level_one_category_id;
+  public void setLevelOneCategoryId(Integer levelOneCategoryId) {
+    this.levelOneCategoryId = levelOneCategoryId;
   }
 
-  public String getLevel_one_category_name() {
-    return level_one_category_name;
+  public String getLevelOneCategoryName() {
+    return levelOneCategoryName;
   }
 
-  public void setLevel_one_category_name(String level_one_category_name) {
-    this.level_one_category_name = level_one_category_name;
+  public void setLevelOneCategoryName(String levelOneCategoryName) {
+    this.levelOneCategoryName = levelOneCategoryName;
   }
 
   public String getNick() {
@@ -327,60 +327,60 @@ public class Material  implements Serializable {
     this.nick = nick;
   }
 
-  public Long getNum_iid() {
-    return num_iid;
+  public Long getNumIid() {
+    return numIid;
   }
 
-  public void setNum_iid(Long num_iid) {
-    this.num_iid = num_iid;
+  public void setNumIid(Long numIid) {
+    this.numIid = numIid;
   }
 
-  public String getPict_url() {
-    return pict_url;
+  public String getPictUrl() {
+    return pictUrl;
   }
 
-  public void setPict_url(String pict_url) {
-    this.pict_url = pict_url;
+  public void setPictUrl(String pictUrl) {
+    this.pictUrl = pictUrl;
   }
 
-  public String getPresale_deposit() {
-    return presale_deposit;
+  public String getPresaleDeposit() {
+    return presaleDeposit;
   }
 
-  public void setPresale_deposit(String presale_deposit) {
-    this.presale_deposit = presale_deposit;
+  public void setPresaleDeposit(String presaleDeposit) {
+    this.presaleDeposit = presaleDeposit;
   }
 
-  public Integer getPresale_end_time() {
-    return presale_end_time;
+  public Integer getPresaleEndTime() {
+    return presaleEndTime;
   }
 
-  public void setPresale_end_time(Integer presale_end_time) {
-    this.presale_end_time = presale_end_time;
+  public void setPresaleEndTime(Integer presaleEndTime) {
+    this.presaleEndTime = presaleEndTime;
   }
 
-  public Integer getPresale_start_time() {
-    return presale_start_time;
+  public Integer getPresaleStartTime() {
+    return presaleStartTime;
   }
 
-  public void setPresale_start_time(Integer presale_start_time) {
-    this.presale_start_time = presale_start_time;
+  public void setPresaleStartTime(Integer presaleStartTime) {
+    this.presaleStartTime = presaleStartTime;
   }
 
-  public Integer getPresale_tail_end_time() {
-    return presale_tail_end_time;
+  public Integer getPresaleTailEndTime() {
+    return presaleTailEndTime;
   }
 
-  public void setPresale_tail_end_time(Integer presale_tail_end_time) {
-    this.presale_tail_end_time = presale_tail_end_time;
+  public void setPresaleTailEndTime(Integer presaleTailEndTime) {
+    this.presaleTailEndTime = presaleTailEndTime;
   }
 
-  public Integer getPresale_tail_start_time() {
-    return presale_tail_start_time;
+  public Integer getPresaleTailStartTime() {
+    return presaleTailStartTime;
   }
 
-  public void setPresale_tail_start_time(Integer presale_tail_start_time) {
-    this.presale_tail_start_time = presale_tail_start_time;
+  public void setPresaleTailStartTime(Integer presaleTailStartTime) {
+    this.presaleTailStartTime = presaleTailStartTime;
   }
 
   public String getProvcity() {
@@ -391,60 +391,60 @@ public class Material  implements Serializable {
     this.provcity = provcity;
   }
 
-  public String getReal_post_fee() {
-    return real_post_fee;
+  public String getRealPostFee() {
+    return realPostFee;
   }
 
-  public void setReal_post_fee(String real_post_fee) {
-    this.real_post_fee = real_post_fee;
+  public void setRealPostFee(String realPostFee) {
+    this.realPostFee = realPostFee;
   }
 
-  public String getReserve_price() {
-    return reserve_price;
+  public String getReservePrice() {
+    return reservePrice;
   }
 
-  public void setReserve_price(String reserve_price) {
-    this.reserve_price = reserve_price;
+  public void setReservePrice(String reservePrice) {
+    this.reservePrice = reservePrice;
   }
 
-  public String getSeller_id() {
-    return seller_id;
+  public String getSellerId() {
+    return sellerId;
   }
 
-  public void setSeller_id(String seller_id) {
-    this.seller_id = seller_id;
+  public void setSellerId(String sellerId) {
+    this.sellerId = sellerId;
   }
 
-  public Integer getShop_dsr() {
-    return shop_dsr;
+  public Integer getShopDsr() {
+    return shopDsr;
   }
 
-  public void setShop_dsr(Integer shop_dsr) {
-    this.shop_dsr = shop_dsr;
+  public void setShopDsr(Integer shopDsr) {
+    this.shopDsr = shopDsr;
   }
 
-  public String getShop_title() {
-    return shop_title;
+  public String getShopTitle() {
+    return shopTitle;
   }
 
-  public void setShop_title(String shop_title) {
-    this.shop_title = shop_title;
+  public void setShopTitle(String shopTitle) {
+    this.shopTitle = shopTitle;
   }
 
-  public String getShort_title() {
-    return short_title;
+  public String getShortTitle() {
+    return shortTitle;
   }
 
-  public void setShort_title(String short_title) {
-    this.short_title = short_title;
+  public void setShortTitle(String shortTitle) {
+    this.shortTitle = shortTitle;
   }
 
-  public JSONObject getSmall_images() {
-    return small_images;
+  public JSONObject getSmallImages() {
+    return smallImages;
   }
 
-  public void setSmall_images(JSONObject small_images) {
-    this.small_images = small_images;
+  public void setSmallImages(JSONObject smallImages) {
+    this.smallImages = smallImages;
   }
 
   public String getTitle() {
@@ -455,20 +455,20 @@ public class Material  implements Serializable {
     this.title = title;
   }
 
-  public String getTk_total_commi() {
-    return tk_total_commi;
+  public String getTkTotalCommi() {
+    return tkTotalCommi;
   }
 
-  public void setTk_total_commi(String tk_total_commi) {
-    this.tk_total_commi = tk_total_commi;
+  public void setTkTotalCommi(String tkTotalCommi) {
+    this.tkTotalCommi = tkTotalCommi;
   }
 
-  public String getTk_total_sales() {
-    return tk_total_sales;
+  public String getTkTotalSales() {
+    return tkTotalSales;
   }
 
-  public void setTk_total_sales(String tk_total_sales) {
-    this.tk_total_sales = tk_total_sales;
+  public void setTkTotalSales(String tkTotalSales) {
+    this.tkTotalSales = tkTotalSales;
   }
 
   public String getUrl() {
@@ -479,12 +479,12 @@ public class Material  implements Serializable {
     this.url = url;
   }
 
-  public Integer getUser_type() {
-    return user_type;
+  public Integer getUserType() {
+    return userType;
   }
 
-  public void setUser_type(Integer user_type) {
-    this.user_type = user_type;
+  public void setUserType(Integer userType) {
+    this.userType = userType;
   }
 
   public Integer getVolume() {
@@ -495,81 +495,81 @@ public class Material  implements Serializable {
     this.volume = volume;
   }
 
-  public String getWhite_image() {
-    return white_image;
+  public String getWhiteImage() {
+    return whiteImage;
   }
 
-  public void setWhite_image(String white_image) {
-    this.white_image = white_image;
+  public void setWhiteImage(String whiteImage) {
+    this.whiteImage = whiteImage;
   }
 
-  public String getX_id() {
-    return x_id;
+  public String getxId() {
+    return xId;
   }
 
-  public void setX_id(String x_id) {
-    this.x_id = x_id;
+  public void setxId(String xId) {
+    this.xId = xId;
   }
 
-  public String getZk_final_price() {
-    return zk_final_price;
+  public String getZkFinalPrice() {
+    return zkFinalPrice;
   }
 
-  public void setZk_final_price(String zk_final_price) {
-    this.zk_final_price = zk_final_price;
+  public void setZkFinalPrice(String zkFinalPrice) {
+    this.zkFinalPrice = zkFinalPrice;
   }
 
   @Override
   public String toString() {
     return "Material{" +
             "id=" + id +
-            ", category_id=" + category_id +
-            ", my_category_id=" + my_category_id +
-            ", category_name='" + category_name + '\'' +
-            ", commission_rate='" + commission_rate + '\'' +
-            ", commission_type='" + commission_type + '\'' +
-            ", coupon_amount='" + coupon_amount + '\'' +
-            ", coupon_end_time='" + coupon_end_time + '\'' +
-            ", coupon_id='" + coupon_id + '\'' +
-            ", coupon_info='" + coupon_info + '\'' +
-            ", coupon_remain_count=" + coupon_remain_count +
-            ", coupon_share_url='" + coupon_share_url + '\'' +
-            ", coupon_start_fee='" + coupon_start_fee + '\'' +
-            ", coupon_start_time='" + coupon_start_time + '\'' +
-            ", coupon_total_count=" + coupon_total_count +
-            ", include_dxjh='" + include_dxjh + '\'' +
-            ", include_mkt='" + include_mkt + '\'' +
-            ", info_dxjh='" + info_dxjh + '\'' +
-            ", item_description='" + item_description + '\'' +
-            ", item_id=" + item_id +
-            ", item_url='" + item_url + '\'' +
-            ", level_one_category_id=" + level_one_category_id +
-            ", level_one_category_name='" + level_one_category_name + '\'' +
+            ", categoryId=" + categoryId +
+            ", myCategoryId=" + myCategoryId +
+            ", categoryName='" + categoryName + '\'' +
+            ", commissionRate='" + commissionRate + '\'' +
+            ", commissionType='" + commissionType + '\'' +
+            ", couponAmount='" + couponAmount + '\'' +
+            ", couponEndTime='" + couponEndTime + '\'' +
+            ", couponId='" + couponId + '\'' +
+            ", couponInfo='" + couponInfo + '\'' +
+            ", couponRemainCount=" + couponRemainCount +
+            ", couponShareUrl='" + couponShareUrl + '\'' +
+            ", couponStartFee='" + couponStartFee + '\'' +
+            ", couponStartTime='" + couponStartTime + '\'' +
+            ", couponTotalCount=" + couponTotalCount +
+            ", includeDxjh='" + includeDxjh + '\'' +
+            ", includeMkt='" + includeMkt + '\'' +
+            ", infoDxjh='" + infoDxjh + '\'' +
+            ", itemDescription='" + itemDescription + '\'' +
+            ", itemId=" + itemId +
+            ", itemUrl='" + itemUrl + '\'' +
+            ", levelOneCategoryId=" + levelOneCategoryId +
+            ", levelOneCategoryName='" + levelOneCategoryName + '\'' +
             ", nick='" + nick + '\'' +
-            ", num_iid=" + num_iid +
-            ", pict_url='" + pict_url + '\'' +
-            ", presale_deposit='" + presale_deposit + '\'' +
-            ", presale_end_time=" + presale_end_time +
-            ", presale_start_time=" + presale_start_time +
-            ", presale_tail_end_time=" + presale_tail_end_time +
-            ", presale_tail_start_time=" + presale_tail_start_time +
+            ", numIid=" + numIid +
+            ", pictUrl='" + pictUrl + '\'' +
+            ", presaleDeposit='" + presaleDeposit + '\'' +
+            ", presaleEndTime=" + presaleEndTime +
+            ", presaleStartTime=" + presaleStartTime +
+            ", presaleTailEndTime=" + presaleTailEndTime +
+            ", presaleTailStartTime=" + presaleTailStartTime +
             ", provcity='" + provcity + '\'' +
-            ", real_post_fee='" + real_post_fee + '\'' +
-            ", reserve_price='" + reserve_price + '\'' +
-            ", seller_id='" + seller_id + '\'' +
-            ", shop_dsr=" + shop_dsr +
-            ", shop_title='" + shop_title + '\'' +
-            ", short_title='" + short_title + '\'' +
-            ", small_images=" + small_images +
+            ", realPostFee='" + realPostFee + '\'' +
+            ", reservePrice='" + reservePrice + '\'' +
+            ", sellerId='" + sellerId + '\'' +
+            ", shopDsr=" + shopDsr +
+            ", shopTitle='" + shopTitle + '\'' +
+            ", shortTitle='" + shortTitle + '\'' +
+            ", smallImages=" + smallImages +
             ", title='" + title + '\'' +
-            ", tk_total_commi='" + tk_total_commi + '\'' +
-            ", tk_total_sales='" + tk_total_sales + '\'' +
+            ", tkTotalCommi='" + tkTotalCommi + '\'' +
+            ", tkTotalSales='" + tkTotalSales + '\'' +
             ", url='" + url + '\'' +
-            ", user_type=" + user_type +
+            ", userType=" + userType +
             ", volume=" + volume +
-            ", white_image='" + white_image + '\'' +
-            ", x_id='" + x_id + '\'' +
-            ", zk_final_price='" + zk_final_price + '\'' +
+            ", whiteImage='" + whiteImage + '\'' +
+            ", xId='" + xId + '\'' +
+            ", zkFinalPrice='" + zkFinalPrice + '\'' +
             '}';
   }
 }

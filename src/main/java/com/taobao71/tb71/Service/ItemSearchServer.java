@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ItemSearchServer extends IService<ItemSearch> {
 
+    public ItemSearch getByKeyword(String keyword);
+
 }

@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.taobao71.tb71.Service.UserServer;
 import com.taobao71.tb71.mapper.UserMapper;
 import com.taobao71.tb71.model.domain.User;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServerImpl extends ServiceImpl<UserMapper, User> implements UserServer {
 
   public User getByOpenId(String openID){

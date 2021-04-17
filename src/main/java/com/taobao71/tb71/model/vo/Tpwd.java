@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Tpwd {
     private String model;
-    private String password_simple;
+    private String passwordSimple;
 
     public String getModel() {
         return model;
@@ -18,11 +18,11 @@ public class Tpwd {
         this.model = model;
     }
 
-    public String getPassword_simple() {
-        return password_simple;
+    public String getPasswordSimple() {
+        return passwordSimple;
     }
 
-    public void setPassword_simple(String password_simple) {
-        this.password_simple = password_simple;
+    public void setPasswordSimple(String passwordSimple) {
+        this.passwordSimple = passwordSimple;
     }
 }
