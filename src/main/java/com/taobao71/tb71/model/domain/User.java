@@ -1,5 +1,7 @@
 package com.taobao71.tb71.model.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.springframework.stereotype.Component;
 
 /**
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class User {
+  @TableId(type= IdType.AUTO)
   private int id;
   private String openid;
   private int closingOrder;

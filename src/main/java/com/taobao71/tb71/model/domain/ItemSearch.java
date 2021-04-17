@@ -1,5 +1,6 @@
 package com.taobao71.tb71.model.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 
 public class ItemSearch {
-    @TableId
+    @TableId(type= IdType.AUTO)
     private String keyword;
     private Long search_id;
 

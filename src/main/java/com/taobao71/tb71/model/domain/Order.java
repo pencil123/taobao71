@@ -1,11 +1,14 @@
 package com.taobao71.tb71.model.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 
 @Component
 public class Order {
+    @TableId(type= IdType.AUTO)
     private Long orderid;
     private int user_id;
     private Long item_id;

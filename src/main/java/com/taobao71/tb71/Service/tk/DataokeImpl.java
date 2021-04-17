@@ -1,8 +1,6 @@
-package com.taobao71.tb71.Service.Impl;
+package com.taobao71.tb71.Service.tk;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.taobao71.tb71.Service.Dataoke;
 import com.taobao71.tb71.Utils.HttpUtil;
 import com.taobao71.tb71.Utils.HttpUtils;
 import com.taobao71.tb71.Utils.SignMD5Util;
@@ -10,12 +8,11 @@ import java.net.URISyntaxException;
 import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DataokeImpl implements Dataoke {
+public class DataokeImpl {
   static Logger logger = LoggerFactory.getLogger(DataokeImpl.class);
 
   @Value("${taoke.appKey}")
@@ -73,7 +70,6 @@ public class DataokeImpl implements Dataoke {
   }
 
 
-  @Override
   public String preseContent(String tpwd) {
     String url = "https://openapi.dataoke.com/api/tb-service/parse-content";
     TreeMap<String, String> paraMap = new TreeMap<>();

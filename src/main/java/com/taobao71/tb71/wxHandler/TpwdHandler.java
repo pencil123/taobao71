@@ -7,7 +7,6 @@ import com.soecode.wxtools.bean.WxXmlOutMessage;
 import com.soecode.wxtools.bean.WxXmlOutNewsMessage;
 import com.soecode.wxtools.bean.outxmlbuilder.NewsBuilder;
 import com.soecode.wxtools.exception.WxErrorException;
-import com.taobao71.tb71.Service.Dataoke;
 import com.taobao71.tb71.Service.tk.TaobaoClientServer;
 import com.taobao71.tb71.Service.tk.TaokeServer;
 import com.taobao71.tb71.model.domain.Coupon;

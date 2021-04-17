@@ -1,5 +1,7 @@
 package com.taobao71.tb71.model.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -14,6 +16,7 @@ import java.io.Serializable;
  */
 @Component
 public class Shop  implements Serializable {
+    @TableId(type= IdType.AUTO)
     private Integer id;
     private String seller_id;
     private String shop_title;

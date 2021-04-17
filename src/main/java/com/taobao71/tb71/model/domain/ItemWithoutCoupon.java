@@ -1,9 +1,12 @@
 package com.taobao71.tb71.model.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ItemWithoutCoupon {
+    @TableId(type= IdType.AUTO)
     private Integer id;
     private Long item_id;
 
