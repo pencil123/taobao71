@@ -1,12 +1,13 @@
 package com.taobao71.tb71.config;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.amqp.SimpleRabbitListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,8 @@ public class RabbitmqConfig {
     //自动装配消息监听器所在的容器工厂配置类实例
     @Autowired
     private SimpleRabbitListenerContainerFactoryConfigurer factoryConfigurer;
+
+    static Logger logger = LoggerFactory.getLogger(RabbitmqConfig.class);
 
     @Bean
     public Queue DirectQueue() {
@@ -55,6 +58,53 @@ public class RabbitmqConfig {
     @Bean
     public RabbitAdmin rabbitAdmin(ConnectionFactory defaultConnectionFactory){
         return new RabbitAdmin(defaultConnectionFactory);
+    }
+
+    /**
+     * 设置生产者的生产消息的ack信息回调(公共处理)
+     */
+    @Bean
+    public RabbitTemplate.ConfirmCallback confirmCallback(){
+        return (correlationData, ack, cause)->{
+            //我们可以通过correlationData原始数据 来对消息进行后续处理，但是这是有个要求在于发送必须使用CorrelationData类
+            if(ack){
+                logger.info("消息发送成功!!!!!,消息data:{}，时间:{}",correlationData,System.currentTimeMillis());
+            }else {
+                logger.error("消息发送失败!!!!,原因是:{}",cause);
+            }
+        };
+    }
+
+    /**
+     * 发送者失败通知
+     */
+    @Bean
+    public RabbitTemplate.ReturnCallback returnCallback(){
+        //构建一个
+        return (Message message, int replyCode, String replyText, String exchange, String routingKey)->{
+            logger.error("发送者路由失败，请检查路由 Returned replyCode:{} Returned replyText:{} Returned routingKey:{} Returned message:{}"
+                    ,  replyCode,replyText,routingKey,new String(message.getBody()));
+        };
+    }
+
+    @Bean
+    public RabbitTemplate rabbitTemplate() {
+/*      // 可以在配置项中设置，或者在实例中设置。
+        //若使用confirm-callback ，必须要配置publisherConfirms 为true
+        connectionFactory.setPublisherConfirmType(CachingConnectionFactory.ConfirmType.CORRELATED);
+        //若使用return-callback，必须要配置publisherReturns为true
+        connectionFactory.setPublisherReturns(true);*/
+        final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
+        rabbitTemplate.setConfirmCallback(confirmCallback());
+        rabbitTemplate.setReturnCallback(returnCallback());
+        rabbitTemplate.setMandatory(true);
+        return rabbitTemplate;
+    }
+
+    @Bean
+    public Jackson2JsonMessageConverter producerJackson2MessageConverter(){
+        return new Jackson2JsonMessageConverter();
     }
 
 }
