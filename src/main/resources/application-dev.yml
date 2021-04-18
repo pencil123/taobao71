@@ -6,7 +6,7 @@ spring:
     password: guest
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://dbtaobao.com:3306/taobao71_remote
+    url: jdbc:mysql://dbtaobao.com:3306/tb71
     username: taobao71
     password: taobao71
     type: com.alibaba.druid.pool.DruidDataSource
