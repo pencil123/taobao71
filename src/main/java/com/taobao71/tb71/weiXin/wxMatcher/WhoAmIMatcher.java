@@ -1,4 +1,4 @@
-package com.taobao71.tb71.wxMatcher;
+package com.taobao71.tb71.weiXin.wxMatcher;
 
 import com.soecode.wxtools.api.WxMessageMatcher;
 import com.soecode.wxtools.bean.WxXmlMessage;

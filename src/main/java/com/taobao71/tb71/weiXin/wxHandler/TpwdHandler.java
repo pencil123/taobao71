@@ -1,4 +1,4 @@
-package com.taobao71.tb71.wxHandler;
+package com.taobao71.tb71.weiXin.wxHandler;
 
 import com.soecode.wxtools.api.IService;
 import com.soecode.wxtools.api.WxMessageHandler;

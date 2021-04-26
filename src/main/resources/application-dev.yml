@@ -1,12 +1,12 @@
 spring:
   rabbitmq:
-    host: 10.250.7.21
-    port: 30730
+    host: rabbitmq
+    port: 5672
     username: guest
     password: guest
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://dbtaobao.com:3306/tb71
+    url: jdbc:mysql://10.250.7.21:3306/tb71
     username: taobao71
     password: taobao71
     type: com.alibaba.druid.pool.DruidDataSource

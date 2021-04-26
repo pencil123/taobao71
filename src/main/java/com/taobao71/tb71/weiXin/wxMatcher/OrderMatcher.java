@@ -1,4 +1,4 @@
-package com.taobao71.tb71.wxMatcher;
+package com.taobao71.tb71.weiXin.wxMatcher;
 
 import com.soecode.wxtools.api.WxMessageMatcher;
 import com.soecode.wxtools.bean.WxXmlMessage;
@@ -6,13 +6,12 @@ import com.soecode.wxtools.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TBUrlMatcher implements WxMessageMatcher {
-  static Logger logger = LoggerFactory.getLogger(TBUrlMatcher.class);
+public class OrderMatcher implements WxMessageMatcher {
+  static Logger logger = LoggerFactory.getLogger(OrderMatcher.class);
   @Override
   public boolean match(WxXmlMessage message) {
     if (StringUtils.isNotEmpty(message.getContent())) {
-
-      if (message.getContent().matches("https://item.taobao.com/item.htm\\?id=\\d+")) {
+      if (message.getContent().matches("\\d{18,21}")) {
         return true;
       }
       return false;
