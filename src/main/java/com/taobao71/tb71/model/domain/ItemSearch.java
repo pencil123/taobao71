@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-
 public class ItemSearch {
     private String keyword;
     private Long searchId;

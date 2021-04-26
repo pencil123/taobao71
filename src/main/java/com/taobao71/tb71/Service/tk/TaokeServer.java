@@ -5,7 +5,7 @@ import com.taobao71.tb71.Service.CouponServer;
 import com.taobao71.tb71.Service.ItemServer;
 import com.taobao71.tb71.model.domain.Coupon;
 import com.taobao71.tb71.model.domain.Item;
-import com.taobao71.tb71.model.vo.CouponResp;
+import com.taobao71.tb71.model.vo.CouponPwdResp;
 import com.taobao71.tb71.rabbitmq.Publisher;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,25 +68,25 @@ public class TaokeServer {
      * @param itemId
      * @return
      */
-    public CouponResp getCouponResp(String itemId){
+    public CouponPwdResp getCouponResp(String itemId){
         Coupon coupon = couponServer.getCouponByItemId(itemId);
         if(coupon != null){
-            CouponResp conponResp = new CouponResp();
+            CouponPwdResp conponPwdResp = new CouponPwdResp();
             String imgUrl = coupon.getPictUrl().replace("s://img.alicdn","://img.taobao71");
-            conponResp.setTitle(coupon.getTitle());
-            conponResp.setPictUrl(imgUrl + "_350x350.jpg");
-            conponResp.setSmallImages(conponResp.getSmallImages());
-            conponResp.setTpwd(taobaoClientServer.gainTpwd("https:" + coupon.getCouponShareUrl()).getPasswordSimple());
-            return conponResp;
+            conponPwdResp.setTitle(coupon.getTitle());
+            conponPwdResp.setPictUrl(imgUrl + "_350x350.jpg");
+            conponPwdResp.setSmallImages(conponPwdResp.getSmallImages());
+            conponPwdResp.setTpwd(taobaoClientServer.gainTpwd("https:" + coupon.getCouponShareUrl()).getPasswordSimple());
+            return conponPwdResp;
         }
         Item item = itemServer.getItemByItemId(Long.valueOf(itemId));
         if(item != null){
-            CouponResp conponResp = new CouponResp();
+            CouponPwdResp conponPwdResp = new CouponPwdResp();
             String imgUrl = item.getPictUrl().replace("s://img.alicdn","://img.taobao71");
-            conponResp.setPictUrl(imgUrl + "_350x350.jpg");
-            conponResp.setSmallImages(item.getSmallImages());
-            conponResp.setTpwd(taobaoClientServer.gainTpwd("https:" + item.getUrl()).getPasswordSimple());
-            return conponResp;
+            conponPwdResp.setPictUrl(imgUrl + "_350x350.jpg");
+            conponPwdResp.setSmallImages(item.getSmallImages());
+            conponPwdResp.setTpwd(taobaoClientServer.gainTpwd("https:" + item.getUrl()).getPasswordSimple());
+            return conponPwdResp;
         }else{
             return null;
         }

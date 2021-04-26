@@ -1,4 +1,4 @@
-package com.taobao71.tb71.Controllers;
+package com.taobao71.tb71.api;
 
 import com.soecode.wxtools.api.IService;
 import com.soecode.wxtools.api.WxConsts;
@@ -11,8 +11,7 @@ import com.soecode.wxtools.exception.WxErrorException;
 import com.soecode.wxtools.util.xml.XStreamTransformer;
 import com.taobao71.tb71.Service.CouponServer;
 import com.taobao71.tb71.Service.tk.TaokeServer;
-import com.taobao71.tb71.model.vo.CouponResp;
-import com.taobao71.tb71.model.vo.ItemResp;
+import com.taobao71.tb71.model.vo.CouponPwdResp;
 import com.taobao71.tb71.weiXin.wxHandler.KeywordHandler;
 import com.taobao71.tb71.weiXin.wxHandler.OrderHandler;
 import com.taobao71.tb71.weiXin.wxHandler.TBUrlHandler;
@@ -25,7 +24,6 @@ import com.taobao71.tb71.weiXin.wxMatcher.TpwdMatcher;
 import com.taobao71.tb71.weiXin.wxMatcher.WhoAmIMatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
@@ -113,16 +111,8 @@ public class WeChatController {
    * @return
    */
   @GetMapping("couponresp")
-  public CouponResp getCouponResp(@RequestParam(value = "itemid",required = true) String itemid){
+  public CouponPwdResp getCouponResp(@RequestParam(value = "itemid",required = true) String itemid){
     logger.info("the item_id param:{}",itemid);
     return  taokeServer.getCouponResp(itemid);
-  }
-
-  /**
-   * 获取搜索结果信息 item search
-   */
-  @GetMapping("itemresp")
-  public List<ItemResp> searchItemResp(@RequestParam(value = "searchid",required = true) String searchid){
-    return  couponServer.searchCouponBySearchId(searchid);
   }
 }
