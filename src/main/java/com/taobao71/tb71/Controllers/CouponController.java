@@ -3,6 +3,7 @@ package com.taobao71.tb71.Controllers;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.taobao71.tb71.Service.CouponServer;
 import com.taobao71.tb71.Utils.PageResult;
+import com.taobao71.tb71.model.domain.Coupon;
 import com.taobao71.tb71.model.json.JsonResult;
 import com.taobao71.tb71.model.vo.CouponResp;
 import org.slf4j.Logger;
@@ -22,7 +23,7 @@ public class CouponController {
   static Logger logger = LoggerFactory.getLogger(CouponController.class);
 
   @GetMapping("/searchbyid")
-  public JsonResult<PageResult<CouponResp>> queryAccountByPage(
+  public JsonResult<PageResult<CouponResp>> searchCouponBySearchId(
       @RequestParam(required = false, defaultValue = "1") Integer currentPage,
       @RequestParam(required = false, defaultValue = "20") Integer pageSize,
       @RequestParam(required = true) String searchid) {
@@ -30,6 +31,18 @@ public class CouponController {
     IPage<CouponResp> couponRespIpage = couponServer
         .searchCouponBySearchId(searchid, currentPage, pageSize);
     PageResult<CouponResp> result = new PageResult<>(couponRespIpage);
+    return JsonResult.success(result);
+  }
+
+  @GetMapping("/page/1stcat")
+  public JsonResult<PageResult<Coupon>> getCouponBy1stCat(
+      @RequestParam(required = false, defaultValue = "1") Integer currentPage,
+      @RequestParam(required = false, defaultValue = "20") Integer pageSize,
+      @RequestParam(required = true) Integer levelOneCategoryId) {
+
+    IPage<Coupon> couponIPage = couponServer
+        .queryCouponBy1stCat(levelOneCategoryId, currentPage, pageSize);
+    PageResult<Coupon> result = new PageResult<>(couponIPage);
     return JsonResult.success(result);
   }
 }

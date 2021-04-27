@@ -20,6 +20,14 @@ public class CouponServerImpl extends ServiceImpl<CouponMapper,Coupon> implement
     return page;
   }
 
+  public IPage<Coupon> queryCouponBy1stCat(Integer levelOneCategoryId,Integer currentPage, Integer pageSize){
+    IPage<Coupon> page = new Page<>(currentPage,pageSize);
+    QueryWrapper<Coupon> wrapper = new QueryWrapper<>();
+    wrapper.eq("level_one_category_id", levelOneCategoryId);
+    return page(page,wrapper);
+  }
+
+
   public Coupon getCouponByItemId(String itemId){
     QueryWrapper<Coupon> wrapper = new QueryWrapper<>();
     wrapper.eq("item_id", itemId);
