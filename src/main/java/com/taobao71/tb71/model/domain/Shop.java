@@ -16,21 +16,12 @@ import java.io.Serializable;
  */
 @Component
 public class Shop  implements Serializable {
-    @TableId(type= IdType.AUTO)
-    private Integer id;
+    @TableId(type= IdType.NONE)
     private String sellerId;
     private String shopTitle;
     private Integer shopDsr;
     private Integer userType;
     private String nick;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getSellerId() {
         return sellerId;

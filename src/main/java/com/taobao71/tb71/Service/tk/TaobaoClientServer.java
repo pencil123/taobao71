@@ -93,7 +93,6 @@ public class TaobaoClientServer {
   private void parseMaterialInfo(JSONArray infos, String searchId) {
     //查询接口处理
     for (int i = 0; i < infos.size(); i++) {
-      Integer shopId = 0;
       Integer itemId = 0;
       QueryWrapper<Shop> shopWrapper = new QueryWrapper<>();
       QueryWrapper<Item> itemWrapper = new QueryWrapper<>();
@@ -105,17 +104,13 @@ public class TaobaoClientServer {
       //商店信息处理
       Shop shop = JSON.parseObject(info.toJSONString(), Shop.class);
       shopWrapper.eq("seller_id", shop.getSellerId());
-      Shop shopExist = shopServer.getOne(shopWrapper);
 
-      if (shopExist == null) {
-        shopId = shopServer.save(shop) ? shop.getId() : 1;
-      } else {
-        shopId = shopExist.getId();
+      if (shopServer.getOne(shopWrapper) == null && !shopServer.save(shop)) {
+        logger.warn("Shop 数据库插入失败");
       }
 
       //商品信息处理
       Item item = JSON.parseObject(info.toJSONString(), Item.class);
-      item.setShopId(shopId);
       itemWrapper.eq("item_id", item.getItemId());
       Item itemExist = itemServer.getOne(itemWrapper);
       if (itemExist == null) {

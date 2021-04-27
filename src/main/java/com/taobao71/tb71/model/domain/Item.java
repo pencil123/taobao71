@@ -34,7 +34,6 @@ import org.springframework.stereotype.Component;
 public class Item {
     @TableId(type= IdType.AUTO)
     private Integer id;
-    private Integer shopId;
     private String xId;
     private Long itemId;
     private String itemUrl;
@@ -67,14 +66,6 @@ public class Item {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(Integer shopId) {
-        this.shopId = shopId;
     }
 
     public String getxId() {
@@ -281,7 +272,6 @@ public class Item {
     public String toString() {
         return "Item{" +
                 "id=" + id +
-                ", shopId=" + shopId +
                 ", xId='" + xId + '\'' +
                 ", itemId=" + itemId +
                 ", itemUrl='" + itemUrl + '\'' +
