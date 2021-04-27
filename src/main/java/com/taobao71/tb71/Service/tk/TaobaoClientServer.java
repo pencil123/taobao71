@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -93,7 +92,6 @@ public class TaobaoClientServer {
   private void parseMaterialInfo(JSONArray infos, String searchId) {
     //查询接口处理
     for (int i = 0; i < infos.size(); i++) {
-      Integer itemId = 0;
       QueryWrapper<Shop> shopWrapper = new QueryWrapper<>();
       QueryWrapper<Item> itemWrapper = new QueryWrapper<>();
       QueryWrapper<Coupon> couponWrapper = new QueryWrapper<>();
@@ -113,10 +111,8 @@ public class TaobaoClientServer {
       Item item = JSON.parseObject(info.toJSONString(), Item.class);
       itemWrapper.eq("item_id", item.getItemId());
       Item itemExist = itemServer.getOne(itemWrapper);
-      if (itemExist == null) {
-        itemId = itemServer.save(item) ? item.getId() : 1;
-      } else {
-        itemId = itemExist.getId();
+      if (itemServer.getOne(itemWrapper) == null && !itemServer.save(item)) {
+        logger.warn("Item 数据库插入失败");
       }
 
       //优惠券处理
@@ -164,7 +160,7 @@ public class TaobaoClientServer {
       logger.info("返回为空；变量i:{}");
       return;
     }
-    parseMaterialInfo(map_data,"");
+    parseMaterialInfo(map_data, "");
   }
 
 
@@ -281,8 +277,7 @@ public class TaobaoClientServer {
 //                itemJsonObject.put("item_id",itemJsonObject.getLongValue("num_iid"));
 
         Item item = JSON.parseObject(itemJsonObject.toJSONString(), Item.class);
-        Integer itemId = itemServer.save(item) ? item.getId() : 1;
-        return item;
+        return itemServer.save(item) ? item : null;
       } else {
         logger.error("getIteminfo response size {};info: {}", n_tbk_item.size(),
             n_tbk_item.toJSONString());

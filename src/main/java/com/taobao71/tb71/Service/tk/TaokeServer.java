@@ -84,7 +84,6 @@ public class TaokeServer {
             CouponPwdResp conponPwdResp = new CouponPwdResp();
             String imgUrl = item.getPictUrl().replace("s://img.alicdn","://img.taobao71");
             conponPwdResp.setPictUrl(imgUrl + "_350x350.jpg");
-            conponPwdResp.setSmallImages(item.getSmallImages());
             conponPwdResp.setTpwd(taobaoClientServer.gainTpwd("https:" + item.getUrl()).getPasswordSimple());
             return conponPwdResp;
         }else{

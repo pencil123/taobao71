@@ -17,17 +17,17 @@ import java.io.Serializable;
 @Component
 public class Shop  implements Serializable {
     @TableId(type= IdType.NONE)
-    private String sellerId;
+    private Long sellerId;
     private String shopTitle;
     private Integer shopDsr;
     private Integer userType;
     private String nick;
 
-    public String getSellerId() {
+    public Long getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(String sellerId) {
+    public void setSellerId(Long sellerId) {
         this.sellerId = sellerId;
     }
 
