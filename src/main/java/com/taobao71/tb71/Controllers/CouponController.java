@@ -22,7 +22,7 @@ public class CouponController {
   private CouponServer couponServer;
   static Logger logger = LoggerFactory.getLogger(CouponController.class);
 
-  @GetMapping("/searchbyid")
+  @GetMapping("/page/searchbyid")
   public JsonResult<PageResult<CouponResp>> searchCouponBySearchId(
       @RequestParam(required = false, defaultValue = "1") Integer currentPage,
       @RequestParam(required = false, defaultValue = "20") Integer pageSize,

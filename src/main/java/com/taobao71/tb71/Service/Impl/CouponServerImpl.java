@@ -8,7 +8,6 @@ import com.taobao71.tb71.Service.CouponServer;
 import com.taobao71.tb71.mapper.CouponMapper;
 import com.taobao71.tb71.model.domain.Coupon;
 import com.taobao71.tb71.model.vo.CouponResp;
-import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
